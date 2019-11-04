@@ -8,12 +8,12 @@ import java.util.Objects;
 @Table(name = "subscription", schema = "backend", catalog = "")
 public class SubscriptionEntity {
     private int idSubscription;
-    private int idProduct;
-    private int idCostumer;
+//    private int idProduct;
+//    private int idCostumer;
     private Timestamp startSubscriptDate;
     private byte isActive;
     private ProductEntity productByIdProduct;
-    private CostumerEntity costumerByIdCostumer;
+    private CustomerEntity customerByIdCostumer;
 
     @Id
     @Column(name = "id_subscription")
@@ -25,25 +25,25 @@ public class SubscriptionEntity {
         this.idSubscription = idSubscription;
     }
 
-    @Basic
-    @Column(name = "id_product")
-    public int getIdProduct() {
-        return idProduct;
-    }
-
-    public void setIdProduct(int idProduct) {
-        this.idProduct = idProduct;
-    }
-
-    @Basic
-    @Column(name = "id_costumer")
-    public int getIdCostumer() {
-        return idCostumer;
-    }
-
-    public void setIdCostumer(int idCostumer) {
-        this.idCostumer = idCostumer;
-    }
+//    @Basic
+//    @Column(name = "id_product")
+//    public int getIdProduct() {
+//        return idProduct;
+//    }
+//
+//    public void setIdProduct(int idProduct) {
+//        this.idProduct = idProduct;
+//    }
+//
+//    @Basic
+//    @Column(name = "id_costumer")
+//    public int getIdCostumer() {
+//        return idCostumer;
+//    }
+//
+//    public void setIdCostumer(int idCostumer) {
+//        this.idCostumer = idCostumer;
+//    }
 
     @Basic
     @Column(name = "start_subscript_date")
@@ -71,15 +71,15 @@ public class SubscriptionEntity {
         if (o == null || getClass() != o.getClass()) return false;
         SubscriptionEntity that = (SubscriptionEntity) o;
         return idSubscription == that.idSubscription &&
-                idProduct == that.idProduct &&
-                idCostumer == that.idCostumer &&
+//                idProduct == that.idProduct &&
+//                idCostumer == that.idCostumer &&
                 isActive == that.isActive &&
                 Objects.equals(startSubscriptDate, that.startSubscriptDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idSubscription, idProduct, idCostumer, startSubscriptDate, isActive);
+        return Objects.hash(idSubscription, startSubscriptDate, isActive);
     }
 
     @ManyToOne
@@ -93,12 +93,12 @@ public class SubscriptionEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "id_costumer", referencedColumnName = "id_costumer", nullable = false)
-    public CostumerEntity getCostumerByIdCostumer() {
-        return costumerByIdCostumer;
+    @JoinColumn(name = "id_customer", referencedColumnName = "id_customer", nullable = false)
+    public CustomerEntity getCustomerByIdCostumer() {
+        return customerByIdCostumer;
     }
 
-    public void setCostumerByIdCostumer(CostumerEntity costumerByIdCostumer) {
-        this.costumerByIdCostumer = costumerByIdCostumer;
+    public void setCustomerByIdCostumer(CustomerEntity costumerByIdCostumer) {
+        this.customerByIdCostumer = costumerByIdCostumer;
     }
 }

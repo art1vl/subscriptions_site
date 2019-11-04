@@ -9,11 +9,11 @@ import java.util.Objects;
 public class CompanyEntity {
     private int idCompany;
     private String companyName;
-    private int logInInf;
-    private int idWallet;
+//    private int logInInf;
+//    private int idWallet;
     private LogInInfEntity logInInfByLogInInf;
     private WalletEntity walletByIdWallet;
-    private Collection<ProductEntity> productsByIdCompany;
+//    private Collection<ProductEntity> productsByIdCompany;
 
     @Id
     @Column(name = "id_company")
@@ -35,25 +35,25 @@ public class CompanyEntity {
         this.companyName = companyName;
     }
 
-    @Basic
-    @Column(name = "log_in_inf")
-    public int getLogInInf() {
-        return logInInf;
-    }
+//    @Basic
+//    @Column(name = "log_in_inf")
+//    public int getLogInInf() {
+//        return logInInf;
+//    }
+//
+//    public void setLogInInf(int logInInf) {
+//        this.logInInf = logInInf;
+//    }
 
-    public void setLogInInf(int logInInf) {
-        this.logInInf = logInInf;
-    }
-
-    @Basic
-    @Column(name = "id_wallet")
-    public int getIdWallet() {
-        return idWallet;
-    }
-
-    public void setIdWallet(int idWallet) {
-        this.idWallet = idWallet;
-    }
+//    @Basic
+//    @Column(name = "id_wallet")
+//    public int getIdWallet() {
+//        return idWallet;
+//    }
+//
+//    public void setIdWallet(int idWallet) {
+//        this.idWallet = idWallet;
+//    }
 
     @Override
     public boolean equals(Object o) {
@@ -61,15 +61,13 @@ public class CompanyEntity {
         if (o == null || getClass() != o.getClass()) return false;
         CompanyEntity that = (CompanyEntity) o;
         return idCompany == that.idCompany &&
-                logInInf == that.logInInf &&
-                idWallet == that.idWallet &&
                 Objects.equals(companyName, that.companyName);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(idCompany, companyName, logInInf, idWallet);
-    }
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(idCompany, companyName, logInInf, idWallet);
+//    }
 
     @ManyToOne
     @JoinColumn(name = "log_in_inf", referencedColumnName = "id_log_in_inf", nullable = false)
@@ -82,7 +80,7 @@ public class CompanyEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "id_wallet", referencedColumnName = "id_wallet", nullable = false)
+    @JoinColumn(name = "id_wallet", referencedColumnName = "id_wallet")
     public WalletEntity getWalletByIdWallet() {
         return walletByIdWallet;
     }
@@ -91,12 +89,12 @@ public class CompanyEntity {
         this.walletByIdWallet = walletByIdWallet;
     }
 
-    @OneToMany(mappedBy = "companyByCompany")
-    public Collection<ProductEntity> getProductsByIdCompany() {
-        return productsByIdCompany;
-    }
-
-    public void setProductsByIdCompany(Collection<ProductEntity> productsByIdCompany) {
-        this.productsByIdCompany = productsByIdCompany;
-    }
+//    @OneToMany(mappedBy = "companyByCompany")
+//    public Collection<ProductEntity> getProductsByIdCompany() {
+//        return productsByIdCompany;
+//    }
+//
+//    public void setProductsByIdCompany(Collection<ProductEntity> productsByIdCompany) {
+//        this.productsByIdCompany = productsByIdCompany;
+//    }
 }

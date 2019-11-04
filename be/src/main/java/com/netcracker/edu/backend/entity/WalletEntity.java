@@ -13,8 +13,8 @@ public class WalletEntity {
     private int cartNumber;
     private Timestamp cartDate;
     private int cartCvCode;
-    private Collection<CompanyEntity> companiesByIdWallet;
-    private Collection<CostumerEntity> costumersByIdWallet;
+//    private Collection<CompanyEntity> companiesByIdWallet;
+//    private Collection<CustomerEntity> costumersByIdWallet;
 
     @Id
     @Column(name = "id_wallet")
@@ -83,21 +83,21 @@ public class WalletEntity {
         return Objects.hash(idWallet, balance, cartNumber, cartDate, cartCvCode);
     }
 
-    @OneToMany(mappedBy = "walletByIdWallet")
-    public Collection<CompanyEntity> getCompaniesByIdWallet() {
-        return companiesByIdWallet;
-    }
-
-    public void setCompaniesByIdWallet(Collection<CompanyEntity> companiesByIdWallet) {
-        this.companiesByIdWallet = companiesByIdWallet;
-    }
-
-    @OneToMany(mappedBy = "walletByIdWallet")
-    public Collection<CostumerEntity> getCostumersByIdWallet() {
-        return costumersByIdWallet;
-    }
-
-    public void setCostumersByIdWallet(Collection<CostumerEntity> costumersByIdWallet) {
-        this.costumersByIdWallet = costumersByIdWallet;
-    }
+//    @OneToMany(mappedBy = "walletByIdWallet")
+//    public Collection<CompanyEntity> getCompaniesByIdWallet() {
+//        return companiesByIdWallet;
+//    }
+//
+//    public void setCompaniesByIdWallet(Collection<CompanyEntity> companiesByIdWallet) {
+//        this.companiesByIdWallet = companiesByIdWallet;
+//    }
+//
+//    @OneToMany(mappedBy = "walletByIdWallet")
+//    public Collection<CustomerEntity> getCostumersByIdWallet() {
+//        return costumersByIdWallet;
+//    }
+//
+//    public void setCostumersByIdWallet(Collection<CustomerEntity> costumersByIdWallet) {
+//        this.costumersByIdWallet = costumersByIdWallet;
+//    }
 }

@@ -16,9 +16,10 @@ public class ProductEntity {
     private int cost;
     private byte isActive;
     private String image;
-    private CompanyEntity companyByCompany;
-    private ProductTypeEntity productTypeByType;
-    private Collection<SubscriptionEntity> subscriptionsByIdProduct;
+    private String productName;
+//    private CompanyEntity companyByCompany;
+//    private ProductTypeEntity productTypeByType;
+//    private Collection<SubscriptionEntity> subscriptionsByIdProduct;
 
     @Id
     @Column(name = "id_product")
@@ -48,6 +49,16 @@ public class ProductEntity {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Basic
+    @Column(name = "product_name")
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     @Basic
@@ -110,6 +121,7 @@ public class ProductEntity {
                 type == that.type &&
                 cost == that.cost &&
                 isActive == that.isActive &&
+                productName == that.productName &&
                 Objects.equals(description, that.description) &&
                 Objects.equals(realiseDate, that.realiseDate) &&
                 Objects.equals(image, that.image);
@@ -117,35 +129,35 @@ public class ProductEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(idProduct, company, description, type, realiseDate, cost, isActive, image);
+        return Objects.hash(idProduct, company, description, type, realiseDate, cost, isActive, image, productName);
     }
 
-    @ManyToOne
-    @JoinColumn(name = "company", referencedColumnName = "id_company", nullable = false)
-    public CompanyEntity getCompanyByCompany() {
-        return companyByCompany;
-    }
+//    @ManyToOne
+//    @JoinColumn(name = "company", referencedColumnName = "id_company", nullable = false)
+//    public CompanyEntity getCompanyByCompany() {
+//        return companyByCompany;
+//    }
+//
+//    public void setCompanyByCompany(CompanyEntity companyByCompany) {
+//        this.companyByCompany = companyByCompany;
+//    }
+//
+//    @ManyToOne
+//    @JoinColumn(name = "type", referencedColumnName = "id_product_type", nullable = false)
+//    public ProductTypeEntity getProductTypeByType() {
+//        return productTypeByType;
+//    }
+//
+//    public void setProductTypeByType(ProductTypeEntity productTypeByType) {
+//        this.productTypeByType = productTypeByType;
+//    }
 
-    public void setCompanyByCompany(CompanyEntity companyByCompany) {
-        this.companyByCompany = companyByCompany;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "type", referencedColumnName = "id_product_type", nullable = false)
-    public ProductTypeEntity getProductTypeByType() {
-        return productTypeByType;
-    }
-
-    public void setProductTypeByType(ProductTypeEntity productTypeByType) {
-        this.productTypeByType = productTypeByType;
-    }
-
-    @OneToMany(mappedBy = "productByIdProduct")
-    public Collection<SubscriptionEntity> getSubscriptionsByIdProduct() {
-        return subscriptionsByIdProduct;
-    }
-
-    public void setSubscriptionsByIdProduct(Collection<SubscriptionEntity> subscriptionsByIdProduct) {
-        this.subscriptionsByIdProduct = subscriptionsByIdProduct;
-    }
+//    @OneToMany(mappedBy = "productByIdProduct")
+//    public Collection<SubscriptionEntity> getSubscriptionsByIdProduct() {
+//        return subscriptionsByIdProduct;
+//    }
+//
+//    public void setSubscriptionsByIdProduct(Collection<SubscriptionEntity> subscriptionsByIdProduct) {
+//        this.subscriptionsByIdProduct = subscriptionsByIdProduct;
+//    }
 }

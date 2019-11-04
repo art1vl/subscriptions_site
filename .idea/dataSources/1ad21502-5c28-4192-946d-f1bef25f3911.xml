@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dataSource name="backend@localhost">
+<dataSource name="backend@localhost [2]">
   <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.14">
     <root id="1">
       <ServerVersion>8.0.17</ServerVersion>
@@ -1113,7 +1113,7 @@
       <DefaultForCharset>0</DefaultForCharset>
     </collation>
     <table id="279" parent="2" name="company"/>
-    <table id="280" parent="2" name="customer"/>
+    <table id="280" parent="2" name="costumer"/>
     <table id="281" parent="2" name="log_in_inf"/>
     <table id="282" parent="2" name="product"/>
     <table id="283" parent="2" name="product_type"/>
@@ -1142,6 +1142,7 @@
     <column id="290" parent="279" name="id_wallet">
       <Position>4</Position>
       <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
     <index id="291" parent="279" name="id_company_UNIQUE">
@@ -1190,7 +1191,7 @@
       <RefTableName>wallet</RefTableName>
       <RefColNames>id_wallet</RefColNames>
     </foreign-key>
-    <column id="300" parent="280" name="id_customer">
+    <column id="300" parent="280" name="id_costumer">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
@@ -1230,10 +1231,11 @@
     <column id="306" parent="280" name="id_wallet">
       <Position>7</Position>
       <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
     <index id="307" parent="280" name="id_UNIQUE">
-      <ColNames>id_customer</ColNames>
+      <ColNames>id_costumer</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
@@ -1249,11 +1251,11 @@
     </index>
     <key id="310" parent="280" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
-      <ColNames>id_customer</ColNames>
+      <ColNames>id_costumer</ColNames>
       <Primary>1</Primary>
     </key>
     <key id="311" parent="280" name="id_UNIQUE">
-      <ColNames>id_customer</ColNames>
+      <ColNames>id_costumer</ColNames>
       <UnderlyingIndexName>id_UNIQUE</UnderlyingIndexName>
     </key>
     <key id="312" parent="280" name="log_in_UNIQUE">
@@ -1287,9 +1289,9 @@
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="317" parent="281" name="e_mail">
+    <column id="317" parent="281" name="e-mail">
       <Position>2</Position>
-      <DataType>varchar(40)|0s</DataType>
+      <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
@@ -1311,7 +1313,7 @@
       <Type>btree</Type>
     </index>
     <index id="321" parent="281" name="e-mail_UNIQUE">
-      <ColNames>e_mail</ColNames>
+      <ColNames>e-mail</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
@@ -1329,7 +1331,7 @@
       <UnderlyingIndexName>id_UNIQUE</UnderlyingIndexName>
     </key>
     <key id="325" parent="281" name="e-mail_UNIQUE">
-      <ColNames>e_mail</ColNames>
+      <ColNames>e-mail</ColNames>
       <UnderlyingIndexName>e-mail_UNIQUE</UnderlyingIndexName>
     </key>
     <foreign-key id="326" parent="281" name="fk_id_role_log_in">
@@ -1515,7 +1517,7 @@
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="359" parent="285" name="id_customer">
+    <column id="359" parent="285" name="id_costumer">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
@@ -1544,7 +1546,7 @@
       <Type>btree</Type>
     </index>
     <index id="364" parent="285" name="fk_id_costumer_subscr_idx">
-      <ColNames>id_customer</ColNames>
+      <ColNames>id_costumer</ColNames>
       <Type>btree</Type>
     </index>
     <key id="365" parent="285" name="PRIMARY">
@@ -1569,10 +1571,10 @@
       <OnDelete>cascade</OnDelete>
     </foreign-key>
     <foreign-key id="369" parent="285" name="fk_id_costumer_subscr">
-      <ColNames>id_customer</ColNames>
+      <ColNames>id_costumer</ColNames>
       <RefSchemaName>backend</RefSchemaName>
-      <RefTableName>customer</RefTableName>
-      <RefColNames>id_customer</RefColNames>
+      <RefTableName>costumer</RefTableName>
+      <RefColNames>id_costumer</RefColNames>
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>cascade</OnDelete>
     </foreign-key>

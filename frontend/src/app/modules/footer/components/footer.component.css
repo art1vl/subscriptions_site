@@ -1,15 +1,22 @@
 .bottom1 {
   background: #4f4f4f;
   margin-top: 20px;
+  padding-left: 25px;
+  padding-top: 10px;
+  font-size: 20px;
+  line-height: 1.5em;
 }
-.bottom1 table{
-  margin-left: 425px;
-  padding-top: 5px;
+
+.bottom1 a{
+  color: white;
+  text-decoration: none;
 }
-.bottom1 td{
-  padding-left: 15px;
-  padding-right: 15px;
+
+.bottom1 a:hover{
+  color: gray;
+  text-decoration: none;
 }
+
 .bottom2 {
   background: #4f4f4f;
   color:white;
@@ -17,25 +24,4 @@
   line-height: 1.5em;
   text-align: right;
   padding-right: 20px;
-}
-.bottom2 table{
-  padding: 15px 0 15px 40px ;
-}
-.bottom2 td{
-  padding-left: 40px;
-  padding-right: 40px;
-}
-.bottom2 a{
-  color: white;
-  text-decoration: none;
-}
-.bottom2 a:hover{
-  color: red;
-  text-decoration: underline;
-}
-hr{
-  background: black;
-  margin: 0;
-  height: 2px;
-  border: 0;
 }

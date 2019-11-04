@@ -1,5 +1,16 @@
 <div class="background">
   <app-header></app-header>
-  <app-catalog-product></app-catalog-product>
+  <div class="row">
+    <div class="side">
+      <p>fsdfdsfsd</p>
+    </div>
+    <div class="main">
+      <div class="flex-container">
+        <div *ngFor="let product of products">
+          <app-catalog-product [product]="product"></app-catalog-product>
+        </div>
+      </div>
+    </div>
+  </div>
   <app-footer></app-footer>
 </div>

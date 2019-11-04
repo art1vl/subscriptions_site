@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import {SignInComponent} from "./components/sign-in.component";
-import {HeaderModule} from "../header/header.module";
+import {HeaderComponent} from "../header/components/header.component";
 
 
 @NgModule({
@@ -8,7 +8,7 @@ import {HeaderModule} from "../header/header.module";
     SignInComponent
   ],
   imports: [
-    HeaderModule
+    HeaderComponent
   ],
   providers: [],
   exports: [SignInComponent]
