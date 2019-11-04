@@ -8,33 +8,40 @@ import { FormsModule } from "@angular/forms";
 import { AppComponent } from "./app.component";
 import {HttpClientModule} from "@angular/common/http";
 import {Ng4LoadingSpinnerModule} from "ng4-loading-spinner";
-//import {RouterModule, Routes} from "@angular/router";
-// import {BillingDetailsViewComponent} from "./modules/layout/components/billing-details/billing-details-view.component";
-// import {NotFoundComponent} from "./modules/layout/components/404/not-found.component";
-// import {LayoutModule} from "./modules/layout/layout.module";
-// import {HomeComponent} from "./modules/layout/components/home/home.component";
+// import {RouterModule} from "@angular/router";
+import {RouterModule, Routes} from "@angular/router";
+import {SignInComponent} from "./modules/sign-in/components/sign-in.component";
+import {HomeComponent} from "./modules/home-page/components/home.component";
+import {HeaderModule} from "./modules/header/header.module";
+import {HomeModule} from "./modules/home-page/home.module";
+import {CatalogComponent} from "./modules/catalog-page/components/catalog.component";
+import {CatalogModule} from "./modules/catalog-page/catalog.module";
 
-// const appRoutes: Routes = [
-//   {path: "", component: HomeComponent},
-//   {path: "home", component: HomeComponent},
-//   {path: "billing-details/:id", component: BillingDetailsViewComponent},
-//   {path: "**", component: NotFoundComponent}
-// ];
+
+const appRoutes: Routes = [
+  {path: "", component: HomeComponent},
+  {path: "sign_in", component: SignInComponent},
+  {path: "catalog", component: CatalogComponent},
+  // {path: "**"}
+];
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SignInComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    // LayoutModule,
+    HeaderModule,
+    HomeModule,
+    CatalogModule,
     HttpClientModule,
     Ng4LoadingSpinnerModule.forRoot(),
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
     ModalModule.forRoot(),
-    // RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,26 @@
+.catalog{
+  background: #C3C3C3;
+}
+.catalog a{
+  color: black;
+  text-decoration: none;
+}
+.catalog table{
+  margin-top: 10px;
+  padding-top: 20px;
+  margin-left: 270px;
+  margin-right: 200px;
+  text-align: center;
+  border-spacing: 200px;
+}
+.catalog img{
+  height: 300px;
+}
+.catalog td{
+  padding: 5px;
+  border: 1px solid black;
+}
+.catalog td:hover{
+  background: gray;
+}
+
