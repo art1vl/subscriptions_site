@@ -6,48 +6,73 @@ import { ModalModule } from "ngx-bootstrap/modal";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 import { AppComponent } from "./app.component";
-import {HttpClientModule} from "@angular/common/http";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {Ng4LoadingSpinnerModule} from "ng4-loading-spinner";
-// import {RouterModule} from "@angular/router";
 import {RouterModule, Routes} from "@angular/router";
-import {SignInComponent} from "./modules/sign-in/components/sign-in.component";
-import {HomeComponent} from "./modules/home-page/components/home.component";
+import {SignInComponent} from "./modules/pages/sign-in/components/sign-in.component";
+import {HomeComponent} from "./modules/pages/home-page/components/home.component";
 import {HeaderModule} from "./modules/header/header.module";
-import {HomeModule} from "./modules/home-page/home.module";
-import {CatalogComponent} from "./modules/catalog-page/components/catalog.component";
-import {CatalogModule} from "./modules/catalog-page/catalog.module";
-import {RegistrationPageComponent} from "./modules/registration-page/components/registration-page.component";
-
+import {HomeModule} from "./modules/pages/home-page/home.module";
+import {CatalogComponent} from "./modules/pages/catalog-page/components/catalog.component";
+import {CatalogModule} from "./modules/pages/catalog-page/catalog.module";
+import {RegistrationPageComponent} from "./modules/pages/registration-page/components/registration-page.component";
+import {RegistrationPageModule} from "./modules/pages/registration-page/registration-page.module";
+import {SignInModule} from "./modules/pages/sign-in/sign-in.module";
+import {ProductPageModule} from "./modules/pages/product-page/product-page.module";
+import {ProductPageComponent} from "./modules/pages/product-page/components/product-page.component";
+import {CustomerPageComponent} from "./modules/pages/customer-page/components/customer-page.component";
+import {CustomerPageModule} from "./modules/pages/customer-page/customer-page.module";
+import {AdminPageModule} from "./modules/pages/admin-page/admin-page.module";
+import {CompanyPageModule} from "./modules/pages/company-page/company-page.module";
+import {TextMaskModule} from "angular2-text-mask";
+import {CustomerServiceImpl} from "./services/impl/customer.service.impl";
+import {FooterModule} from "./modules/footer/footer.module";
+import {CompanyPageComponent} from "./modules/pages/company-page/components/company-page.component";
+import {AdminPageComponent} from "./modules/pages/admin-page/components/admin-page.component";
 
 const appRoutes: Routes = [
   {path: "", component: HomeComponent},
   {path: "sign_in", component: SignInComponent},
   {path: "catalog", component: CatalogComponent},
   {path: "registration", component: RegistrationPageComponent},
+  {path: "catalog/product/:id", component: ProductPageComponent},
+  {path: "customer", component: CustomerPageComponent},
+  {path: "company", component: CompanyPageComponent},
+  {path: "admin", component: AdminPageComponent}
   // {path: "**"}
 ];
 
 @NgModule({
   declarations: [
-    AppComponent,
-    SignInComponent,
-    RegistrationPageComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    RegistrationPageModule,
+    ProductPageModule,
+    CustomerPageModule,
+    AdminPageModule,
+    TextMaskModule,
+    CompanyPageModule,
+    SignInModule,
     HeaderModule,
     HomeModule,
+    FooterModule,
     CatalogModule,
     HttpClientModule,
+    // Ng2BootstrapModule,
     Ng4LoadingSpinnerModule.forRoot(),
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
     ModalModule.forRoot(),
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
   ],
-  providers: [],
+  providers: [
+    CustomerServiceImpl,
+    HttpClient
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

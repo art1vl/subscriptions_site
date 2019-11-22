@@ -1,0 +1,21 @@
+<div class="subscription-customer">
+  <div class="subscription">
+    <div class="picture">
+      <img src="{{subscription?.product.image}}">
+    </div>
+    <div class="text">
+      {{subscription?.product.productName}}
+      <br>
+      every week cost: {{subscription?.product.cost}}$
+    </div>
+    <div class="button">
+      <a href="product/{{subscription?.product.id}}">
+        <button type="button" class="btn btn-info">Read more</button>
+      </a>
+      &nbsp; &nbsp; &nbsp; &nbsp;
+      <button type="button" class="btn btn-danger"
+              (click)="unsubscribe(subscription.id, subscription.idCustomer)">Unsubscribe
+      </button>
+    </div>
+  </div>
+</div>

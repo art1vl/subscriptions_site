@@ -1,0 +1,15 @@
+.check_out {
+  border: 2px solid gray;
+  border-radius: 15px;
+  width: 400px;
+  margin: 0px auto;
+  padding: 10px;
+  background-color: white;
+  box-shadow: 10px 9px 13px gray;
+}
+
+.background {
+  background-image: url("../../../../../assets/footer-photos/Cockburn-Ranges-Western-Australia_Jan-Glovac.jpg");
+  height: 720px;
+  padding-top: 100px;
+}

@@ -1,0 +1,33 @@
+<div>
+  <div class="row">
+    <div class="side">
+      <div class="flex-container">
+        <div class="catalog">
+          <img src="{{product?.image}}">
+        </div>
+      </div>
+    </div>
+    <div class="main">
+      <p class="productName">
+        {{product?.productName}}
+      </p>
+      <div class="block">
+        {{product?.description}}
+        <br>
+        <br>
+        <b>Developed by:</b> {{product?.company}}
+        <br>
+        <b>Realised date:</b> {{formatDate}}
+        <br>
+      </div>
+      <div class="block-cost">
+        <b>Every week cost:</b> {{product?.cost}}$ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        <button type="button" class="btn btn-primary" (click)="subscribe()">Subscribe</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="footer">
+  <app-footer></app-footer>
+</div>

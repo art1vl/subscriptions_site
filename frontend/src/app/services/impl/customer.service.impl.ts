@@ -1,53 +1,83 @@
-import {Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {Product} from "../../modules/models/catalog-page/product";
 import {CustomerService} from "../customer.service";
-import {Customer} from "../../modules/models/registration-page/customer";
+import {customerModel} from "../../modules/models/customerModel";
+import {HttpClient} from "@angular/common/http";
+import {Observable, of} from "rxjs";
+import {catchError} from "rxjs/operators";
+import {customerOrErrorsModel} from "../../modules/models/customerOrErrorsModel";
+import {logInParam} from "../../modules/models/logInParam";
+import {Injectable} from "@angular/core";
 
 @Injectable()
-// Data service
 export class CustomerServiceImpl implements CustomerService {
+  customer: customerModel;
 
   constructor(private http: HttpClient) {
+    console.log("new");
   }
 
-  deleteCustomerById(costumerId: string): Observable<void> {
+  // public getCustomer() {
+  //   if (this.customer == null) {
+  //     return null;
+  //   }
+  //   else {
+  //     return customerModel.cloneBase(this.customer);
+  //   }
+  // }
+
+  // public setCustomer(value: customerModel) {
+  //   this.customer = value;
+  // }
+
+  deleteCustomerById(customerId: string): Observable<void> {
     return undefined;
   }
 
-  getCustomerById(costumerId: string): Observable<Customer> {
+  findCustomerById(customerId: string): Observable<customerModel> {
+    return this.http.get<customerModel>('/api/customer/' + customerId)
+      .pipe(
+        catchError(value => {
+          // this.errorHandligService(value)
+          return of(null);
+        })
+      );
+  }
+
+  findCustomers(): Observable<customerModel[]> {
     return undefined;
   }
 
-  getCustomers(): Observable<Customer[]> {
+  isActiveCustomerById(customerId: string): Observable<boolean> {
     return undefined;
   }
 
-  isActiveCustomerById(costumerId: string): Observable<boolean> {
-    return undefined;
+  checkAndSaveCustomer(customer: customerModel): Observable<customerOrErrorsModel> {
+    return this.http.post<customerOrErrorsModel>('/api/customer', customer)
+      .pipe(
+        catchError(value => {
+          // this.errorHandligService(value)
+          return of(null);
+        })
+      );
   }
 
-  checkAndSaveCustomer(costumer: Customer): Observable<boolean> {
-    return this.http.post<boolean>('/api/customer', costumer);
+  signin (email: string, password: string): Observable<customerOrErrorsModel> {
+    let signinParam: logInParam = new logInParam(email, password);
+    return this.http.post<customerOrErrorsModel>('/api/customer/sign/in', signinParam);
   }
 
-
-
-  // Ajax request for billing account data
-  getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>('/api/product');
+  saveCustomerWallet(customer: customerModel): Observable<customerOrErrorsModel> {
+    return this.http.post<customerOrErrorsModel>('/api/customer/walletByIdWallet', customer);
   }
 
-  saveProduct(product: Product): Observable<Product> {
-    return this.http.post<Product>('/api/product', product);
+  deleteCard(customer: customerModel): Observable<void> {
+    return this.http.put<void>('/api/customer/delete/walletByIdWallet', customer);
   }
 
-  deleteProductById(productId: string): Observable<void> {
-    return this.http.delete<void>('/api/product/' + productId);
+  replenishCard(customer: customerModel): Observable<customerOrErrorsModel> {
+    return this.http.put<customerOrErrorsModel>('/api/customer/replenish/walletByIdWallet', customer);
   }
 
-  getProductById(productId: string): Observable<Product> {
-    return this.http.get<Product>('/api/product/' + productId);
+  updateCustomerPersonalInf(customer: customerModel): Observable<customerOrErrorsModel> {
+    return this.http.put<customerOrErrorsModel>('/api/customer', customer)
   }
 }

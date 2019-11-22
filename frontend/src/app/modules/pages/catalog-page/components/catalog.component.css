@@ -1,0 +1,48 @@
+.background {
+  overflow-x: hidden;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Create two unequal columns that sits next to each other */
+/* Sidebar/left column */
+.side {
+  margin-top: 20px;
+  margin-left: 30px;
+  flex: 20%;
+  background-color: #f1f1f1;
+  padding: 30px;
+  height: 330px;
+  border-radius: 10px;
+}
+
+/* Main column */
+.main {
+  flex: 75%;
+  background-color: white;
+  padding: 20px;
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  /*background-color: DodgerBlue;*/
+}
+
+.flex-container > div {
+  /*background-color: #f1f1f1;*/
+  border: 1px solid black;
+  background: white;
+  border-radius: 12px;
+  flex: 20%;
+  margin: 10px;
+  padding: 20px;
+  font-size: 30px;
+}
+
+.flex-container > div:hover {
+  background: #f1f1f1;
+}
