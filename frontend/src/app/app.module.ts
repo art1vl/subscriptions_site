@@ -3,7 +3,7 @@ import { NgModule } from "@angular/core";
 import { BsDropdownModule } from "ngx-bootstrap/dropdown";
 import { TooltipModule } from "ngx-bootstrap/tooltip";
 import { ModalModule } from "ngx-bootstrap/modal";
-import { FormsModule } from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 import { AppComponent } from "./app.component";
 import {HttpClientModule} from "@angular/common/http";
@@ -16,23 +16,27 @@ import {HeaderModule} from "./modules/header/header.module";
 import {HomeModule} from "./modules/home-page/home.module";
 import {CatalogComponent} from "./modules/catalog-page/components/catalog.component";
 import {CatalogModule} from "./modules/catalog-page/catalog.module";
+import {RegistrationPageComponent} from "./modules/registration-page/components/registration-page.component";
 
 
 const appRoutes: Routes = [
   {path: "", component: HomeComponent},
   {path: "sign_in", component: SignInComponent},
   {path: "catalog", component: CatalogComponent},
+  {path: "registration", component: RegistrationPageComponent},
   // {path: "**"}
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    SignInComponent
+    SignInComponent,
+    RegistrationPageComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HeaderModule,
     HomeModule,
     CatalogModule,

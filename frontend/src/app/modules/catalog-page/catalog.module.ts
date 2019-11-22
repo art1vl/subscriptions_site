@@ -4,6 +4,8 @@ import {HeaderModule} from "../header/header.module";
 import {FooterModule} from "../footer/footer.module";
 import {CatalogComponent} from "./components/catalog.component";
 import {ProductModule} from "./product/product.module";
+import {CommonModule} from "@angular/common";
+import {ProductServiceImpl} from "../../services/impl/product.service.impl";
 
 @NgModule({
   declarations: [
@@ -13,9 +15,10 @@ import {ProductModule} from "./product/product.module";
     FooterModule,
     HeaderModule,
     RouterModule,
-    ProductModule
+    ProductModule,
+    CommonModule
   ],
-  providers: [],
+  providers: [ProductServiceImpl],
   exports: [CatalogComponent]
 })
 export class CatalogModule {}

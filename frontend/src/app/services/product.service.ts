@@ -1,30 +1,12 @@
-import {Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Product} from "../modules/models/product-page/product";
+import {Product} from "../modules/models/catalog-page/product";
 
-@Injectable()
-// Data service
-export class ProductService { //todo create interface
+export interface ProductService {
+  getProducts(): Observable<Product[]>;
 
-  constructor(private http: HttpClient) {
-  }
+  saveProduct(product: Product): Observable<Product>;
 
-  // Ajax request for billing account data
-  getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>('/api/product');
-  }
+  deleteProductById(productId: string): Observable<void>;
 
-  saveProduct(product: Product): Observable<Product> {
-    return this.http.post<Product>('/api/product', product);
-  }
-
-  deleteProductById(productId: number): Observable<void> {
-    return this.http.delete<void>('/api/product/' + productId);
-  }
-
-  getproductById(productId: string): Observable<Product> {
-    return this.http.get<Product>('/api/product/' + productId);
-  }
-
+  getProductById(productId: string): Observable<Product>;
 }
