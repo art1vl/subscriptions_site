@@ -1,0 +1,143 @@
+<div class="form-row">
+  <div class="form-group col-md-12">
+    <div class="title">
+      Admin page
+    </div>
+  </div>
+  <!--<div class="form-group col-md-2">-->
+    <!--<div class="balance">-->
+    <!--<button type="button" class="btn btn-primary btn-sm" (click)="selectTab(3)">-->
+    <!--<div *ngIf="customer?.walletByIdWallet == null"><h4>balance: 0$</h4></div>-->
+    <!--<div *ngIf="customer?.walletByIdWallet != null"><h4>balance: {{customer?.walletByIdWallet.balance}}$</h4></div>-->
+    <!--</button>-->
+    <!--</div>-->
+  <!--</div>-->
+</div>
+<div class="taba">
+  <div>
+    <tabset #staticTabs>
+
+      <!--All subscriptions -->
+      <tab heading="All subscriptions">
+          <div *ngIf="subscriptionsModel != null">
+            <div *ngFor="let subscription of subscriptionsModel">
+              <div class="subscription-all">
+                <div class="subscription">
+                  <div class="picture">
+                    <img src="{{subscription?.product.image}}">
+                  </div>
+                  <div class="text">
+                    {{subscription?.product.productName}}
+                    <br>
+                    every week cost: {{subscription?.product.cost}}$
+                  </div>
+                  <div class="button">
+                    <a href="product/{{subscription?.product.id}}">
+                      <button type="button" class="btn btn-info">Read more</button>
+                    </a>
+                    &nbsp; &nbsp; &nbsp; &nbsp;
+                    <button type="button" class="btn btn-danger"
+                            (click)="unsubscribe(subscription.id, subscription.idCustomer)">Block
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="subscriptionsModel == null">
+            <p align="center">
+            <h3>The list of subscriptions is empty</h3>
+          </div>
+      </tab>
+
+      <!--All companies-->
+      <tab heading="All companies">
+        <div class="company-customer">
+
+        </div>
+      </tab>
+
+      <tab heading="All customers"></tab>
+
+      <!-- Create company account-->
+      <tab heading="Create company account">
+        <div class="company-account">
+          <form [formGroup]="myForm">
+            <div class="alert alert-success"
+                 *ngIf="companyCreatedFlag == true">
+              Account was created
+              <button type="button" class="btn btn-success" (click)="changeCompanyCreatedFlag()">Got it</button>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="inputEmail4">Email</label>
+                <input type="email" class="form-control" id="inputEmail4"
+                       formControlName="email" placeholder="Email" #email>
+                <div class="alert alert-danger"
+                     *ngIf="myForm.controls['email'].invalid && myForm.controls['email'].touched">
+                  Incorrect email
+                </div>
+                <div class="alert alert-danger"
+                     *ngIf="errorsMapCompany['email'] != undefined">
+                  Incorrect email
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Password</label>
+                <input type="password" class="form-control" id="inputPassword1" placeholder="Password"
+                       formControlName="password" name="inputPassword" #password>
+                <div class="alert alert-danger"
+                     *ngIf="myForm.controls['password'].invalid && myForm.controls['password'].touched">
+                  Incorrect password
+                </div>
+                <div class="alert alert-danger"
+                     *ngIf="errorsMapCompany['password'] != undefined">
+                  Incorrect password
+                </div>
+                <small id="passwordHelp" class="form-text text-muted">Password should contain at least 8 characters.
+                </small>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Repeat password</label>
+                <input type="password" class="form-control" id="inputPassword2" placeholder="Password"
+                       formControlName="repeatPassword" name="repeatPassword" #repeatPassword>
+                <div class="alert alert-danger"
+                     *ngIf="password.value!=repeatPassword.value && myForm.controls['repeatPassword'].touched">
+                  Passwords don't match
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Company name</label>
+                <input type="text" class="form-control" id="inputFirstName" placeholder="Company name"
+                       formControlName="companyName"
+                       name="companyName" #companyName>
+                <div class="alert alert-danger"
+                     *ngIf="myForm.controls['companyName'].invalid && myForm.controls['companyName'].touched">
+                  Incorrect company name
+                </div>
+                <div class="alert alert-danger"
+                     *ngIf="errorsMapCompany['companyName'] != undefined">
+                  Incorrect company name
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary" [disabled]="myForm.invalid" (click)="createCompanyAccount(email.value, password.value,
+      companyName.value)">Create
+            </button>
+          </form>
+        </div>
+      </tab>
+
+
+
+    </tabset>
+    <!--<input [textMask]="{mask: mask}" [(ngModel)]="myModel" type="text"/>-->
+    <!--<input [textMask]="{mask: dateMask}" [(ngModel)]="myModel" type="text"/>-->
+  </div>
+</div>

@@ -1,0 +1,104 @@
+.balance {
+  /*background: #f1f1f1;*/
+  /*border-radius: 12px;*/
+  font-size: 17px;
+  text-align: center;
+  /*border: 1px solid black;*/
+}
+
+.taba {
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+.title {
+  padding-left: 40px;
+  font-size: 30px;
+}
+
+.subscription-customer {
+  margin-top: 30px;
+  margin-left: 50px;
+  margin-right: 50px;
+  background: #f1f1f1;
+  border-radius: 15px;
+  padding: 10px;
+}
+
+/*subscription*/
+.subscription {
+  background: #f1f1f1;
+  border-radius: 12px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.subscription img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 70px;
+}
+
+.picture {
+  flex: 10%;
+}
+
+.text {
+  flex: 50%;
+  font-size: 20px;
+  padding-top: 10px;
+}
+
+.button {
+  text-align: right;
+  padding-top: 20px;
+  padding-right: 15px;
+  flex: 10%;
+}
+
+.personalInf {
+  border: 2px solid gray;
+  border-radius: 15px;
+  width: 400px;
+  /*margin-top: 50px;*/
+  margin: 50px auto;
+  /*margin-left: 90px;*/
+  /*margin-bottom: 90px;*/
+  padding: 10px;
+  background-color: white;
+  box-shadow: 10px 9px 13px gray;
+}
+
+.wallet {
+  border: 2px solid gray;
+  border-radius: 15px;
+  width: 400px;
+  margin: 50px auto;
+  padding: 10px;
+  background-color: white;
+  box-shadow: 10px 9px 13px gray;
+}
+
+.replenish {
+  border: 2px solid gray;
+  border-radius: 15px;
+  width: 400px;
+  margin: 20px auto;
+  padding: 10px;
+  background-color: white;
+  box-shadow: 10px 9px 13px gray;
+}
+
+.wrapper {
+  min-height: 100%;
+}
+.content {
+  padding-bottom: 100px;
+}
+.footer {
+  margin-top: -100px;
+  /*Минус Высота футера*/
+  height: 100px;
+  /*Высота футера*/
+}

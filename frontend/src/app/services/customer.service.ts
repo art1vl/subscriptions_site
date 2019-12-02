@@ -1,14 +1,23 @@
 import {Observable} from "rxjs";
-import {Customer} from "../modules/models/registration-page/customer";
+import {customerModel} from "../modules/models/customerModel";
+import {customerOrErrorsModel} from "../modules/models/customerOrErrorsModel";
 
 export interface CustomerService {
-  getCustomers(): Observable<Customer[]>;
+  //findCustomers(): Observable<customerModel[]>;
 
-  checkAndSaveCustomer(costumer: Customer): Observable<boolean>;
+  checkAndSaveCustomer(customer: customerModel): Observable<customerOrErrorsModel>;
 
-  deleteCustomerById(costumerId: string): Observable<void>;
+ // deleteCustomerById(customerId: string): Observable<void>;
 
-  getCustomerById(costumerId: string): Observable<Customer>;
+  //findCustomerById(customerId: string): Observable<customerModel>;
 
-  isActiveCustomerById(costumerId: string): Observable<boolean>;
+  //isActiveCustomerById(customerId: string): Observable<boolean>;
+
+  updateCustomerPersonalInf(customer: customerModel): Observable<customerOrErrorsModel>;
+
+  saveCustomerWallet(customer: customerModel): Observable<customerOrErrorsModel>;
+
+  deleteCard(customer: customerModel): Observable<void>;
+
+  replenishCard(customer: customerModel): Observable<customerOrErrorsModel>;
 }

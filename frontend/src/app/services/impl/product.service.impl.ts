@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Product} from "../../modules/models/catalog-page/product";
+import {ProductModel} from "../../modules/models/productModel";
 import {ProductService} from "../product.service";
 
 @Injectable()
@@ -12,19 +12,25 @@ export class ProductServiceImpl implements ProductService {
   }
 
   // Ajax request for billing account data
-  getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>('/api/product');
+  findProducts(): Observable<ProductModel[]> {
+    return this.http.get<ProductModel[]>('/api/product');
   }
 
-  saveProduct(product: Product): Observable<Product> {
-    return this.http.post<Product>('/api/product', product);
+  findProductTypes(): Observable<String[]> {
+    return this.http.get<String[]>('/api/product/types');
   }
 
+  findProductById(productId: string): Observable<ProductModel> {
+    return this.http.get<ProductModel>('/api/product/' + productId);
+  }
+
+  //todo
+  saveProduct(product: ProductModel): Observable<ProductModel> {
+    return this.http.post<ProductModel>('/api/product', product);
+  }
+
+  //todo
   deleteProductById(productId: string): Observable<void> {
     return this.http.delete<void>('/api/product/' + productId);
-  }
-
-  getProductById(productId: string): Observable<Product> {
-    return this.http.get<Product>('/api/product/' + productId);
   }
 }

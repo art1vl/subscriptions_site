@@ -1,0 +1,71 @@
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/*.background {*/
+  /*background-image: url("../../../../../assets/footer-photos/Workplace_mental_health.jpg");*/
+  /*height: 790px;*/
+/*}*/
+/* Create two unequal columns that sits next to each other */
+/* Sidebar/left column */
+.side {
+  margin-top: 60px;
+  margin-left: 50px;
+  flex: 25%;
+  background-color: #f1f1f1;
+  padding: 30px;
+  height: 360px;
+  border-radius: 15px;
+}
+
+/* Main column */
+.main {
+  flex: 70%;
+  background-color: white;
+  padding: 20px;
+}
+
+.catalog img{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+}
+
+.footer {
+  position: absolute;
+  width: 100%;
+  margin-bottom: 0px;
+}
+
+.block {
+  margin-left: 70px;
+  margin-right: 70px;
+  margin-top: 15px;
+  margin-bottom: 25px;
+  padding: 10px;
+  line-height: 1.5;
+  background: #f9f9f9;
+  border-left: 9px solid #ccc;
+  font-size: 20px;
+  text-aling: justify;
+}
+
+.block-cost {
+  margin-left: 70px;
+  margin-right: 70px;
+  margin-top: 15px;
+  margin-bottom: 25px;
+  padding: 10px;
+  line-height: 1.5;
+  background: #f8ffe0;
+  border-left: 9px solid greenyellow;
+  font-size: 20px;
+  text-aling: justify;
+}
+
+.productName {
+  text-align: center;
+  font-size: 30px;
+}

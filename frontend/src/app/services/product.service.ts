@@ -1,12 +1,14 @@
 import {Observable} from "rxjs";
-import {Product} from "../modules/models/catalog-page/product";
+import {ProductModel} from "../modules/models/productModel";
 
 export interface ProductService {
-  getProducts(): Observable<Product[]>;
+  findProducts(): Observable<ProductModel[]>;
 
-  saveProduct(product: Product): Observable<Product>;
+  saveProduct(product: ProductModel): Observable<ProductModel>;
 
   deleteProductById(productId: string): Observable<void>;
 
-  getProductById(productId: string): Observable<Product>;
+  findProductById(productId: string): Observable<ProductModel>;
+
+  findProductTypes(): Observable<String[]>;
 }
