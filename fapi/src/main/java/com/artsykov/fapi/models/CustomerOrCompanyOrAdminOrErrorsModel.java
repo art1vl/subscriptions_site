@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 import java.util.Map;
 
 @Data
-@Component
 public class CustomerOrCompanyOrAdminOrErrorsModel {
     private CustomerModel customerModel;
     private CompanyModel companyModel;

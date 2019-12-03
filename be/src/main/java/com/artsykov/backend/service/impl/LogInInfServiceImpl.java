@@ -8,12 +8,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class LogInInfServiceImpl implements LogInInfService {
+    @Autowired
     private LogInInfRepository logInInfRepository;
 
-    @Autowired
-    public LogInInfServiceImpl(LogInInfRepository logInInfRepository) {
-        this.logInInfRepository = logInInfRepository;
-    }
+//    @Autowired
+//    public LogInInfServiceImpl(LogInInfRepository logInInfRepository) {
+//        this.logInInfRepository = logInInfRepository;
+//    }
 
     @Override
     public LogInInfEntity findByEmail(String email) {

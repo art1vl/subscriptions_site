@@ -1,0 +1,52 @@
+.taba {
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+.wallet {
+  border: 2px solid gray;
+  border-radius: 15px;
+  width: 400px;
+  margin: 50px auto;
+  padding: 10px;
+  background-color: white;
+  box-shadow: 10px 9px 13px gray;
+}
+
+.subscription-company {
+  margin-top: 30px;
+  margin-left: 50px;
+  margin-right: 50px;
+  background: #f1f1f1;
+  border-radius: 15px;
+  padding: 10px;
+}
+
+/*subscription*/
+.subscription {
+  background: #f1f1f1;
+  border-radius: 12px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.subscription img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 70px;
+}
+
+.picture {
+  flex: 10%;
+}
+
+.new-product {
+  border: 2px solid gray;
+  border-radius: 15px;
+  width: 400px;
+  margin: 50px auto;
+  padding: 10px;
+  background-color: white;
+  box-shadow: 10px 9px 13px gray;
+}

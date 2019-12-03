@@ -2,23 +2,21 @@ package com.artsykov.backend.entity;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
 @Table(name = "product", schema = "backend", catalog = "")
 public class ProductEntity {
     private int idProduct;
-    private int company;
+    private CompanyEntity company;
     private String description;
-    private int type;
-    private Timestamp realiseDate;
+    private ProductTypeEntity type;
+    private Date realiseDate;
     private int cost;
     private byte isActive;
     private String image;
     private String productName;
-//    private CompanyEntity companyByCompany;
-//    private ProductTypeEntity productTypeByType;
-//    private Collection<SubscriptionEntity> subscriptionsByIdProduct;
 
     @Id
     @Column(name = "id_product")
@@ -30,13 +28,13 @@ public class ProductEntity {
         this.idProduct = idProduct;
     }
 
-    @Basic
-    @Column(name = "company")
-    public int getCompany() {
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "company", referencedColumnName = "id_company", nullable = false)
+    public CompanyEntity getCompany() {
         return company;
     }
 
-    public void setCompany(int company) {
+    public void setCompany(CompanyEntity company) {
         this.company = company;
     }
 
@@ -60,23 +58,23 @@ public class ProductEntity {
         this.productName = productName;
     }
 
-    @Basic
-    @Column(name = "type")
-    public int getType() {
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "type", referencedColumnName = "id_product_type", nullable = false)
+    public ProductTypeEntity getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(ProductTypeEntity type) {
         this.type = type;
     }
 
     @Basic
     @Column(name = "realise_date")
-    public Timestamp getRealiseDate() {
+    public Date getRealiseDate() {
         return realiseDate;
     }
 
-    public void setRealiseDate(Timestamp realiseDate) {
+    public void setRealiseDate(Date realiseDate) {
         this.realiseDate = realiseDate;
     }
 

@@ -6,4 +6,6 @@ export interface CompanyService {
   findAllCompanies(): Observable<companyModel[]>;
 
   saveCompany(company: companyModel): Observable<companyOrErrorsModel>;
+
+  saveCompanyWallet(company: companyModel): Observable<companyOrErrorsModel>;
 }

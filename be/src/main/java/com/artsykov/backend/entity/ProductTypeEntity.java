@@ -8,7 +8,6 @@ import java.util.Objects;
 public class ProductTypeEntity {
     private int idProductType;
     private String typeName;
-//    private Collection<ProductEntity> productsByIdProductType;
 
     @Id
     @Column(name = "id_product_type")
@@ -44,12 +43,4 @@ public class ProductTypeEntity {
         return Objects.hash(idProductType, typeName);
     }
 
-//    @OneToMany(mappedBy = "productTypeByType")
-//    public Collection<ProductEntity> getProductsByIdProductType() {
-//        return productsByIdProductType;
-//    }
-//
-//    public void setProductsByIdProductType(Collection<ProductEntity> productsByIdProductType) {
-//        this.productsByIdProductType = productsByIdProductType;
-//    }
 }

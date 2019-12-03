@@ -20,4 +20,8 @@ export class CompanyServiceImpl implements CompanyService {
   saveCompany(company: companyModel): Observable<companyOrErrorsModel> {
     return this.http.post<companyOrErrorsModel>('/api/company', company);
   }
+
+  saveCompanyWallet(company: companyModel): Observable<companyOrErrorsModel> {
+    return this.http.post<companyOrErrorsModel>('/api/company/wallet', company);
+  }
 }

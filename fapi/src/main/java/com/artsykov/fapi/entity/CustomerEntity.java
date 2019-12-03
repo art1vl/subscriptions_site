@@ -11,7 +11,7 @@ public class CustomerEntity {
     private byte isActive;
 //    private int logInInf;
 //    private int idWallet;
-    private LogInInfEntity logInInfByLogInInf;
+    private LogInInfEntity logInInf;
     private WalletEntity walletByIdWallet;
 //    private Collection<SubscriptionEntity> subscriptionsByIdCostumer;
 

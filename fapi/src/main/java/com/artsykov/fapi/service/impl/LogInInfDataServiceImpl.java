@@ -8,6 +8,7 @@ import com.artsykov.fapi.converter.CompanyConverter;
 import com.artsykov.fapi.models.AdminModel;
 import com.artsykov.fapi.models.CustomerOrCompanyOrAdminOrErrorsModel;
 import com.artsykov.fapi.service.LogInInfDataService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -17,9 +18,14 @@ import java.util.Map;
 
 @Service
 public class LogInInfDataServiceImpl implements LogInInfDataService {
+    @Autowired
+    private CustomerConverter customerConverter;
 
     @Value("${backend.server.url}")
     private String backendServerUrl;
+
+    @Autowired
+    private CompanyConverter companyConverter;
 
     @Override
     public CustomerOrCompanyOrAdminOrErrorsModel findUserByEmail(String email, String password) {
@@ -36,12 +42,12 @@ public class LogInInfDataServiceImpl implements LogInInfDataService {
                         customerOrCompanyOrAdminOrErrorsModel.setAdminModel(adminModel);
                         break;
                     case CUSTOMER:
-                        customerOrCompanyOrAdminOrErrorsModel.setCustomerModel(CustomerConverter.convertFromBackToFront(restTemplate.getForObject(
-                                backendServerUrl + "/api/customer/" + logInInfEntity.getIdLogInInf(), CustomerEntity.class)));
+                        customerOrCompanyOrAdminOrErrorsModel.setCustomerModel(customerConverter.convertFromBackToFront(restTemplate.getForObject(
+                                backendServerUrl + "/api/customer/log/in/inf/" + logInInfEntity.getIdLogInInf(), CustomerEntity.class)));
                         break;
                     case COMPANY:
-                        customerOrCompanyOrAdminOrErrorsModel.setCompanyModel(CompanyConverter.convertFromBackToFront(restTemplate.getForObject(
-                                backendServerUrl + "/api/company/" + logInInfEntity.getIdLogInInf(), CompanyEntity.class)));
+                        customerOrCompanyOrAdminOrErrorsModel.setCompanyModel(companyConverter.convertFromBackToFront(restTemplate.getForObject(
+                                backendServerUrl + "/api/company/log/in/inf/" + logInInfEntity.getIdLogInInf(), CompanyEntity.class)));
                         break;
 
                 }

@@ -5,295 +5,340 @@
     </div>
   </div>
   <div class="form-group col-md-2">
-    <!--<div class="balance">-->
-      <!--<button type="button" class="btn btn-primary btn-sm" (click)="selectTab(3)">-->
-        <!--<div *ngIf="customer?.walletByIdWallet == null"><h4>balance: 0$</h4></div>-->
-        <!--<div *ngIf="customer?.walletByIdWallet != null"><h4>balance: {{customer?.walletByIdWallet.balance}}$</h4></div>-->
-      <!--</button>-->
-    <!--</div>-->
+    <div class="balance">
+      <button type="button" class="btn btn-primary btn-sm" (click)="selectTab(2)">
+        <div *ngIf="company?.wallet == null"><h4>balance: 0$</h4></div>
+        <div *ngIf="company?.wallet != null"><h4>balance: {{company?.wallet.balance}}$</h4></div>
+      </button>
+    </div>
   </div>
 </div>
 <div class="taba">
   <div>
     <tabset #staticTabs>
-      <tab heading="My subscriptions">
+      <tab heading="My products">
         <!--<div *ngIf="customerSubscriptions != null">-->
-          <!--<div *ngFor="let subscription of customerSubscriptions">-->
-            <!--<div class="subscription-customer">-->
-              <!--<div class="subscription">-->
-                <!--<div class="picture">-->
-                  <!--<img src="{{subscription?.product.image}}">-->
-                <!--</div>-->
-                <!--<div class="text">-->
-                  <!--{{subscription?.product.productName}}-->
-                  <!--<br>-->
-                  <!--every week cost: {{subscription?.product.cost}}$-->
-                <!--</div>-->
-                <!--<div class="button">-->
-                  <!--<a href="product/{{subscription?.product.id}}">-->
-                    <!--<button type="button" class="btn btn-info">Read more</button>-->
-                  <!--</a>-->
-                  <!--&nbsp; &nbsp; &nbsp; &nbsp;-->
-                  <!--<button type="button" class="btn btn-danger"-->
-                          <!--(click)="unsubscribe(subscription.id, subscription.idCustomer)">Unsubscribe-->
-                  <!--</button>-->
-                <!--</div>-->
-              <!--</div>-->
-            <!--</div>-->
-          <!--</div>-->
+        <!--<div *ngFor="let subscription of customerSubscriptions">-->
+        <!--<div class="subscription-customer">-->
+        <!--<div class="subscription">-->
+        <!--<div class="picture">-->
+        <!--<img src="{{subscription?.product.image}}">-->
+        <!--</div>-->
+        <!--<div class="text">-->
+        <!--{{subscription?.product.productName}}-->
+        <!--<br>-->
+        <!--every week cost: {{subscription?.product.cost}}$-->
+        <!--</div>-->
+        <!--<div class="button">-->
+        <!--<a href="product/{{subscription?.product.id}}">-->
+        <!--<button type="button" class="btn btn-info">Read more</button>-->
+        <!--</a>-->
+        <!--&nbsp; &nbsp; &nbsp; &nbsp;-->
+        <!--<button type="button" class="btn btn-danger"-->
+        <!--(click)="unsubscribe(subscription.id, subscription.idCustomer)">Unsubscribe-->
+        <!--</button>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
         <!--</div>-->
         <!--<div *ngIf="customerSubscriptions == null">-->
-          <!--<p align="center">-->
-          <!--<h3>You don't have any subscriptions</h3>-->
+        <!--<p align="center">-->
+        <!--<h3>You don't have any subscriptions</h3>-->
         <!--</div>-->
       </tab>
 
-      <!--Personal information -->
-      <tab heading="Personal information">
-
-        <!--Show personal information -->
-        <!--<div class="personalInf" *ngIf="!personalInfFlag">-->
-          <!--<div class="form-row">-->
+      <!--Create new product -->
+      <tab heading="Add new product">
+        <div class="new-product">
+          <form [formGroup]="productForm">
+            <div class="alert alert-success"
+                 *ngIf="productFlag == true">
+              Product was created
+              <br>
+              <button type="button" class="btn btn-success" (click)="changeProductCreatedFlag()">Got it</button>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Product name</label>
+                <input type="text" class="form-control" id="productName" placeholder="Product name"
+                       formControlName="name" #name>
+                <div class="alert alert-danger"
+                     *ngIf="productForm.controls['name'].invalid && productForm.controls['name'].touched">
+                  Incorrect product name
+                  <div class="alert alert-danger"
+                       *ngIf="errorsMapProduct && errorsMapProduct['productName'] != undefined">
+                    {{errorsMapProduct['productName']}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Product type</label>
+                <select id="inputType" class="form-control" #type>
+                  <option *ngFor="let type of typeArray">{{type.typeName}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Realise date</label>
+                <input class="form-control"
+                       placeholder="Select date"
+                       formControlName="date"
+                       ngModel
+                       bsDatepicker
+                       [minDate]="minDate"
+                       [maxDate]="maxDate"
+                       [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" #date>
+              </div>
+              <div class="alert alert-danger"
+                   *ngIf="productForm?.controls['date'].invalid && productForm?.controls['date'].touched">
+                Date is required
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Product description</label>
+                <textarea type="text" class="form-control" id="description" placeholder="Product description"
+                          formControlName="description" style="resize: none; height: 100px" maxlength="500" cols="80"
+                          #description></textarea>
+                <small id="descriptionHelp" class="form-text text-muted">Max description length is 500 characters.
+                </small>
+                <div class="alert alert-danger"
+                     *ngIf="productForm.controls['description'].invalid && productForm.controls['description'].touched">
+                  Incorrect product description
+                  <div class="alert alert-danger"
+                       *ngIf="errorsMapProduct && errorsMapProduct['description'] != undefined">
+                    {{errorsMapProduct['description']}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <input type="file" (change)="selectFile($event)" placeholder="Download product image" #file>
+            </div>
+            <br>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Product per week cost in dollars</label>
+                <input type="text" class="form-control" id="cost" placeholder="Product cost"
+                       formControlName="cost" #cost>
+                <div class="alert alert-danger"
+                     *ngIf="productForm.controls['cost'].invalid && productForm.controls['cost'].touched">
+                  Incorrect product cost
+                  <div class="alert alert-danger"
+                       *ngIf="errorsMapProduct && errorsMapProduct['cost'] != undefined">
+                    {{errorsMapProduct['cost']}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary" [disabled]="productForm.invalid"
+                    (click)="createProduct(name.value, date.value, description.value, cost.value, type.selectedIndex)">Create the product
+            </button>
+            <!--<div class="form-row">-->
             <!--<div class="form-group">-->
-              <!--<label for="email4">Email</label>-->
-              <!--<input type="email" class="form-control" id="email4" placeholder="{{customer?.email}}" readonly>-->
+            <!--<label>Password</label>-->
+            <!--<input type="password" class="form-control" id="inputPassword1" placeholder="Password"-->
+            <!--formControlName="password" name="password" #password>-->
+            <!--<div class="alert alert-danger"-->
+            <!--*ngIf="myForm.controls['password'].invalid && myForm.controls['password'].touched">-->
+            <!--Incorrect password-->
+            <!--<div class="alert alert-danger"-->
+            <!--*ngIf="errors && errors['password'] != undefined">-->
+            <!--{{errors['password']}}-->
             <!--</div>-->
-          <!--</div>-->
-          <!--<div class="form-row">-->
+            <!--</div>-->
+            <!--<small id="passwordHelp" class="form-text text-muted">Password should contain at least 8 characters.</small>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div class="form-row">-->
             <!--<div class="form-group">-->
-              <!--<label>First name</label>-->
-              <!--<input type="text" class="form-control" id="firstName" placeholder="{{customer?.name}}" readonly>-->
+            <!--<label>Repeat password</label>-->
+            <!--<input type="password" class="form-control" id="inputPassword2" placeholder="Password"-->
+            <!--formControlName="repeatPassword" name="repeatPassword" #repeatPassword>-->
+            <!--<div class="alert alert-danger"-->
+            <!--*ngIf="password.value!=repeatPassword.value && myForm.controls['repeatPassword'].touched">-->
+            <!--Passwords don't match-->
             <!--</div>-->
-          <!--</div>-->
-          <!--<div class="form-row">-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div class="form-row">-->
             <!--<div class="form-group">-->
-              <!--<label>Last name</label>-->
-              <!--<input type="text" class="form-control" id="lastName" placeholder="{{customer?.surname}}" readonly>-->
+            <!--<label>First name</label>-->
+            <!--<input type="text" class="form-control" id="inputFirstName" placeholder="Mike" formControlName="userName"-->
+            <!--name="userName" #name>-->
+            <!--<div class="alert alert-danger"-->
+            <!--*ngIf="myForm.controls['userName'].invalid && myForm.controls['userName'].touched">-->
+            <!--Incorrect name-->
             <!--</div>-->
-          <!--</div>-->
-          <!--<div class="form-row">-->
+            <!--<div class="alert alert-danger"-->
+            <!--*ngIf="errors && errors['name'] != undefined">-->
+            <!--{{errors['name']}}-->
+            <!--</div>-->
+            <!--</div>-->
             <!--<div class="form-group">-->
-              <!--<label>Age</label>-->
-              <!--<input type="text" class="form-control" id="age" placeholder="{{customer?.age}}" readonly>-->
+            <!--<label>Last name</label>-->
+            <!--<input type="text" class="form-control" id="inputLastName" placeholder="Smith" formControlName="userSurname"-->
+            <!--name="userSurname" #surname>-->
+            <!--<div class="alert alert-danger"-->
+            <!--*ngIf="myForm.controls['userSurname'].invalid && myForm.controls['userSurname'].touched">-->
+            <!--Incorrect last name-->
             <!--</div>-->
-          <!--</div>-->
-          <!--<button class="btn btn-primary" (click)="editPersonalInf()">Edit</button>-->
-        <!--</div>-->
-
-        <!--&lt;!&ndash;edit personalInf&ndash;&gt;-->
-        <!--<div class="personalInf" *ngIf="personalInfFlag">-->
-          <!--<form [formGroup]="myForm">-->
-            <!--<div class="form-row">-->
-              <!--<div class="form-group">-->
-                <!--<label for="inputEmail4">Email</label>-->
-                <!--<input type="email" class="form-control" id="inputEmail4" placeholder="{{customer?.email}}"-->
-                       <!--readonly>-->
-              <!--</div>-->
+            <!--<div class="alert alert-danger"-->
+            <!--*ngIf="errors && errors['surname'] != undefined">-->
+            <!--{{errors['surname']}}-->
+            <!--</div>-->
+            <!--</div>-->
             <!--</div>-->
             <!--<div class="form-row">-->
-              <!--<div class="form-group">-->
-                <!--<label>Password</label>-->
-                <!--<input type="password" class="form-control" id="inputPassword1" placeholder="Password"-->
-                       <!--formControlName="password" name="inputPassword" #password>-->
-                <!--<div class="alert alert-danger"-->
-                     <!--*ngIf="myForm.controls['password'].invalid && myForm.controls['password'].touched">-->
-                  <!--Incorrect password-->
-                <!--</div>-->
-                <!--<div class="alert alert-danger"-->
-                     <!--*ngIf="errorsMapCustomer['password'] != undefined">-->
-                  <!--Incorrect password-->
-                <!--</div>-->
-                <!--<small id="passwordHelp" class="form-text text-muted">Password should contain at least 8 characters.-->
-                <!--</small>-->
-              <!--</div>-->
+            <!--<div class="form-group">-->
+            <!--<label>Age</label>-->
+            <!--<select id="inputAge" class="form-control" #age>-->
+            <!--<option *ngFor="let age of ageArray">{{age}}</option>-->
+            <!--</select>-->
             <!--</div>-->
-            <!--<div class="form-row">-->
-              <!--<div class="form-group">-->
-                <!--<label>Repeat password</label>-->
-                <!--<input type="password" class="form-control" id="inputPassword2" placeholder="Password"-->
-                       <!--formControlName="repeatPassword" name="repeatPassword" #repeatPassword>-->
-                <!--<div class="alert alert-danger"-->
-                     <!--*ngIf="password.value!=repeatPassword.value && myForm.controls['repeatPassword'].touched">-->
-                  <!--Passwords don't match-->
-                <!--</div>-->
-              <!--</div>-->
             <!--</div>-->
-            <!--<div class="form-row">-->
-              <!--<div class="form-group">-->
-                <!--<label>First name</label>-->
-                <!--<input type="text" class="form-control" id="inputFirstName" placeholder="Mike"-->
-                       <!--formControlName="userName"-->
-                       <!--name="userName" #name>-->
-                <!--<div class="alert alert-danger"-->
-                     <!--*ngIf="myForm.controls['userName'].invalid && myForm.controls['userName'].touched">-->
-                  <!--Incorrect name-->
-                <!--</div>-->
-                <!--<div class="alert alert-danger"-->
-                     <!--*ngIf="errorsMapCustomer['name'] != undefined">-->
-                  <!--Incorrect name-->
-                <!--</div>-->
-              <!--</div>-->
-              <!--<div class="form-group">-->
-                <!--<label>Last name</label>-->
-                <!--<input type="text" class="form-control" id="inputLastName" placeholder="Smith"-->
-                       <!--formControlName="userSurname"-->
-                       <!--name="userSurname" #surname>-->
-                <!--<div class="alert alert-danger"-->
-                     <!--*ngIf="myForm.controls['userSurname'].invalid && myForm.controls['userSurname'].touched">-->
-                  <!--Incorrect last name-->
-                <!--</div>-->
-                <!--<div class="alert alert-danger"-->
-                     <!--*ngIf="errorsMapCustomer['surname'] != undefined">-->
-                  <!--Incorrect last name-->
-                <!--</div>-->
-              <!--</div>-->
-            <!--</div>-->
-            <!--<div class="form-row">-->
-              <!--<div class="form-group">-->
-                <!--<label>Age</label>-->
-                <!--<select id="inputAge" class="form-control" #age>-->
-                  <!--<option *ngFor="let age of ageArray">{{age}}</option>-->
-                <!--</select>-->
-              <!--</div>-->
-            <!--</div>-->
-            <!--<button class="btn btn-primary" [disabled]="myForm.invalid" (click)="updatePersonalInf(password.value,-->
-      <!--name.value, surname.value, age.value)">Save-->
+            <!--<button class="btn btn-primary" [disabled]="myForm.invalid" (click)="submit(email.value, password.value,-->
+            <!--name.value, surname.value, age.value)">Create an account-->
             <!--</button>-->
-          <!--</form>-->
-        <!--</div>-->
+          </form>
+        </div>
       </tab>
 
       <!--waller-->
       <tab heading="My wallet">
 
-        <!--&lt;!&ndash;create walletByIdWallet &ndash;&gt;-->
-        <!--<div *ngIf="walletFlag == false">-->
-          <!--<div class="walletByIdWallet">-->
-            <!--<p align="center">-->
-              <!--Please, add you payment card</p>-->
-            <!--<form [formGroup]="walletForm">-->
-              <!--<div class="form-row">-->
-                <!--<div class="form-group">-->
-                  <!--<label for="cardNumber">Card number</label>-->
-                  <!--<input [textMask]="{mask: numberMask}" [(ngModel)]="myNumber" type="text" class="form-control"-->
-                         <!--formControlName="cardNumber"-->
-                         <!--id="cardNumber" #cardNumber>-->
-                  <!--<div class="alert alert-danger"-->
-                       <!--*ngIf="walletForm.controls['cardNumber'].invalid && walletForm.controls['cardNumber'].touched">-->
-                    <!--Incorrect card number-->
-                  <!--</div>-->
-                  <!--<div class="alert alert-danger"-->
-                       <!--*ngIf="errorsMapWallet['cardNumber'] != undefined">-->
-                    <!--{{errorsMapWallet['cardNumber']}}-->
-                  <!--</div>-->
-                <!--</div>-->
-              <!--</div>-->
-              <!--<div class="form-row">-->
-                <!--<div class="form-group">-->
-                  <!--<label for="cardDate">Expiration date</label>-->
-                  <!--<input [textMask]="{mask: dateMask}" [(ngModel)]="myDate" type="text" class="form-control"-->
-                         <!--placeholder="MM/YY"-->
-                         <!--formControlName="cardDate"-->
-                         <!--id="cardDate" #cardDate>-->
-                  <!--<div class="alert alert-danger"-->
-                       <!--*ngIf="walletForm.controls['cardDate'].invalid && walletForm.controls['cardDate'].touched">-->
-                    <!--Incorrect card date-->
-                  <!--</div>-->
-                  <!--<div class="alert alert-danger"-->
-                       <!--*ngIf="errorsMapWallet['cardDate'] != undefined">-->
-                    <!--{{errorsMapWallet['cardDate']}}-->
-                  <!--</div>-->
-                <!--</div>-->
-              <!--</div>-->
-              <!--<div class="form-row">-->
-                <!--<div class="form-group">-->
-                  <!--<label for="cardCvv">CVV Number</label>-->
-                  <!--<input [textMask]="{mask: cvvMask}" [(ngModel)]="myCvv" type="text" class="form-control"-->
-                         <!--formControlName="cardCvv"-->
-                         <!--id="cardCvv" #cardCvv>-->
-                  <!--<div class="alert alert-danger"-->
-                       <!--*ngIf="walletForm.controls['cardCvv'].invalid && walletForm.controls['cardCvv'].touched">-->
-                    <!--Incorrect CVV Number-->
-                  <!--</div>-->
-                  <!--<div class="alert alert-danger"-->
-                       <!--*ngIf="errorsMapWallet['cardCvv'] != undefined">-->
-                    <!--{{errorsMapWallet['cardCvv']}}-->
-                  <!--</div>-->
-                <!--</div>-->
-              <!--</div>-->
-              <!--<div class="form-row">-->
-                <!--<div class="form-group">-->
-                  <!--<label for="cardHolderName">Holder name</label>-->
-                  <!--<input type="text" class="form-control"-->
-                         <!--formControlName="cardHolderName"-->
-                         <!--id="cardHolderName" #cardHolderName>-->
-                  <!--<div class="alert alert-danger"-->
-                       <!--*ngIf="walletForm.controls['cardHolderName'].invalid && walletForm.controls['cardHolderName'].touched">-->
-                    <!--Incorrect card holder name-->
-                  <!--</div>-->
-                  <!--<div class="alert alert-danger"-->
-                       <!--*ngIf="errorsMapWallet['cardHolderName'] != undefined">-->
-                    <!--{{errorsMapWallet['cardHolderName']}}-->
-                  <!--</div>-->
-                  <!--<small id="emailHelp" class="form-text text-muted">In capital letters</small>-->
-                <!--</div>-->
-              <!--</div>-->
-              <!--<button class="btn btn-success" [disabled]="walletForm.invalid" (click)="saveWallet(cardNumber.value,-->
-      <!--cardDate.value, cardCvv.value, cardHolderName.value)">Save-->
-              <!--</button>-->
-            <!--</form>-->
-          <!--</div>-->
-        <!--</div>-->
+        <!--create walletByIdWallet -->
+        <div *ngIf="walletFlag == false">
+          <div class="wallet">
+            <p align="center">
+              Please, add you payment card</p>
+            <form [formGroup]="walletForm">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="cardNumber">Card number</label>
+                  <input [textMask]="{mask: numberMask}" [(ngModel)]="myNumber" type="text" class="form-control"
+                         formControlName="cardNumber"
+                         id="cardNumber" #cardNumber>
+                  <div class="alert alert-danger"
+                       *ngIf="walletForm.controls['cardNumber'].invalid && walletForm.controls['cardNumber'].touched">
+                    Incorrect card number
+                  </div>
+                  <div class="alert alert-danger"
+                       *ngIf="errorsMapWallet['cardNumber'] != undefined">
+                    {{errorsMapWallet['cardNumber']}}
+                  </div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="cardDate">Expiration date</label>
+                  <input [textMask]="{mask: dateMask}" [(ngModel)]="myDate" type="text" class="form-control"
+                         placeholder="MM/YY"
+                         formControlName="cardDate"
+                         id="cardDate" #cardDate>
+                  <div class="alert alert-danger"
+                       *ngIf="walletForm.controls['cardDate'].invalid && walletForm.controls['cardDate'].touched">
+                    Incorrect card date
+                  </div>
+                  <div class="alert alert-danger"
+                       *ngIf="errorsMapWallet['cardDate'] != undefined">
+                    {{errorsMapWallet['cardDate']}}
+                  </div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="cardCvv">CVV Number</label>
+                  <input [textMask]="{mask: cvvMask}" [(ngModel)]="myCvv" type="text" class="form-control"
+                         formControlName="cardCvv"
+                         id="cardCvv" #cardCvv>
+                  <div class="alert alert-danger"
+                       *ngIf="walletForm.controls['cardCvv'].invalid && walletForm.controls['cardCvv'].touched">
+                    Incorrect CVV Number
+                  </div>
+                  <div class="alert alert-danger"
+                       *ngIf="errorsMapWallet['cardCvvCode'] != undefined">
+                    {{errorsMapWallet['cardCvvCode']}}
+                  </div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="cardHolderName">Holder name</label>
+                  <input type="text" class="form-control"
+                         formControlName="cardHolderName"
+                         id="cardHolderName" #cardHolderName>
+                  <div class="alert alert-danger"
+                       *ngIf="walletForm.controls['cardHolderName'].invalid && walletForm.controls['cardHolderName'].touched">
+                    Incorrect card holder name
+                  </div>
+                  <div class="alert alert-danger"
+                       *ngIf="errorsMapWallet['personName'] != undefined">
+                    {{errorsMapWallet['personName']}}
+                  </div>
+                  <small id="emailHelp" class="form-text text-muted">In capital letters</small>
+                </div>
+              </div>
+              <button class="btn btn-success" [disabled]="walletForm.invalid" (click)="saveWallet(cardNumber.value,
+      cardDate.value, cardCvv.value, cardHolderName.value)">Save
+              </button>
+            </form>
+          </div>
+        </div>
 
-        <!--&lt;!&ndash;replenish walletByIdWallet &ndash;&gt;-->
-        <!--<div *ngIf="walletFlag == true">-->
-          <!--<div class="subscription-customer">-->
-            <!--<div class="subscription">-->
-              <!--<div class="picture">-->
-                <!--<img src="../../../../../assets/footer-photos/Credit-cards.jpg">-->
-              <!--</div>-->
-              <!--<div class="text">-->
-                <!--<b>Your payment card</b>-->
-                <!--<br>-->
-                <!--{{hiddenCardNumber}}-->
-                <!--<br>-->
-                <!--{{cardDateString}}-->
-              <!--</div>-->
-              <!--<div class="button">-->
-                <!--<button type="button" class="btn btn-danger"-->
-                        <!--(click)="deleteCard()">Delete card-->
-                <!--</button>-->
-              <!--</div>-->
-            <!--</div>-->
-          <!--</div>-->
+        <!--replenish walletByIdWallet -->
+        <div *ngIf="walletFlag == true">
+          <div class="subscription-company">
+            <div class="subscription">
+              <div class="picture">
+                <img src="../../../../../assets/footer-photos/Credit-cards.jpg">
+              </div>
+              <div class="text">
+                <b>Your payment card</b>
+                <br>
+                {{hiddenCardNumber}}
+                <br>
+                {{cardDateString}}
+              </div>
+              <div class="button">
+                <button type="button" class="btn btn-danger"
+                        (click)="deleteCard()">Delete card
+                </button>
+              </div>
+            </div>
+          </div>
           <!--<div class="replenish">-->
-            <!--<p align="center">-->
-              <!--Replenish balance-->
-            <!--</p>-->
-            <!--<form [formGroup]="replenishForm">-->
-              <!--<div class="form-row">-->
-                <!--<div class="form-group">-->
-                  <!--<label for="number">Enter recharge amount</label>-->
-                  <!--<input type="text" class="form-control"-->
-                         <!--formControlName="number"-->
-                         <!--id="number" #number> $-->
-                  <!--<div class="alert alert-danger"-->
-                       <!--*ngIf="replenishForm.controls['number'].invalid  && replenishForm.controls['number'].touched">-->
-                    <!--Incorrect number-->
-                  <!--</div>-->
-                  <!--<div class="alert alert-danger"-->
-                       <!--*ngIf="errorsMapReplenishWallet['number'] != undefined">-->
-                    <!--{{errorsMapReplenishWallet['number']}}-->
-                  <!--</div>-->
-                <!--</div>-->
-              <!--</div>-->
-              <!--<button class="btn btn-success" [disabled]="replenishForm.invalid"-->
-                      <!--(click)="replenishCard(number.value)">-->
-                <!--Replenish-->
-              <!--</button>-->
-            <!--</form>-->
+          <!--<p align="center">-->
+          <!--Replenish balance-->
+          <!--</p>-->
+          <!--<form [formGroup]="replenishForm">-->
+          <!--<div class="form-row">-->
+          <!--<div class="form-group">-->
+          <!--<label for="number">Enter recharge amount</label>-->
+          <!--<input type="text" class="form-control"-->
+          <!--formControlName="number"-->
+          <!--id="number" #number> $-->
+          <!--<div class="alert alert-danger"-->
+          <!--*ngIf="replenishForm.controls['number'].invalid  && replenishForm.controls['number'].touched">-->
+          <!--Incorrect number-->
           <!--</div>-->
-        <!--</div>-->
+          <!--<div class="alert alert-danger"-->
+          <!--*ngIf="errorsMapReplenishWallet['number'] != undefined">-->
+          <!--{{errorsMapReplenishWallet['number']}}-->
+          <!--</div>-->
+          <!--</div>-->
+          <!--</div>-->
+          <!--<button class="btn btn-success" [disabled]="replenishForm.invalid"-->
+          <!--(click)="replenishCard(number.value)">-->
+          <!--Replenish-->
+          <!--</button>-->
+          <!--</form>-->
+          <!--</div>-->
+        </div>
       </tab>
 
 

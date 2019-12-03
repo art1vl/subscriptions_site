@@ -8,21 +8,31 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
-
+    @Autowired
     private CustomerRepository repository;
 
-    @Autowired
-    public CustomerServiceImpl(CustomerRepository repository) {
-        this.repository = repository;
+//    @Autowired
+//    public CustomerServiceImpl(CustomerRepository repository) {
+//        this.repository = repository;
+//    }
+
+    @Override
+    public CustomerEntity findCustomerByLogInInfId(int logInInfId) {
+        return repository.findByLogInInfIdLogInInf(logInInfId);
     }
 
     @Override
-    public CustomerEntity getCustomerByLogInInfId (int logInInfId) {
-        return repository.findCustomerByLogInInfId(logInInfId);
+    public CustomerEntity findCustomerById(int customerId) {
+        return repository.findByIdCustomer(customerId);
     }
 
     @Override
     public CustomerEntity updateCustomer(CustomerEntity customerEntity) {
+        return repository.save(customerEntity);
+    }
+
+    @Override
+    public CustomerEntity saveCustomerWallet(CustomerEntity customerEntity) {
         return repository.save(customerEntity);
     }
 

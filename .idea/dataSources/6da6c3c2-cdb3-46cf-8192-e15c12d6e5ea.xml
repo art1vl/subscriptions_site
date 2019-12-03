@@ -1281,7 +1281,6 @@
       <RefTableName>wallet</RefTableName>
       <RefColNames>id_wallet</RefColNames>
       <OnUpdate>cascade</OnUpdate>
-      <OnDelete>cascade</OnDelete>
     </foreign-key>
     <column id="316" parent="281" name="id_log_in_inf">
       <Position>1</Position>
@@ -1362,7 +1361,7 @@
     </column>
     <column id="330" parent="282" name="realise_date">
       <Position>5</Position>
-      <DataType>datetime|0s</DataType>
+      <DataType>date|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
@@ -1381,7 +1380,6 @@
     <column id="333" parent="282" name="image">
       <Position>8</Position>
       <DataType>varchar(250)|0s</DataType>
-      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="334" parent="282" name="product_name">
@@ -1484,7 +1482,7 @@
     </column>
     <column id="352" parent="284" name="start_subscript_date">
       <Position>4</Position>
-      <DataType>datetime|0s</DataType>
+      <DataType>date|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
@@ -1552,12 +1550,12 @@
     </column>
     <column id="364" parent="285" name="card_number">
       <Position>3</Position>
-      <DataType>int(16)|0s</DataType>
+      <DataType>bigint(16)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="365" parent="285" name="card_date">
       <Position>4</Position>
-      <DataType>datetime|0s</DataType>
+      <DataType>date|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="366" parent="285" name="card_cvv_code">

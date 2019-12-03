@@ -4,10 +4,24 @@ import com.artsykov.fapi.entity.CustomerEntity;
 import com.artsykov.fapi.entity.LogInInfEntity;
 import com.artsykov.fapi.entity.RoleEnum;
 import com.artsykov.fapi.models.CustomerModel;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
+@Component
 public class CustomerConverter {
 
-    public static CustomerEntity convertFromFrontToBack(CustomerModel customerModel) {
+    //    public CustomerModel[] convertFromBackToFrontArray(CustomerEntity[] customerEntities) {
+//        CustomerModel[] customerModels = new CustomerModel[customerEntities.length];
+//        for (int i = 0; i < customerModels.length; i++) {
+//            customerModels[i] = this.convertFromBackToFront(customerEntities[i]);
+//        }
+//        return customerModels;
+//    }
+    @Value("${backend.server.url}")
+    private String backendServerUrl;
+
+    public CustomerEntity convertFromFrontToBack(CustomerModel customerModel) {
         if (customerModel != null) {
             CustomerEntity customerEntity = new CustomerEntity();
             if (customerModel.getId() != 0) {
@@ -22,35 +36,37 @@ public class CustomerConverter {
                 customerEntity.setIsActive((byte) 0);
             }
             customerEntity.setWalletByIdWallet(customerModel.getWallet());
-            LogInInfEntity logInInfEntity = new LogInInfEntity();
             if (customerModel.getIdLogInInf() != 0) {
-                logInInfEntity.setIdLogInInf(customerModel.getIdLogInInf());
+                RestTemplate restTemplate = new RestTemplate();
+                CustomerEntity customerEntity1 = restTemplate.getForObject(backendServerUrl + "/api/customer/" + customerModel.getId(), CustomerEntity.class);
+                customerEntity.setLogInInf(customerEntity1.getLogInInf());
             }
-            logInInfEntity.setEmail(customerModel.getEmail());
-            logInInfEntity.setPassword(customerModel.getPassword());
-            logInInfEntity.setRole(RoleEnum.CUSTOMER);
-            customerEntity.setLogInInfByLogInInf(logInInfEntity);
+            else {
+                LogInInfEntity logInInfEntity = new LogInInfEntity();
+                logInInfEntity.setEmail(customerModel.getEmail());
+                logInInfEntity.setRole(RoleEnum.CUSTOMER);
+                logInInfEntity.setPassword(customerModel.getPassword());
+                customerEntity.setLogInInf(logInInfEntity);
+            }
             return customerEntity;
-        } else {
-            return null;
         }
+        return null;
     }
 
-    public static CustomerModel convertFromBackToFront(CustomerEntity customerEntity) {
+    public CustomerModel convertFromBackToFront(CustomerEntity customerEntity) {
         if (customerEntity != null) {
             CustomerModel customerModel = new CustomerModel();
             customerModel.setId(customerEntity.getIdCustomer());
             customerModel.setAge(customerEntity.getAge());
-            customerModel.setEmail(customerEntity.getLogInInfByLogInInf().getEmail());
+            customerModel.setEmail(customerEntity.getLogInInf().getEmail());
             customerModel.setName(customerEntity.getName());
             customerModel.setSurname(customerEntity.getSurname());
             customerModel.setPassword(null);
             customerModel.setWallet(customerEntity.getWalletByIdWallet());
             customerModel.setIsActive(customerEntity.getIsActive());
-            customerModel.setIdLogInInf(customerEntity.getLogInInfByLogInInf().getIdLogInInf());
+            customerModel.setIdLogInInf(customerEntity.getLogInInf().getIdLogInInf());
             return customerModel;
-        } else {
-            return null;
         }
+        return null;
     }
 }

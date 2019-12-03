@@ -1,7 +1,7 @@
 package com.artsykov.backend.entity;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -10,7 +10,7 @@ public class WalletEntity {
     private int idWallet;
     private int balance;
     private long cardNumber;
-    private LocalDate cardDate;
+    private Date cardDate;
     private int cardCvvCode;
     private String personName;
 //    private Collection<CompanyEntity> companiesByIdWallet;
@@ -18,6 +18,7 @@ public class WalletEntity {
 
     @Id
     @Column(name = "id_wallet")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getIdWallet() {
         return idWallet;
     }
@@ -48,11 +49,11 @@ public class WalletEntity {
 
     @Basic
     @Column(name = "card_date", columnDefinition = "TIMESTAMP")
-    public LocalDate getCardDate() {
+    public Date getCardDate() {
         return cardDate;
     }
 
-    public void setCardDate(LocalDate cartDate) {
+    public void setCardDate(Date cartDate) {
         this.cardDate = cartDate;
     }
 

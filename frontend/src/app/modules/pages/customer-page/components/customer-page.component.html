@@ -6,7 +6,7 @@
   </div>
   <div class="form-group col-md-2">
     <div class="balance">
-      <button type="button" class="btn btn-primary btn-sm" (click)="selectTab(3)">
+      <button type="button" class="btn btn-primary btn-sm" (click)="selectTab(2)">
         <div *ngIf="customer?.wallet == null"><h4>balance: 0$</h4></div>
         <div *ngIf="customer?.wallet != null"><h4>balance: {{customer?.wallet.balance}}$</h4></div>
       </button>
@@ -30,7 +30,7 @@
                   every week cost: {{subscription?.product.cost}}$
                 </div>
                 <div class="button">
-                  <a href="product/{{subscription?.product.id}}">
+                  <a routerLink="/catalog/product/{{subscription?.product.id}}">
                     <button type="button" class="btn btn-info">Read more</button>
                   </a>
                   &nbsp; &nbsp; &nbsp; &nbsp;
@@ -101,11 +101,7 @@
                 </div>
                 <div class="alert alert-danger"
                      *ngIf="errorsMapCustomer['password'] != undefined">
-                  Incorrect password
-                </div>
-                <div class="alert alert-danger"
-                     *ngIf="errorsMapCustomer['password'] != undefined">
-                  Incorrect password
+                  {{errorsMapCustomer['password']}}
                 </div>
                 <small id="passwordHelp" class="form-text text-muted">Password should contain at least 8 characters.
                 </small>
@@ -134,7 +130,7 @@
                 </div>
                 <div class="alert alert-danger"
                      *ngIf="errorsMapCustomer['name'] != undefined">
-                  Incorrect name
+                  {{errorsMapCustomer['name']}}
                 </div>
               </div>
               <div class="form-group">
@@ -148,7 +144,7 @@
                 </div>
                 <div class="alert alert-danger"
                      *ngIf="errorsMapCustomer['surname'] != undefined">
-                  Incorrect last name
+                  {{errorsMapCustomer['surname']}}
                 </div>
               </div>
             </div>
@@ -187,7 +183,7 @@
                     Incorrect card number
                   </div>
                   <div class="alert alert-danger"
-                       *ngIf="errorsMapWallet['cardNumber'] != undefined">
+                       *ngIf="errorsMapWallet && errorsMapWallet['cardNumber'] != undefined">
                     {{errorsMapWallet['cardNumber']}}
                   </div>
                 </div>
@@ -204,7 +200,7 @@
                     Incorrect card date
                   </div>
                   <div class="alert alert-danger"
-                       *ngIf="errorsMapWallet['cardDate'] != undefined">
+                       *ngIf="errorsMapWallet && errorsMapWallet['cardDate'] != undefined">
                     {{errorsMapWallet['cardDate']}}
                   </div>
                 </div>
@@ -220,8 +216,8 @@
                     Incorrect CVV Number
                   </div>
                   <div class="alert alert-danger"
-                       *ngIf="errorsMapWallet['cardCvv'] != undefined">
-                    {{errorsMapWallet['cardCvv']}}
+                       *ngIf="errorsMapWallet && errorsMapWallet['cardCvvCode'] != undefined">
+                    {{errorsMapWallet['cardCvvCode']}}
                   </div>
                 </div>
               </div>
@@ -236,10 +232,10 @@
                     Incorrect card holder name
                   </div>
                   <div class="alert alert-danger"
-                       *ngIf="errorsMapWallet['cardHolderName'] != undefined">
-                    {{errorsMapWallet['cardHolderName']}}
+                       *ngIf="errorsMapWallet && errorsMapWallet['personName'] != undefined">
+                    {{errorsMapWallet['personName']}}
                   </div>
-                  <small id="emailHelp" class="form-text text-muted">In capital letters</small>
+                  <small class="form-text text-muted">In capital letters</small>
                 </div>
               </div>
               <button class="btn btn-success" [disabled]="walletForm.invalid" (click)="saveWallet(cardNumber.value,

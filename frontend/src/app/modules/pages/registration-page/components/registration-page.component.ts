@@ -1,15 +1,16 @@
-import { Component, OnInit } from "@angular/core";
+import {Component, OnDestroy, OnInit} from "@angular/core";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {CustomerServiceImpl} from "../../../../services/impl/customer.service.impl";
 import {Subscription} from "rxjs";
 import {customerModel} from "../../../models/customerModel";
+import {Router} from "@angular/router";
 
 @Component({
   selector: "app-registration-page",
   templateUrl: "./registration-page.component.html",
   styleUrls: ["./registration-page.component.css"]
 })
-export class RegistrationPageComponent implements OnInit {
+export class RegistrationPageComponent implements OnInit, OnDestroy {
   ageArray: number[] = [];
   customer: customerModel;
   myForm : FormGroup;
@@ -17,9 +18,34 @@ export class RegistrationPageComponent implements OnInit {
 
   private subscriptions: Subscription[] = [];
 
-  constructor(private customerServiceImpl: CustomerServiceImpl){
-    this.myForm = new FormGroup({
+  constructor(private customerServiceImpl: CustomerServiceImpl,
+              private router: Router){}
 
+  submit(email: string, password: string, name: string, surname: string, age: number): void{
+    this.customer = new customerModel();
+    this.customer.email = email;
+    this.customer.password = password;
+    this.customer.name = name;
+    this.customer.surname = surname;
+    this.customer.age = age;
+    this.customer.isActive = 1;
+    this.subscriptions.push(this.customerServiceImpl.checkAndSaveCustomer(this.customer).subscribe(registeredCustomer => {
+      if (registeredCustomer.errors == null) {
+        this.customerServiceImpl.customer = registeredCustomer.customerModel as customerModel;
+        this.errors.clear();
+        this.router.navigate(["/customer"]);
+      }
+      else {
+        this.errors = registeredCustomer.errors;
+      }
+    }));
+  }
+
+  ngOnInit() {
+    for (let i = 18; i < 101; i++) {
+      this.ageArray.push(i);
+    }
+    this.myForm = new FormGroup({
       "email": new FormControl("", [
         Validators.required,
         Validators.email
@@ -45,31 +71,7 @@ export class RegistrationPageComponent implements OnInit {
     }, );
   }
 
-  submit(email: string, password: string, name: string, surname: string, age: number): void{
-    this.customer = new customerModel();
-    this.customer.email = email;
-    this.customer.password = password;
-    this.customer.name = name;
-    this.customer.surname = surname;
-    this.customer.age = age;
-    this.customer.isActive = 1;
-    this.subscriptions.push(this.customerServiceImpl.checkAndSaveCustomer(this.customer).subscribe(registeredCustomer => {
-      // Parse json response into local array
-      if (registeredCustomer.errors == null) {
-        this.customerServiceImpl.customer = registeredCustomer.customerModel as customerModel;
-        this.errors = null;
-        // Check data in console
-        console.log(this.customer);// don't use console.log in angular :)
-      }
-      else {
-        this.errors = registeredCustomer.errors;
-      }
-    }));
-  }
-
-  ngOnInit() {
-    for (let i = 18; i < 101; i++) {
-      this.ageArray.push(i);
-    }
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 }
