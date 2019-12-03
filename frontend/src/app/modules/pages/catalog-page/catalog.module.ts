@@ -6,6 +6,7 @@ import {ProductModule} from "./product/product.module";
 import {CommonModule} from "@angular/common";
 import {ProductServiceImpl} from "../../../services/impl/product.service.impl";
 import {ReactiveFormsModule} from "@angular/forms";
+import {ProductTypeServiceImpl} from "../../../services/impl/productType.service.impl";
 
 @NgModule({
   declarations: [
@@ -18,7 +19,10 @@ import {ReactiveFormsModule} from "@angular/forms";
     CommonModule,
     ReactiveFormsModule
   ],
-  providers: [ProductServiceImpl],
+  providers: [
+    ProductServiceImpl,
+    ProductTypeServiceImpl
+  ],
   exports: [CatalogComponent]
 })
 export class CatalogModule {}

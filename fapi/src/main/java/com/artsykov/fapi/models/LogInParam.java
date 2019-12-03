@@ -8,7 +8,6 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
 @Data
-@Component
 public class LogInParam {
 
     @NotEmpty(message = "Email is required")

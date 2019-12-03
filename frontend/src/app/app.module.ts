@@ -29,6 +29,8 @@ import {CustomerServiceImpl} from "./services/impl/customer.service.impl";
 import {FooterModule} from "./modules/footer/footer.module";
 import {CompanyPageComponent} from "./modules/pages/company-page/components/company-page.component";
 import {AdminPageComponent} from "./modules/pages/admin-page/components/admin-page.component";
+import {WalletServiceImpl} from "./services/impl/wallet-service-impl.service";
+import {ProductServiceImpl} from "./services/impl/product.service.impl";
 
 const appRoutes: Routes = [
   {path: "", component: HomeComponent},
@@ -62,7 +64,6 @@ const appRoutes: Routes = [
     FooterModule,
     CatalogModule,
     HttpClientModule,
-    // Ng2BootstrapModule,
     Ng4LoadingSpinnerModule.forRoot(),
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
@@ -71,7 +72,9 @@ const appRoutes: Routes = [
   ],
   providers: [
     CustomerServiceImpl,
-    HttpClient
+    HttpClient,
+    WalletServiceImpl,
+    ProductServiceImpl
   ],
   bootstrap: [AppComponent]
 })

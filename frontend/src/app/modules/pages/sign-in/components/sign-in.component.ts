@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import {Component, OnDestroy, OnInit} from "@angular/core";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Subscription} from "rxjs";
 import {Router} from "@angular/router";
@@ -15,7 +15,7 @@ import {LogInInfServiceImpl} from "../../../../services/impl/logInInf.service.im
   templateUrl: "./sign-in.component.html",
   styleUrls: ["./sign-in.component.css"]
 })
-export class SignInComponent implements OnInit {
+export class SignInComponent implements OnInit, OnDestroy {
   myForm : FormGroup;
   customer: customerModel;
   errorsMap: Map<string, string> = new Map<string, string>();
@@ -27,17 +27,6 @@ export class SignInComponent implements OnInit {
               private customerService: CustomerServiceImpl,
               private companyService: CompanyServiceImpl,
               private adminService: AdminServiceImpl){
-    this.myForm = new FormGroup({
-
-      "userEmail": new FormControl("", [
-        // Validators.required,
-        // Validators.email
-      ]),
-      "userPassword": new FormControl("", [
-        // Validators.required,
-        // Validators.minLength(8)
-      ])
-    });
   }
 
   submit(email: string, password: string){
@@ -46,8 +35,8 @@ export class SignInComponent implements OnInit {
         this.customerService.customer = user.customerModel as customerModel;
         this.companyService.company = user.companyModel as companyModel;
         this.adminService.admin = user.adminModel as adminModel;
-        this.router.navigateByUrl("/");
-        this.errorsMap = null;
+        this.router.navigate(["/"]);
+        this.errorsMap.clear();
       }
       else {
         this.errorsMap = user.errors;
@@ -57,5 +46,20 @@ export class SignInComponent implements OnInit {
 
   ngOnInit() {
     this.customer = this.customerService.customer;
+    this.myForm = new FormGroup({
+
+      "userEmail": new FormControl("", [
+        Validators.required,
+        Validators.email
+      ]),
+      "userPassword": new FormControl("", [
+        Validators.required,
+        Validators.minLength(8)
+      ])
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 }

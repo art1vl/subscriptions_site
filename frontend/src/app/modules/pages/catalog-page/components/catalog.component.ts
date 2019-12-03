@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ProductModel} from "../../../models/productModel";
 import {Subscription} from "rxjs";
 import {ProductServiceImpl} from "../../../../services/impl/product.service.impl";
@@ -6,6 +6,8 @@ import {Ng4LoadingSpinnerService} from "ng4-loading-spinner";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {CustomerServiceImpl} from "../../../../services/impl/customer.service.impl";
 import {customerModel} from "../../../models/customerModel";
+import {ProductTypeServiceImpl} from "../../../../services/impl/productType.service.impl";
+import {ProductTypeModel} from "../../../models/productTypeModel";
 //import { Location } from '@angular/common';
 
 @Component({
@@ -13,8 +15,8 @@ import {customerModel} from "../../../models/customerModel";
   templateUrl: "./catalog.component.html",
   styleUrls: ["./catalog.component.css"]
 })
-export class CatalogComponent implements OnInit {
-  typeArray: String[] = [];
+export class CatalogComponent implements OnInit, OnDestroy {
+  typeArray: ProductTypeModel[];
   products: ProductModel[];
   searchForm: FormGroup;
   customer: customerModel;
@@ -25,12 +27,8 @@ export class CatalogComponent implements OnInit {
              // private location: Location,
               //this.location.replaceState("/sign_in");
               private loadingService: Ng4LoadingSpinnerService,
-              private customerServiceImpl: CustomerServiceImpl) {
-    this.searchForm = new FormGroup({
-
-      "productName": new FormControl("", [
-        Validators.pattern('^[0-9a-zA-Z]+$'),
-      ])})
+              private customerServiceImpl: CustomerServiceImpl,
+              private productTypeService: ProductTypeServiceImpl) {
   }
 
   // Calls on component init
@@ -38,15 +36,20 @@ export class CatalogComponent implements OnInit {
     this.loadProduct();
     this.getProductTypes();
     this.customer = this.customerServiceImpl.customer;
+    this.searchForm = new FormGroup({
+
+      "productName": new FormControl("", [
+        Validators.pattern('^[0-9a-zA-Z]+$'),
+      ])})
   }
 
   private getProductTypes(): void{
-    this.subscriptions.push(this.ProductService.findProductTypes().subscribe(types => {
+    this.subscriptions.push(this.productTypeService.findTypes().subscribe(types => {
       // Parse json response into local array
-      this.typeArray = types as String[];
+      this.typeArray = types as ProductTypeModel[];
       // Check data in console
     //  console.log(this.products);// don't use console.log in angular :)
-      this.loadingService.hide();
+    //   this.loadingService.hide();
     }));
   }
 
@@ -62,4 +65,7 @@ export class CatalogComponent implements OnInit {
     }));
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+  }
 }

@@ -15,7 +15,7 @@
         {{product?.description}}
         <br>
         <br>
-        <b>Developed by:</b> {{product?.company}}
+        <b>Developed by:</b> {{product?.companyName}}
         <br>
         <b>Realised date:</b> {{formatDate}}
         <br>
@@ -23,7 +23,7 @@
       <div class="block-cost">
         <b>Every week cost:</b> {{product?.cost}}$ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-        <button type="button" class="btn btn-primary" (click)="subscribe()">Subscribe</button>
+        <button *ngIf="company == null && admin == null" type="button" class="btn btn-primary" (click)="subscribe()">Subscribe</button>
       </div>
     </div>
   </div>

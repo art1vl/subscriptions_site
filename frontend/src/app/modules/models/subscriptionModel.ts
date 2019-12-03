@@ -5,7 +5,7 @@ export class subscriptionModel {
   product: ProductModel;
   idCustomer: number;
   startSubscriptionDate: Date;
-  active: boolean;
+  isActive: number;
 
   static cloneBase(subscription: subscriptionModel): subscriptionModel {
     const clonedSubscription: subscriptionModel = new subscriptionModel();
@@ -13,7 +13,7 @@ export class subscriptionModel {
     clonedSubscription.product = subscription.product;
     clonedSubscription.idCustomer = subscription.idCustomer;
     clonedSubscription.startSubscriptionDate = subscription.startSubscriptionDate;
-    clonedSubscription.active = subscription.active;
+    clonedSubscription.isActive = subscription.isActive;
     return clonedSubscription;
   }
 }

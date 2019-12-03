@@ -8,7 +8,11 @@ public interface CustomerDataService {
 
     CustomerModel findCustomerById(Long idCustomer);
 
+    CustomerModel[] findAll();
+
    // CustomerOrErrorsModel findCustomerByEmail(String email, String password);
 
-    CustomerOrErrorsModel updateCustomerPersonalInf(CustomerModel customerModel);
+    void updateCustomerPersonalInf(CustomerModel customerModel);
+
+    CustomerModel saveCustomerWallet(CustomerModel customerModel);
 }

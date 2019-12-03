@@ -5,67 +5,113 @@
     </div>
   </div>
   <!--<div class="form-group col-md-2">-->
-    <!--<div class="balance">-->
-    <!--<button type="button" class="btn btn-primary btn-sm" (click)="selectTab(3)">-->
-    <!--<div *ngIf="customer?.walletByIdWallet == null"><h4>balance: 0$</h4></div>-->
-    <!--<div *ngIf="customer?.walletByIdWallet != null"><h4>balance: {{customer?.walletByIdWallet.balance}}$</h4></div>-->
-    <!--</button>-->
-    <!--</div>-->
+  <!--<div class="balance">-->
+  <!--<button type="button" class="btn btn-primary btn-sm" (click)="selectTab(3)">-->
+  <!--<div *ngIf="customer?.walletByIdWallet == null"><h4>balance: 0$</h4></div>-->
+  <!--<div *ngIf="customer?.walletByIdWallet != null"><h4>balance: {{customer?.walletByIdWallet.balance}}$</h4></div>-->
+  <!--</button>-->
+  <!--</div>-->
   <!--</div>-->
 </div>
 <div class="taba">
   <div>
     <tabset #staticTabs>
 
-      <!--All subscriptions -->
-      <tab heading="All subscriptions">
-          <div *ngIf="subscriptionsModel != null">
-            <div *ngFor="let subscription of subscriptionsModel">
-              <div class="subscription-all">
-                <div class="subscription">
-                  <div class="picture">
-                    <img src="{{subscription?.product.image}}">
-                  </div>
-                  <div class="text">
-                    {{subscription?.product.productName}}
-                    <br>
-                    every week cost: {{subscription?.product.cost}}$
-                  </div>
-                  <div class="button">
-                    <a href="product/{{subscription?.product.id}}">
-                      <button type="button" class="btn btn-info">Read more</button>
-                    </a>
-                    &nbsp; &nbsp; &nbsp; &nbsp;
-                    <button type="button" class="btn btn-danger"
-                            (click)="unsubscribe(subscription.id, subscription.idCustomer)">Block
-                    </button>
-                  </div>
+      <!--All products -->
+      <tab heading="All products">
+        <div *ngIf="productModel.length != 0">
+          <div *ngFor="let product of productModel">
+            <div class="subscription-all">
+              <div class="subscription">
+                <div class="picture">
+                  <img src="{{product?.image}}">
+                </div>
+                <div class="text">
+                  {{product?.productName}}
+                  <br>
+                  every week cost: {{product?.cost}}$
+                </div>
+                <div class="button">
+                  <a routerLink="product/{{product?.id}}">
+                    <button type="button" class="btn btn-info">Read more</button>
+                  </a>
+                  &nbsp; &nbsp; &nbsp; &nbsp;
+                  <button *ngIf="product.isActive == 1" type="button" class="btn btn-danger"
+                          (click)="blockOrUnblockProduct(product, 0)">Block
+                  </button>
+                  <button *ngIf="product.isActive == 0" type="button" class="btn btn-danger"
+                          (click)="blockOrUnblockProduct(product, 1)">Unblock
+                  </button>
                 </div>
               </div>
             </div>
           </div>
-          <div *ngIf="subscriptionsModel == null">
-            <p align="center">
-            <h3>The list of subscriptions is empty</h3>
-          </div>
+        </div>
+        <div *ngIf="productModel.length == 0">
+          <p align="center">
+          <h3>The list of subscriptions is empty</h3>
+        </div>
       </tab>
 
       <!--All companies-->
       <tab heading="All companies">
-        <div class="company-customer">
-
+        <div *ngIf="companyModel.length == 0">
+          <p align="center">
+          <h3>The list of companies is empty</h3>
+        </div>
+        <div *ngIf="companyModel.length != 0">
+          <div *ngFor="let company of companyModel">
+            <div class="company-customer">
+              <div class="company-customer-text">
+                {{company.name}}
+              </div>
+            </div>
+            <div class="company-customer-button">
+              <button *ngIf="company.isActive == 1" type="button" class="btn btn-danger"
+                      (click)="blockOrUnblockCompany(company, 0)">Block
+              </button>
+              <button *ngIf="company.isActive == 0" type="button" class="btn btn-danger"
+                      (click)="blockOrUnblockCompany(company, 1)">Unblock
+              </button>
+            </div>
+          </div>
         </div>
       </tab>
 
-      <tab heading="All customers"></tab>
+      <tab heading="All customers">
+        <div *ngIf="customerModel.length == 0">
+          <p align="center">
+          <h3>The list of customers is empty</h3>
+        </div>
+        <div *ngIf="customerModel.length != 0">
+          <div *ngFor="let customer of customerModel">
+            <div class="company-customer">
+              <div class="company-customer-text">
+                {{customer.surname}} {{customer.name}}
+                <br>
+                Age: {{customer.age}}
+              </div>
+            </div>
+            <div class="company-customer-button">
+              <button *ngIf="customer.isActive == 1" type="button" class="btn btn-danger"
+                      (click)="blockOrUnblockCustomer(customer, 0)">Block
+              </button>
+              <button *ngIf="customer.isActive == 0" type="button" class="btn btn-danger"
+                      (click)="blockOrUnblockCustomer(customer, 1)">Unblock
+              </button>
+            </div>
+          </div>
+        </div>
+      </tab>
 
       <!-- Create company account-->
-      <tab heading="Create company account">
+      <tab heading="Create a company account">
         <div class="company-account">
           <form [formGroup]="myForm">
             <div class="alert alert-success"
                  *ngIf="companyCreatedFlag == true">
               Account was created
+              <br>
               <button type="button" class="btn btn-success" (click)="changeCompanyCreatedFlag()">Got it</button>
             </div>
             <div class="form-row">
@@ -79,7 +125,7 @@
                 </div>
                 <div class="alert alert-danger"
                      *ngIf="errorsMapCompany['email'] != undefined">
-                  Incorrect email
+                  {{errorsMapCompany['email']}}
                 </div>
               </div>
             </div>
@@ -94,7 +140,7 @@
                 </div>
                 <div class="alert alert-danger"
                      *ngIf="errorsMapCompany['password'] != undefined">
-                  Incorrect password
+                  {{errorsMapCompany['password']}}
                 </div>
                 <small id="passwordHelp" class="form-text text-muted">Password should contain at least 8 characters.
                 </small>
@@ -122,8 +168,8 @@
                   Incorrect company name
                 </div>
                 <div class="alert alert-danger"
-                     *ngIf="errorsMapCompany['companyName'] != undefined">
-                  Incorrect company name
+                     *ngIf="errorsMapCompany['name'] != undefined">
+                  {{errorsMapCompany['name']}}
                 </div>
               </div>
             </div>
@@ -133,7 +179,6 @@
           </form>
         </div>
       </tab>
-
 
 
     </tabset>

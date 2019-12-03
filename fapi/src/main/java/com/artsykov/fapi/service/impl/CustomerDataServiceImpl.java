@@ -1,7 +1,9 @@
 package com.artsykov.fapi.service.impl;
 
 import com.artsykov.fapi.converter.CustomerConverter;
+import com.artsykov.fapi.converter.WalletConverter;
 import com.artsykov.fapi.entity.CustomerEntity;
+import com.artsykov.fapi.entity.WalletEntity;
 import com.artsykov.fapi.validator.CustomerValidator;
 import com.artsykov.fapi.models.CustomerModel;
 import com.artsykov.fapi.models.CustomerOrErrorsModel;
@@ -13,30 +15,49 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class CustomerDataServiceImpl implements CustomerDataService {
+    private CustomerConverter customerConverter;
 
     @Value("${backend.server.url}")
     private String backendServerUrl;
 
     @Autowired
-    CustomerValidator customerValidator;
+    WalletConverter walletConverter;
+
+    @Autowired
+    public CustomerDataServiceImpl(CustomerConverter customerConverter) {
+        this.customerConverter = customerConverter;
+    }
+
+    //todo
+    @Override
+    public CustomerModel[] findAll() {
+        RestTemplate restTemplate = new RestTemplate();
+        return new CustomerModel[11];
+    }
 
     @Override
     public CustomerModel checkAndSaveCustomer(CustomerModel customer) {
-//        Errors errors = new ValidationErrors();
-//                customerValidator.validate(customer, );
-        if (isCustomerValid(customer)) {
-            RestTemplate restTemplate = new RestTemplate();
-            CustomerEntity customerEntity = CustomerConverter.convertFromFrontToBack(customer);
-            return CustomerConverter.convertFromBackToFront(restTemplate.postForEntity(backendServerUrl + "/api/customer",
-                    customerEntity, CustomerEntity.class).getBody());
-        }
-        return null;
+        RestTemplate restTemplate = new RestTemplate();
+        CustomerEntity customerEntity = customerConverter.convertFromFrontToBack(customer);
+        return customerConverter.convertFromBackToFront(restTemplate.postForEntity(backendServerUrl + "/api/customer",
+                customerEntity, CustomerEntity.class).getBody());
+
+    }
+
+    @Override
+    public CustomerModel saveCustomerWallet(CustomerModel customerModel) {
+        RestTemplate restTemplate = new RestTemplate();
+        CustomerEntity customerEntity = customerConverter.convertFromFrontToBack(customerModel);
+        WalletEntity walletEntity = customerEntity.getWalletByIdWallet();
+        walletEntity = restTemplate.postForEntity(backendServerUrl + "/api/wallet", walletEntity, WalletEntity.class).getBody();
+        customerEntity.setWalletByIdWallet(walletEntity);
+        return customerConverter.convertFromBackToFront(restTemplate.postForEntity(backendServerUrl + "/api/customer/wallet", customerEntity, CustomerEntity.class).getBody());
     }
 
     @Override
     public CustomerModel findCustomerById(Long idCustomer) {
         RestTemplate restTemplate = new RestTemplate();
-        return CustomerConverter.convertFromBackToFront(restTemplate.getForObject(backendServerUrl + "/api/customer/" + idCustomer, CustomerEntity.class));
+        return customerConverter.convertFromBackToFront(restTemplate.getForObject(backendServerUrl + "/api/customer/" + idCustomer, CustomerEntity.class));
     }
 
 //    @Override
@@ -64,11 +85,9 @@ public class CustomerDataServiceImpl implements CustomerDataService {
 //    }
 
     @Override
-    public CustomerOrErrorsModel updateCustomerPersonalInf(CustomerModel customerModel) {
-        CustomerOrErrorsModel customerOrErrorsModel = new CustomerOrErrorsModel();
+    public void updateCustomerPersonalInf(CustomerModel customerModel) {
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.put(backendServerUrl + "/api/customer/update", customerModel);
-        return customerOrErrorsModel;
+        restTemplate.put(backendServerUrl + "/api/customer/update", customerConverter.convertFromFrontToBack(customerModel));
     }
 
     private boolean isCustomerValid(CustomerModel customer) {

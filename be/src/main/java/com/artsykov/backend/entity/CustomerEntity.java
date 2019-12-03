@@ -13,7 +13,7 @@ public class CustomerEntity {
     private byte isActive;
 //    private int logInInf;
 //    private int idWallet;
-    private LogInInfEntity logInInfByLogInInf;
+    private LogInInfEntity logInInf;
     private WalletEntity walletByIdWallet;
 //    private Collection<SubscriptionEntity> subscriptionsByIdCostumer;
 
@@ -106,15 +106,15 @@ public class CustomerEntity {
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "log_in_inf", referencedColumnName = "id_log_in_inf", nullable = false)
-    public LogInInfEntity getLogInInfByLogInInf() {
-        return logInInfByLogInInf;
+    public LogInInfEntity getLogInInf() {
+        return logInInf;
     }
 
-    public void setLogInInfByLogInInf(LogInInfEntity logInInfByLogInInf) {
-        this.logInInfByLogInInf = logInInfByLogInInf;
+    public void setLogInInf(LogInInfEntity logInInfByLogInInf) {
+        this.logInInf = logInInfByLogInInf;
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_wallet", referencedColumnName = "id_wallet")
     public WalletEntity getWalletByIdWallet() {
         return walletByIdWallet;

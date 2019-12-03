@@ -17,17 +17,23 @@
         <li><a routerLink="/">Contact us</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li *ngIf="isSignIn()"><a routerLink="/customer">
+        <li *ngIf="!isSignIn()"><a routerLink="/sign_in">
+          Sign in
+        </a></li>
+        <li *ngIf="!isSignIn()"><a routerLink="/registration">
+          Registration
+        </a></li>
+        <li *ngIf="isSignInUser(0)"><a routerLink="/customer">
            Your profile, {{customerModel?.name}}
+        </a></li>
+        <li *ngIf="isSignInUser(1)"><a routerLink="/company">
+          Your profile, {{companyModel?.name}}
+        </a></li>
+        <li *ngIf="isSignInUser(2)"><a routerLink="/admin">
+          Admin page
         </a></li>
         <li *ngIf="isSignIn()"><a routerLink="/" (click)="logOut()">
           Log out
-        </a></li>
-        <li *ngIf="!isSignIn()"><a routerLink="/sign_in">
-           Sign in
-        </a></li>
-        <li *ngIf="!isSignIn()"><a routerLink="/registration">
-           Registration
         </a></li>
       </ul>
     </div>

@@ -11,7 +11,7 @@ public class CompanyEntity {
     private byte isActive;
 //    private int logInInf;
 //    private int idWallet;
-    private LogInInfEntity logInInfByLogInInf;
+    private LogInInfEntity logInInf;
     private WalletEntity walletByIdWallet;
 //    private Collection<ProductEntity> productsByIdCompany;
 
@@ -82,12 +82,12 @@ public class CompanyEntity {
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "log_in_inf", referencedColumnName = "id_log_in_inf", nullable = false)
-    public LogInInfEntity getLogInInfByLogInInf() {
-        return logInInfByLogInInf;
+    public LogInInfEntity getLogInInf() {
+        return logInInf;
     }
 
-    public void setLogInInfByLogInInf(LogInInfEntity logInInfByLogInInf) {
-        this.logInInfByLogInInf = logInInfByLogInInf;
+    public void setLogInInf(LogInInfEntity logInInfByLogInInf) {
+        this.logInInf = logInInfByLogInInf;
     }
 
     @ManyToOne

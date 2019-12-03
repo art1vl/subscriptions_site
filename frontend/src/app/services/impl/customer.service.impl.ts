@@ -12,7 +12,6 @@ export class CustomerServiceImpl implements CustomerService {
   customer: customerModel;
 
   constructor(private http: HttpClient) {
-    console.log("new");
   }
 
   // public getCustomer() {
@@ -42,8 +41,9 @@ export class CustomerServiceImpl implements CustomerService {
       );
   }
 
+  //todo
   findCustomers(): Observable<customerModel[]> {
-    return undefined;
+    return this.http.get<customerModel[]>('/api/customer');
   }
 
   isActiveCustomerById(customerId: string): Observable<boolean> {
@@ -66,15 +66,7 @@ export class CustomerServiceImpl implements CustomerService {
   }
 
   saveCustomerWallet(customer: customerModel): Observable<customerOrErrorsModel> {
-    return this.http.post<customerOrErrorsModel>('/api/customer/walletByIdWallet', customer);
-  }
-
-  deleteCard(customer: customerModel): Observable<void> {
-    return this.http.put<void>('/api/customer/delete/walletByIdWallet', customer);
-  }
-
-  replenishCard(customer: customerModel): Observable<customerOrErrorsModel> {
-    return this.http.put<customerOrErrorsModel>('/api/customer/replenish/walletByIdWallet', customer);
+    return this.http.post<customerOrErrorsModel>('/api/customer/wallet', customer);
   }
 
   updateCustomerPersonalInf(customer: customerModel): Observable<customerOrErrorsModel> {

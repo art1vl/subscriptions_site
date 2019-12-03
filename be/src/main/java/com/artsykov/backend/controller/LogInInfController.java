@@ -11,12 +11,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/log_in_inf")
 public class LogInInfController {
+    @Autowired
     private LogInInfService logInInfService;
 
-    @Autowired
-    public LogInInfController (LogInInfService logInInfService) {
-        this.logInInfService = logInInfService;
-    }
+//    @Autowired
+//    public LogInInfController (LogInInfService logInInfService) {
+//        this.logInInfService = logInInfService;
+//    }
 
     @RequestMapping(value = "/{email}")
     public ResponseEntity<LogInInfEntity> findByEmail(@PathVariable("email") String email) throws InterruptedException {
