@@ -32,7 +32,7 @@ export class RegistrationPageComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.customerServiceImpl.checkAndSaveCustomer(this.customer).subscribe(registeredCustomer => {
       if (registeredCustomer.errors == null) {
         this.customerServiceImpl.customer = registeredCustomer.customerModel as customerModel;
-        this.errors.clear();
+        this.errors = new Map<string, string>();
         this.router.navigate(["/customer"]);
       }
       else {

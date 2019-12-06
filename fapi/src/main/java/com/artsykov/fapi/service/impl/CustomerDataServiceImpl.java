@@ -10,22 +10,24 @@ import com.artsykov.fapi.models.CustomerOrErrorsModel;
 import com.artsykov.fapi.service.CustomerDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
 public class CustomerDataServiceImpl implements CustomerDataService {
     private CustomerConverter customerConverter;
+    private WalletConverter walletConverter;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Value("${backend.server.url}")
     private String backendServerUrl;
 
     @Autowired
-    WalletConverter walletConverter;
-
-    @Autowired
-    public CustomerDataServiceImpl(CustomerConverter customerConverter) {
+    public CustomerDataServiceImpl(CustomerConverter customerConverter, WalletConverter walletConverter, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.customerConverter = customerConverter;
+        this.walletConverter = walletConverter;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     //todo
@@ -38,6 +40,7 @@ public class CustomerDataServiceImpl implements CustomerDataService {
     @Override
     public CustomerModel checkAndSaveCustomer(CustomerModel customer) {
         RestTemplate restTemplate = new RestTemplate();
+        customer.setPassword(bCryptPasswordEncoder.encode(customer.getPassword()));
         CustomerEntity customerEntity = customerConverter.convertFromFrontToBack(customer);
         return customerConverter.convertFromBackToFront(restTemplate.postForEntity(backendServerUrl + "/api/customer",
                 customerEntity, CustomerEntity.class).getBody());

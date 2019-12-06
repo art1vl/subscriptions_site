@@ -30,6 +30,7 @@ public class ProductConverter {
             productEntity.setIsActive((byte)productModel.getIsActive());
             productEntity.setImage(productModel.getImage());
             productEntity.setProductName(productModel.getProductName());
+            productEntity.setIdProduct(productModel.getId());
             return productEntity;
         }
         return null;

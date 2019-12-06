@@ -12,8 +12,11 @@ public class CustomerOrErrorsModel {
 
     public CustomerOrErrorsModel() {}
 
-    public CustomerOrErrorsModel(CustomerModel customerModel, Map<String, String> errors) {
-        this.customerModel = customerModel;
+    public CustomerOrErrorsModel(Map<String, String> errors) {
         this.errors = errors;
+    }
+
+    public CustomerOrErrorsModel(CustomerModel customerModel) {
+        this.customerModel = customerModel;
     }
 }

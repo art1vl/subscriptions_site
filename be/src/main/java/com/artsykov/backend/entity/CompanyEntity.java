@@ -18,6 +18,7 @@ public class CompanyEntity {
 
     @Id
     @Column(name = "id_company")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public int getIdCompany() {
         return idCompany;
     }

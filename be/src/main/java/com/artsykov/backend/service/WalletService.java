@@ -6,4 +6,6 @@ public interface WalletService {
     WalletEntity save(WalletEntity walletEntity);
 
     WalletEntity find(int id);
+
+    WalletEntity replenish(WalletEntity walletEntity);
 }

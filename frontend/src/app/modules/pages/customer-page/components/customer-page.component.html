@@ -255,9 +255,9 @@
               <div class="text">
                 <b>Your payment card</b>
                 <br>
-                {{hiddenCardNumber}}
+                Card number: {{hiddenCardNumber}}
                 <br>
-                {{cardDateString}}
+                Expiration date: {{cardDateString}}
               </div>
               <div class="button">
                 <button type="button" class="btn btn-danger"
@@ -270,6 +270,12 @@
             <p align="center">
               Replenish balance
             </p>
+            <div class="alert alert-success"
+                 *ngIf="replenishFlag == true">
+              Balance was replenished
+              <br>
+              <button type="button" class="btn btn-success" (click)="changeReplenishFlag()">Got it</button>
+            </div>
             <form [formGroup]="replenishForm">
               <div class="form-row">
                 <div class="form-group">
@@ -282,8 +288,8 @@
                     Incorrect number
                   </div>
                   <div class="alert alert-danger"
-                       *ngIf="errorsMapReplenishWallet['number'] != undefined">
-                    {{errorsMapReplenishWallet['number']}}
+                       *ngIf="errorsMapReplenishWallet['balance'] != undefined">
+                    {{errorsMapReplenishWallet['balance']}}
                   </div>
                 </div>
               </div>

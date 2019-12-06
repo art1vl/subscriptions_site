@@ -30,16 +30,18 @@ export class SignInComponent implements OnInit, OnDestroy {
   }
 
   submit(email: string, password: string){
+    this.errorsMap = new Map<string, string>();
     this.subscriptions.push(this.logInInfService.signin(email, password).subscribe(user => {
       if (user.errors == null) {
         this.customerService.customer = user.customerModel as customerModel;
         this.companyService.company = user.companyModel as companyModel;
         this.adminService.admin = user.adminModel as adminModel;
         this.router.navigate(["/"]);
-        this.errorsMap.clear();
+        this.errorsMap = new Map<string, string>();
       }
       else {
         this.errorsMap = user.errors;
+        this.myForm.reset();
       }
     }));
   }

@@ -2,6 +2,7 @@ package com.artsykov.fapi.models;
 
 import lombok.Data;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
@@ -9,6 +10,7 @@ import java.util.Date;
 
 @Data
 public class WalletModel {
+    @Min(value=0, message="Incorrect wallet id")
     private int idWallet;
 
     @NotEmpty(message = "Balance is required")

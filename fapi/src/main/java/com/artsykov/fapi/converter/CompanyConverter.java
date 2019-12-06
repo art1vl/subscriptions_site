@@ -24,14 +24,16 @@ public class CompanyConverter {
             }
             companyEntity.setCompanyName(companyModel.getName());
             companyEntity.setWalletByIdWallet(companyModel.getWallet());
-            LogInInfEntity logInInfEntity = new LogInInfEntity();
             if (companyModel.getIdLogInInf() != 0) {
-                logInInfEntity.setIdLogInInf(companyModel.getIdLogInInf());
+                companyEntity.setLogInInf(companyEntity1.getLogInInf());
             }
-            logInInfEntity.setEmail(companyModel.getEmail());
-            logInInfEntity.setPassword(companyEntity1.getLogInInf().getPassword());
-            logInInfEntity.setRole(RoleEnum.COMPANY);
-            companyEntity.setLogInInf(logInInfEntity);
+            else {
+                LogInInfEntity logInInfEntity = new LogInInfEntity();
+                logInInfEntity.setEmail(companyModel.getEmail());
+                logInInfEntity.setPassword(companyModel.getPassword());
+                logInInfEntity.setRole(RoleEnum.COMPANY);
+                companyEntity.setLogInInf(logInInfEntity);
+            }
             companyEntity.setIsActive((byte) companyModel.getIsActive());
             return companyEntity;
         }

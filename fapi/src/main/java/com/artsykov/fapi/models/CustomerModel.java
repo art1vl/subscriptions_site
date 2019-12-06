@@ -4,13 +4,11 @@ import com.artsykov.fapi.entity.WalletEntity;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.*;
 
 @Data
 public class CustomerModel {
+    @Min(value=0, message="Incorrect customer id")
     private int id;
 
     @NotEmpty(message = "Name is required")
@@ -35,7 +33,12 @@ public class CustomerModel {
             message="Password is invalid")
     private String password;
     private WalletEntity wallet;
+
+    @Min(value=0, message="Incorrect active status")
+    @Max(value=1, message="Incorrect active status")
     private int isActive;
+
+    @Min(value=0, message="Incorrect log in information id")
     private int idLogInInf;
 
     public CustomerModel() {

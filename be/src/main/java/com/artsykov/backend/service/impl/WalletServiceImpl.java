@@ -20,4 +20,9 @@ public class WalletServiceImpl implements WalletService {
     public WalletEntity save(WalletEntity walletEntity) {
         return walletRepository.save(walletEntity);
     }
+
+    @Override
+    public WalletEntity replenish(WalletEntity walletEntity) {
+        return walletRepository.save(walletEntity);
+    }
 }

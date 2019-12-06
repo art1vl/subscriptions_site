@@ -91,7 +91,7 @@
                        bsDatepicker
                        [minDate]="minDate"
                        [maxDate]="maxDate"
-                       [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" #date>
+                       [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }" #date>
               </div>
               <div class="alert alert-danger"
                    *ngIf="productForm?.controls['date'].invalid && productForm?.controls['date'].touched">
@@ -119,6 +119,10 @@
             <div class="form-row">
               <input type="file" (change)="selectFile($event)" placeholder="Download product image" #file>
             </div>
+            <div class="alert alert-danger"
+                 *ngIf="errorsMapProduct && errorsMapProduct['file'] != undefined">
+              {{errorsMapProduct['file']}}
+            </div>
             <br>
             <div class="form-row">
               <div class="form-group">
@@ -136,7 +140,8 @@
               </div>
             </div>
             <button class="btn btn-primary" [disabled]="productForm.invalid"
-                    (click)="createProduct(name.value, date.value, description.value, cost.value, type.selectedIndex)">Create the product
+                    (click)="createProduct(name.value, date.value, description.value, cost.value, type.selectedIndex)">
+              Create the product
             </button>
             <!--<div class="form-row">-->
             <!--<div class="form-group">-->
@@ -300,9 +305,9 @@
               <div class="text">
                 <b>Your payment card</b>
                 <br>
-                {{hiddenCardNumber}}
+                Card number: {{hiddenCardNumber}}
                 <br>
-                {{cardDateString}}
+                Expiration date: {{cardDateString}}
               </div>
               <div class="button">
                 <button type="button" class="btn btn-danger"
@@ -311,33 +316,39 @@
               </div>
             </div>
           </div>
-          <!--<div class="replenish">-->
-          <!--<p align="center">-->
-          <!--Replenish balance-->
-          <!--</p>-->
-          <!--<form [formGroup]="replenishForm">-->
-          <!--<div class="form-row">-->
-          <!--<div class="form-group">-->
-          <!--<label for="number">Enter recharge amount</label>-->
-          <!--<input type="text" class="form-control"-->
-          <!--formControlName="number"-->
-          <!--id="number" #number> $-->
-          <!--<div class="alert alert-danger"-->
-          <!--*ngIf="replenishForm.controls['number'].invalid  && replenishForm.controls['number'].touched">-->
-          <!--Incorrect number-->
-          <!--</div>-->
-          <!--<div class="alert alert-danger"-->
-          <!--*ngIf="errorsMapReplenishWallet['number'] != undefined">-->
-          <!--{{errorsMapReplenishWallet['number']}}-->
-          <!--</div>-->
-          <!--</div>-->
-          <!--</div>-->
-          <!--<button class="btn btn-success" [disabled]="replenishForm.invalid"-->
-          <!--(click)="replenishCard(number.value)">-->
-          <!--Replenish-->
-          <!--</button>-->
-          <!--</form>-->
-          <!--</div>-->
+          <div class="replenish">
+            <p align="center">
+              Replenish balance
+            </p>
+            <div class="alert alert-success"
+                 *ngIf="replenishFlag == true">
+              Balance was replenished
+              <br>
+              <button type="button" class="btn btn-success" (click)="changeReplenishFlag()">Got it</button>
+            </div>
+            <form [formGroup]="replenishForm">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="number">Enter recharge amount</label>
+                  <input type="text" class="form-control"
+                         formControlName="number"
+                         id="number" #number> $
+                  <div class="alert alert-danger"
+                       *ngIf="replenishForm.controls['number'].invalid  && replenishForm.controls['number'].touched">
+                    Incorrect number
+                  </div>
+                  <div class="alert alert-danger"
+                       *ngIf="errorsMapWallet['balance'] != undefined">
+                    {{errorsMapWallet['balance']}}
+                  </div>
+                </div>
+              </div>
+              <button class="btn btn-success" [disabled]="replenishForm.invalid"
+                      (click)="replenishCard(number.value)">
+                Replenish
+              </button>
+            </form>
+          </div>
         </div>
       </tab>
 

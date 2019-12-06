@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewChild} from "@angular/core";
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from "@angular/core";
 import {Subscription} from "rxjs";
 import {CustomerServiceImpl} from "../../../../services/impl/customer.service.impl";
 import {TabsetComponent} from "ngx-bootstrap";
@@ -27,6 +27,7 @@ export class CustomerPageComponent implements OnInit, OnDestroy {
   customer: customerModel;
   customerSubscriptions: subscriptionModel[];
   personalInfFlag: boolean = false;
+  replenishFlag = false;
   walletFlag: boolean;
   myForm: FormGroup;
   walletForm: FormGroup;
@@ -76,9 +77,13 @@ export class CustomerPageComponent implements OnInit, OnDestroy {
       if (this.customer.wallet != null) {
         if (this.customer.wallet.cardCvvCode != 0) {
           this.walletFlag = true;
+          this.hiddenCardNumber = '**** **** **** ' + this.customer.wallet.cardNumber.toString().substring(this.customer.wallet.cardNumber.toString().length - 4);
+          let stringDate: string = new Date(this.customer.wallet.cardDate).toLocaleDateString();
+          this.cardDateString = stringDate.substring(3, 5) + "/" + stringDate.substring(8);
+        } else {
+          this.walletFlag = false;
         }
-      }
-      else {
+      } else {
         this.walletFlag = false;
       }
       this.myForm = new FormGroup({
@@ -137,15 +142,13 @@ export class CustomerPageComponent implements OnInit, OnDestroy {
     updatedCustomer.id = this.customer.id;
     updatedCustomer.wallet = this.customer.wallet;
     updatedCustomer.idLogInInf = this.customer.idLogInInf;
-    console.log(updatedCustomer);
     this.subscriptions.push(this.customerServiceImpl.updateCustomerPersonalInf(updatedCustomer).subscribe(customer => {
       if (customer.errors == null) {
         this.customer = updatedCustomer;
         this.customerServiceImpl.customer = updatedCustomer;
         this.personalInfFlag = false;
-        this.errorsMapCustomer = null;
+        this.errorsMapCustomer = new Map<string, string>();
       } else {
-        console.log(customer);
         this.errorsMapCustomer = customer.errors;
       }
     }));
@@ -156,20 +159,19 @@ export class CustomerPageComponent implements OnInit, OnDestroy {
       this.customer.wallet = new WalletModel();
     }
     this.customer.wallet.cardNumber = +cardNumber.replace(/\s/g, '');
-    this.customer.wallet.cardDate = new Date(cardDate);
+    this.customer.wallet.cardDate = new Date(cardDate.substring(0, 2) + "/01/20" + cardDate.substring(3));
     this.customer.wallet.cardCvvCode = +cardCvv;
     this.customer.wallet.personName = cardHolderName;
     this.customer.password = "11111111";
-    this.subscriptions.push(this.customerServiceImpl.saveCustomerWallet(this.customer).subscribe( customerOrErrors => {
+    this.subscriptions.push(this.customerServiceImpl.saveCustomerWallet(this.customer).subscribe(customerOrErrors => {
       if (customerOrErrors.errors == null) {
         this.customer = customerOrErrors.customerModel as customerModel;
         this.customerServiceImpl.customer = this.customer;
-        this.errorsMapWallet.clear();
-        this.hiddenCardNumber = '**** **** ****' + cardNumber.substring(cardNumber.length - 4);
+        this.errorsMapWallet = new Map<string, string>();
+        this.hiddenCardNumber = '**** **** **** ' + cardNumber.substring(cardNumber.length - 4);
         this.cardDateString = cardDate;
         this.walletFlag = true;
-      }
-      else {
+      } else {
         this.errorsMapWallet = customerOrErrors.errors;
         this.customer = this.customerServiceImpl.customer;
       }
@@ -188,15 +190,22 @@ export class CustomerPageComponent implements OnInit, OnDestroy {
   }
 
   private replenishCard(number: number): void {
-    this.customer.wallet.balance += number;
+    this.customer.wallet.balance += +number;
     this.subscriptions.push(this.walletServiceImpl.replenishCard(this.customer.wallet).subscribe(walletOrErrors => {
       if (walletOrErrors.errors == null) {
         this.customerServiceImpl.customer = this.customer;
+        this.errorsMapReplenishWallet = new Map<string, string>();
+        this.replenishFlag = true;
       } else {
         this.errorsMapReplenishWallet = walletOrErrors.errors;
         this.customer = this.customerServiceImpl.customer;
       }
     }));
+  }
+
+  changeReplenishFlag(): void {
+    this.replenishForm.reset();
+    this.replenishFlag = false;
   }
 
   private editPersonalInf(): void {

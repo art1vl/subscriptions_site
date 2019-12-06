@@ -10,10 +10,6 @@
              *ngIf="myForm.controls['userEmail'].invalid && myForm.controls['userEmail'].touched">
           Incorrect email
         </div>
-        <div class="alert alert-danger"
-             *ngIf="errorsMap['email'] != undefined">
-          {{errorsMap['email']}}
-        </div>
         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
       </div>
       <div class="form-group">
@@ -24,11 +20,14 @@
              *ngIf="myForm.controls['userPassword'].invalid && myForm.controls['userPassword'].touched">
           Incorrect password
         </div>
-        <div class="alert alert-danger"
-             *ngIf="errorsMap['password'] != undefined">
-          {{errorsMap['password']}}
-        </div>
-        <!--{{myForm.controls['userPassword'].errors['minLength']['requiredLength'] }}-->
+      </div>
+      <div class="alert alert-danger"
+           *ngIf="errorsMap['email'] != undefined">
+        {{errorsMap['email']}}
+      </div>
+      <div class="alert alert-danger"
+           *ngIf="errorsMap['password'] != undefined && errorsMap['email'] == undefined">
+        {{errorsMap['password']}}
       </div>
       <button type="submit" class="btn btn-primary" [disabled]="myForm.invalid"
               (click)="submit(email.value, password.value)">Submit

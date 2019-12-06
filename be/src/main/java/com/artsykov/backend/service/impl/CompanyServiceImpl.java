@@ -25,7 +25,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public CompanyEntity findCompanyByLogInInfId(int logInInfId) {
-        return  companyRepository.findByLogInInfIdLogInInf(logInInfId);
+        return companyRepository.findByLogInInfIdLogInInf(logInInfId);
     }
 
     @Override
