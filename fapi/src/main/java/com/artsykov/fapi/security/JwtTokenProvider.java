@@ -4,7 +4,6 @@ import com.artsykov.fapi.service.LogInInfDataService;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -20,9 +19,6 @@ import java.util.Date;
 @Component
 public class JwtTokenProvider {
     private String secret;
-
-//    @Value("${jwt.token.expired}")
-//    private Long validityInMilliseconds;
 
     @Autowired
     @Qualifier(value = "logInIndService")
@@ -67,7 +63,6 @@ public class JwtTokenProvider {
     public boolean validateToken(String token) {
         try {
             Jws<Claims> claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
-
             if (claims.getBody().getExpiration().before(new Date())) {
                 return false;
             }
@@ -78,9 +73,8 @@ public class JwtTokenProvider {
     }
 
     public String resolveToken(HttpServletRequest request) {
-        String bearerToken = request.getHeader("Authorization");
-        if (bearerToken != null && bearerToken.startsWith("Bearer_")) {
-            // System.out.println(bearerToken.equals());
+        String bearerToken = request.getHeader(SecurityJwtConstants.HEADER_STRING);
+        if (bearerToken != null && bearerToken.startsWith(SecurityJwtConstants.TOKEN_PREFIX)) {
             return bearerToken.substring(7);
         }
         return null;

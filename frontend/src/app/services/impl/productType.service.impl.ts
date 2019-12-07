@@ -10,6 +10,6 @@ export class ProductTypeServiceImpl implements ProductTypeService{
   }
 
   findTypes(): Observable<ProductTypeModel[]> {
-    return this.http.get<ProductTypeModel[]>('/api/product_type');
+    return this.http.get<ProductTypeModel[]>('/api/product/type');
   }
 }

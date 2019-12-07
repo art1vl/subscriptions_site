@@ -17,15 +17,13 @@ public class CompanyController {
     CompanyService companyService;
 
     @RequestMapping(value = "/log/in/inf/{id}")
-    public ResponseEntity<CompanyEntity> getCompanyByLogInInfId(@PathVariable("id") String logInInfId) throws InterruptedException {
-        Integer intId = Integer.valueOf(logInInfId);
-        return ResponseEntity.ok(companyService.findCompanyByLogInInfId(intId));
+    public ResponseEntity<CompanyEntity> getCompanyByLogInInfId(@PathVariable("id") Integer logInInfId) throws InterruptedException {
+        return ResponseEntity.ok(companyService.findCompanyByLogInInfId(logInInfId));
     }
 
     @RequestMapping(value = "/{id}")
-    public ResponseEntity<CompanyEntity> getCompanyById(@PathVariable("id") String companyId) {
-        int intCompanyId = Integer.valueOf(companyId);
-        return ResponseEntity.ok(companyService.findCompany(intCompanyId));
+    public ResponseEntity<CompanyEntity> getCompanyById(@PathVariable("id") Integer companyId) {
+        return ResponseEntity.ok(companyService.findCompany(companyId));
     }
 
     @PostMapping(value = "/wallet")

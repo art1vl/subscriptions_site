@@ -7,6 +7,8 @@ import com.artsykov.fapi.service.CustomerDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,17 +52,24 @@ public class CustomerController {
 //
 //    }
 
+    @Secured("ROLE_CUSTOMER")
+    @GetMapping(value = "/{id}")
+    public  ResponseEntity<CustomerModel> getCustomerByLogInInfId(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok(customerDataService.findCustomerByLogInInfId(id));
+    }
+
     @PostMapping
     public ResponseEntity<CustomerOrErrorsModel> checkAndSaveCustomer(@RequestBody @Valid CustomerModel customerModel) {
         return ResponseEntity.ok(new CustomerOrErrorsModel(customerDataService.checkAndSaveCustomer(customerModel)));
     }
 
+    @Secured("ROLE_CUSTOMER")
     @PostMapping(value = "/wallet")
     public ResponseEntity<CustomerOrErrorsModel> saveCustomerWallet(@RequestBody @Valid CustomerModel customerModel) {
         return ResponseEntity.ok(new CustomerOrErrorsModel(customerDataService.saveCustomerWallet(customerModel)));
     }
 
-
+    @Secured("ROLE_CUSTOMER")
     @PutMapping
     public ResponseEntity<CustomerOrErrorsModel> updateCustomerPersonalInf(@RequestBody @Valid CustomerModel customerModel) {
         customerDataService.updateCustomerPersonalInf(customerModel);

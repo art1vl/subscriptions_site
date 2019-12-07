@@ -69,5 +69,6 @@ export class HeaderComponent implements OnInit {
     this.companyModel = null;
     this.customerServiceImpl.customer = null;
     this.customerModel = null;
+    localStorage.clear();
   }
 }

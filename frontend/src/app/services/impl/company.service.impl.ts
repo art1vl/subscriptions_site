@@ -24,4 +24,8 @@ export class CompanyServiceImpl implements CompanyService {
   saveCompanyWallet(company: companyModel): Observable<companyOrErrorsModel> {
     return this.http.post<companyOrErrorsModel>('/api/company/wallet', company);
   }
+
+  findCompanyByLogInInfId(logInInfId: number): Observable<companyModel> {
+    return this.http.get<companyModel>('/api/company/' + logInInfId);
+  }
 }

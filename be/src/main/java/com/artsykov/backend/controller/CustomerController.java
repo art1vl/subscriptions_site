@@ -14,15 +14,13 @@ public class CustomerController {
     private CustomerService customerService;
 
     @RequestMapping(value = "/log/in/inf/{id}")
-    public ResponseEntity<CustomerEntity> getCustomerByLogInInfId(@PathVariable("id") String logInInfId) throws InterruptedException {
-        int intId = Integer.valueOf(logInInfId);
-        return ResponseEntity.ok(customerService.findCustomerByLogInInfId(intId));
+    public ResponseEntity<CustomerEntity> getCustomerByLogInInfId(@PathVariable("id") Integer logInInfId) throws InterruptedException {
+        return ResponseEntity.ok(customerService.findCustomerByLogInInfId(logInInfId));
     }
 
     @RequestMapping(value = "/{id}")
-    public ResponseEntity<CustomerEntity> getCustomerById(@PathVariable("id") String customerId) {
-        int intCustomerId = Integer.valueOf(customerId);
-        return ResponseEntity.ok(customerService.findCustomerById(intCustomerId));
+    public ResponseEntity<CustomerEntity> getCustomerById(@PathVariable("id") Integer customerId) {
+        return ResponseEntity.ok(customerService.findCustomerById(customerId));
     }
 
     @PostMapping

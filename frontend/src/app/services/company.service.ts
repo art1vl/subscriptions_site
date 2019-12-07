@@ -8,4 +8,6 @@ export interface CompanyService {
   saveCompany(company: companyModel): Observable<companyOrErrorsModel>;
 
   saveCompanyWallet(company: companyModel): Observable<companyOrErrorsModel>;
+
+  findCompanyByLogInInfId(logInInfId: number): Observable<companyModel>;
 }

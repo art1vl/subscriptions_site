@@ -1,6 +1,6 @@
 import {Observable} from "rxjs";
-import {customerOrCompanyOrAdminOrErrorsModel} from "../modules/models/customerOrCompanyOrAdminOrErrorsModel";
+import {SignInModel} from "../modules/models/SignInModel";
 
 export interface LogInInfService {
-  signin (email: string, password: string): Observable<customerOrCompanyOrAdminOrErrorsModel>
+  signin (email: string, password: string): Observable<SignInModel>
 }

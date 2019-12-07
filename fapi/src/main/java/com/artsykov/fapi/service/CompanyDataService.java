@@ -7,4 +7,6 @@ public interface CompanyDataService {
     CompanyModel saveCompany (CompanyModel company);
 
     CompanyModel saveWallet(CompanyModel companyModel);
+
+    CompanyModel getCompanyByLogInInfId(int logInInfId);
 }

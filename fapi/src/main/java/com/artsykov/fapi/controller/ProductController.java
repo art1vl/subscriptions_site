@@ -7,6 +7,8 @@ import com.artsykov.fapi.service.ProductDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -46,7 +48,7 @@ public class ProductController {
     }
 
     //todo
-    @RequestMapping(value = "/{id}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<ProductModel> getProductById(@PathVariable String id) throws InterruptedException {
 //        Long billingAccountId = Long.valueOf(id);
 //        return ResponseEntity.ok(billingAccountDataService.getBillingAccountById(billingAccountId));
@@ -56,11 +58,13 @@ public class ProductController {
         return ResponseEntity.ok(product);
     }
 
+    @Secured("ROLE_COMPANY")
     @PostMapping
     public ResponseEntity<ProductOrErrorsModel> saveProduct(@RequestBody @Valid ProductModel productModel) {
         return ResponseEntity.ok(new ProductOrErrorsModel(productDataService.saveProduct(productModel)));
     }
 
+    @Secured("ROLE_COMPANY")
     @PostMapping(value = "/{id}/image")
     public ResponseEntity<ProductOrErrorsModel> saveProductImage(@PathVariable("id") Integer id, @RequestParam(value = "file", required = false) MultipartFile file) {
         return ResponseEntity.ok(productDataService.saveProductImage(id, file));

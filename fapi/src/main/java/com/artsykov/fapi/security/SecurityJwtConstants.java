@@ -1,9 +1,8 @@
 package com.artsykov.fapi.security;
 
 public class SecurityJwtConstants {
-    public static final long ACCESS_TOKEN_VALIDITY_SECONDS = 3600000;
-    public static final String SIGNING_KEY = "ethalon123sign";
-    public static final String TOKEN_PREFIX = "Bearer";
-    public static final String HEADER_STRING = "Authorization";
-    public static final String AUTHORITIES_KEY = "scopes";
+    static final long ACCESS_TOKEN_VALIDITY_SECONDS = 36;
+    static final String SIGNING_KEY = "ethalon123sign";
+    static final String TOKEN_PREFIX = "Bearer_";
+    static final String HEADER_STRING = "Authorization";
 }
