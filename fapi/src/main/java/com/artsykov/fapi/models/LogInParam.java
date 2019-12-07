@@ -11,10 +11,10 @@ import javax.validation.constraints.Pattern;
 public class LogInParam {
 
     @NotEmpty(message = "Email is required")
-    @Email(message = "Email is incorrect")
+    @Email(message = "Email or password is incorrect")
     private String email;
 
-    @NotEmpty(message = "Password is required")
+    @NotEmpty(message = "Email or password is required")
     @Pattern(regexp="^[A-Za-z0-9]{8,}$",
             message="Password is invalid")
     private String password;

@@ -16,11 +16,6 @@ import {CustomerServiceImpl} from "../../../../services/impl/customer.service.im
   styleUrls: ["./admin-page.component.css"]
 })
 export class AdminPageComponent implements OnInit, OnDestroy {
-  @ViewChild('email') email: ElementRef;
-  @ViewChild('password') password: ElementRef;
-  @ViewChild('repeatPassword') repeatPassword: ElementRef;
-  @ViewChild('companyName') companyName: ElementRef;
-
   myForm : FormGroup;
   productModel: ProductModel[] = [];
   companyModel: companyModel[] = [];
@@ -90,10 +85,7 @@ export class AdminPageComponent implements OnInit, OnDestroy {
 
   private changeCompanyCreatedFlag(): void {
     this.companyCreatedFlag = false;
-    this.email.nativeElement.value = '';
-    this.password.nativeElement.value = '';
-    this.companyName.nativeElement.value = '';
-    this.repeatPassword.nativeElement.value = '';
+    this.myForm.reset();
   }
 
   //todo

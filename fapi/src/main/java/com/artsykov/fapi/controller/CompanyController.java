@@ -1,5 +1,6 @@
 package com.artsykov.fapi.controller;
 
+import com.artsykov.fapi.controller.handler.HandlerService;
 import com.artsykov.fapi.models.CompanyModel;
 import com.artsykov.fapi.models.CompanyOrErrorsModel;
 import com.artsykov.fapi.models.CustomerOrErrorsModel;
@@ -18,26 +19,24 @@ import java.util.Map;
 public class CompanyController {
 
     @Autowired
-    CompanyDataService companyDataService;
+    private CompanyDataService companyDataService;
+
+    @Autowired
+    private HandlerService handlerService;
 
     @PostMapping
-    public ResponseEntity<CompanyModel> createCompany(@RequestBody CompanyModel companyModel) {
-        return ResponseEntity.ok(companyDataService.saveCompany(companyModel));
+    public ResponseEntity<CompanyOrErrorsModel> createCompany(@RequestBody CompanyModel companyModel) {
+        return ResponseEntity.ok(new CompanyOrErrorsModel(companyDataService.saveCompany(companyModel)));
     }
 
     @PostMapping(value = "/wallet")
-    public ResponseEntity<CompanyModel> saveWallet(@RequestBody CompanyModel companyModel) {
-        return ResponseEntity.ok(companyDataService.saveWallet(companyModel));
+    public ResponseEntity<CompanyOrErrorsModel> saveWallet(@RequestBody CompanyModel companyModel) {
+        return ResponseEntity.ok(new CompanyOrErrorsModel(companyDataService.saveWallet(companyModel)));
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<CompanyOrErrorsModel> handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
-        CompanyOrErrorsModel companyOrErrorsModel = new CompanyOrErrorsModel();
-        Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getFieldErrors().forEach(error ->
-                errors.put(error.getField(), error.getDefaultMessage()));
-        companyOrErrorsModel.setErrors(errors);
-        return ResponseEntity.ok(companyOrErrorsModel);
+        return ResponseEntity.ok(new CompanyOrErrorsModel(handlerService.handleMethodArgumentNotValid(ex)));
     }
 }

@@ -8,4 +8,12 @@ import java.util.Map;
 public class CompanyOrErrorsModel {
     private CompanyModel companyModel;
     private Map<String, String> errors;
+
+    public CompanyOrErrorsModel(Map<String, String> errors) {
+        this.errors = errors;
+    }
+
+    public CompanyOrErrorsModel(CompanyModel companyModel) {
+        this.companyModel = companyModel;
+    }
 }

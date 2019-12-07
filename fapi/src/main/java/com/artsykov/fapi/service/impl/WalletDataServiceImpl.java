@@ -1,7 +1,10 @@
 package com.artsykov.fapi.service.impl;
 
+import com.artsykov.fapi.converter.WalletConverter;
 import com.artsykov.fapi.entity.WalletEntity;
+import com.artsykov.fapi.models.WalletModel;
 import com.artsykov.fapi.service.WalletDataService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -10,6 +13,9 @@ import org.springframework.web.client.RestTemplate;
 public class WalletDataServiceImpl implements WalletDataService {
     @Value("${backend.server.url}")
     private String backendServerUrl;
+
+    @Autowired
+    private WalletConverter walletConverter;
 
     @Override
     public void deleteWallet(int id) {
@@ -20,5 +26,12 @@ public class WalletDataServiceImpl implements WalletDataService {
         walletEntity.setCardNumber(0);
         walletEntity.setCardDate(null);
         restTemplate.postForEntity(backendServerUrl + "/api/wallet", walletEntity, WalletEntity.class);
+    }
+
+    @Override
+    public void replenish(WalletModel walletModel) {
+        RestTemplate restTemplate = new RestTemplate();
+        WalletEntity walletEntity = walletConverter.convertFromFrontToBack(walletModel);
+        restTemplate.put(backendServerUrl + "/api/wallet", walletEntity);
     }
 }

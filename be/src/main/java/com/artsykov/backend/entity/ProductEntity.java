@@ -20,6 +20,7 @@ public class ProductEntity {
 
     @Id
     @Column(name = "id_product")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public int getIdProduct() {
         return idProduct;
     }
@@ -28,7 +29,7 @@ public class ProductEntity {
         this.idProduct = idProduct;
     }
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "company", referencedColumnName = "id_company", nullable = false)
     public CompanyEntity getCompany() {
         return company;
@@ -58,7 +59,7 @@ public class ProductEntity {
         this.productName = productName;
     }
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "type", referencedColumnName = "id_product_type", nullable = false)
     public ProductTypeEntity getType() {
         return type;

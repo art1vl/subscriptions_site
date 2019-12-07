@@ -1,5 +1,5 @@
 export class WalletModel {
-  idWallet: number;
+  idWallet?: number;
   balance: number;
   cardNumber: number;
   cardDate: Date;

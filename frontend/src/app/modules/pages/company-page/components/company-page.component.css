@@ -13,6 +13,11 @@
   box-shadow: 10px 9px 13px gray;
 }
 
+.title {
+  padding-left: 40px;
+  font-size: 30px;
+}
+
 .subscription-company {
   margin-top: 30px;
   margin-left: 50px;
@@ -38,6 +43,20 @@
 }
 
 .picture {
+  padding-top: 10px;
+  flex: 10%;
+}
+
+.text {
+  flex: 50%;
+  font-size: 20px;
+  padding-top: 10px;
+}
+
+.button {
+  text-align: right;
+  padding-top: 25px;
+  padding-right: 15px;
   flex: 10%;
 }
 
@@ -50,3 +69,19 @@
   background-color: white;
   box-shadow: 10px 9px 13px gray;
 }
+
+.replenish {
+  border: 2px solid gray;
+  border-radius: 15px;
+  width: 400px;
+  margin: 20px auto;
+  padding: 10px;
+  background-color: white;
+  box-shadow: 10px 9px 13px gray;
+}
+
+.balance {
+  font-size: 17px;
+  text-align: center;
+}
+

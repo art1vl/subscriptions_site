@@ -18,6 +18,8 @@ public class SubscriptionEntity {
 
     @Id
     @Column(name = "id_subscription")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+
     public int getIdSubscription() {
         return idSubscription;
     }

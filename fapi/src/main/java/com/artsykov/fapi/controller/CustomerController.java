@@ -1,5 +1,6 @@
 package com.artsykov.fapi.controller;
 
+import com.artsykov.fapi.controller.handler.HandlerService;
 import com.artsykov.fapi.models.CustomerModel;
 import com.artsykov.fapi.models.CustomerOrErrorsModel;
 import com.artsykov.fapi.service.CustomerDataService;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.PermitAll;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,6 +21,9 @@ public class CustomerController {
 
     @Autowired
     private CustomerDataService customerDataService;
+
+    @Autowired
+    private HandlerService handlerService;
 
 //    @RequestMapping(value = "/{id}")
 //    public ResponseEntity<CustomerModel> getCustomerById(@PathVariable String id) throws InterruptedException {
@@ -46,37 +51,25 @@ public class CustomerController {
 //    }
 
     @PostMapping
-    public ResponseEntity<CustomerModel> checkAndSaveCustomer(@RequestBody @Valid CustomerModel customerModel) {
-        if (customerModel != null) {
-            return ResponseEntity.ok(customerDataService.checkAndSaveCustomer(customerModel));
-        } else {
-            return ResponseEntity.ok(null);
-        }
+    public ResponseEntity<CustomerOrErrorsModel> checkAndSaveCustomer(@RequestBody @Valid CustomerModel customerModel) {
+        return ResponseEntity.ok(new CustomerOrErrorsModel(customerDataService.checkAndSaveCustomer(customerModel)));
     }
 
     @PostMapping(value = "/wallet")
     public ResponseEntity<CustomerOrErrorsModel> saveCustomerWallet(@RequestBody @Valid CustomerModel customerModel) {
-        CustomerOrErrorsModel customerOrErrorsModel = new CustomerOrErrorsModel();
-        customerOrErrorsModel.setCustomerModel(customerDataService.saveCustomerWallet(customerModel));
-        return ResponseEntity.ok(customerOrErrorsModel);
+        return ResponseEntity.ok(new CustomerOrErrorsModel(customerDataService.saveCustomerWallet(customerModel)));
     }
+
 
     @PutMapping
     public ResponseEntity<CustomerOrErrorsModel> updateCustomerPersonalInf(@RequestBody @Valid CustomerModel customerModel) {
         customerDataService.updateCustomerPersonalInf(customerModel);
-        CustomerOrErrorsModel customerOrErrorsModel = new CustomerOrErrorsModel();
-        customerOrErrorsModel.setCustomerModel(customerModel);
-        return ResponseEntity.ok(customerOrErrorsModel);
+        return ResponseEntity.ok(new CustomerOrErrorsModel(customerModel));
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<CustomerOrErrorsModel> handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
-        CustomerOrErrorsModel customerOrErrorsModel = new CustomerOrErrorsModel();
-        Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getFieldErrors().forEach(error ->
-                errors.put(error.getField(), error.getDefaultMessage()));
-        customerOrErrorsModel.setErrors(errors);
-        return ResponseEntity.ok(customerOrErrorsModel);
+        return ResponseEntity.ok(new CustomerOrErrorsModel(handlerService.handleMethodArgumentNotValid(ex)));
     }
 }

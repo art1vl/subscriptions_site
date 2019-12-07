@@ -3,6 +3,7 @@ package com.artsykov.fapi.service.impl;
 import com.artsykov.fapi.converter.ProductConverter;
 import com.artsykov.fapi.entity.ProductEntity;
 import com.artsykov.fapi.models.ProductModel;
+import com.artsykov.fapi.models.ProductOrErrorsModel;
 import com.artsykov.fapi.service.ProductDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class ProductDataServiceImpl implements ProductDataService {
@@ -29,21 +32,30 @@ public class ProductDataServiceImpl implements ProductDataService {
     }
 
     @Override
-    public ProductModel saveProductImage(int id, MultipartFile file) throws IOException {
-        RestTemplate restTemplate = new RestTemplate();
-        ProductModel productModel = this.getProduct(id);
-
-        String fileExtension = (file.getOriginalFilename()).split("\\.")[1];
-        String fileName = "image_" + productModel.getId() + "." + fileExtension;
-        String filePath = "C:/my_files/Netcracker/Subscriptions/fapi/image" + fileName;
-
-        File dest = new File(filePath);
-        file.transferTo(dest);
-        productModel.set
-
-        Post savedPost = postService.savePost(post);
-
-        return ResponseEntity.ok(savedPost);
+    public ProductOrErrorsModel saveProductImage(int id, MultipartFile file) {
+        ProductOrErrorsModel productOrErrorsModel = new ProductOrErrorsModel();
+        if (file == null) {
+            Map<String,String> errors = new HashMap<>();
+            errors.put("file", "Select product image");
+            productOrErrorsModel.setErrors(errors);
+        }
+        else {
+            ProductModel savedProduct = new ProductModel();
+            try {
+                ProductModel productModel = this.getProduct(id);
+                String fileExtension = (file.getOriginalFilename()).split("\\.")[1];
+                String fileName = "image_" + productModel.getId() + "." + fileExtension;
+                String filePath = "C:/my_files/Netcracker/Subscriptions/fapi/image/" + fileName;
+                File dest = new File(filePath);
+                file.transferTo(dest);
+                productModel.setImage(fileName);
+                savedProduct = this.saveProduct(productModel);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            productOrErrorsModel.setProduct(savedProduct);
+        }
+        return productOrErrorsModel;
     }
 
     @Override

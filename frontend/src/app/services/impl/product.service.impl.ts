@@ -29,10 +29,9 @@ export class ProductServiceImpl implements ProductService {
     formData.append('file', file);
     const req = new HttpRequest('POST', '/api/product/{id}/image'.replace('{id}', productId.toString()), formData, {
       reportProgress: true,
-      responseType: 'text'
+      responseType: 'json'
     });
-
-    return this.http.request(req);
+    return  this.http.request(req);
   }
 
   //todo

@@ -19,6 +19,7 @@ public class CustomerEntity {
 
     @Id
     @Column(name = "id_customer")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public int getIdCustomer() {
         return idCustomer;
     }

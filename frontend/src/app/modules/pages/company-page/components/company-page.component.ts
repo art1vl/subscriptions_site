@@ -18,18 +18,12 @@ import {Router} from "@angular/router";
   styleUrls: ["./company-page.component.css"]
 })
 export class CompanyPageComponent implements OnInit, OnDestroy {
-  @ViewChild('name') name: ElementRef;
-  @ViewChild('date') date: ElementRef;
-  @ViewChild('description') description: ElementRef;
-  @ViewChild('file') file: ElementRef;
-  @ViewChild('cost') cost: ElementRef;
-
   public myNumber = '';
   public myDate = '';
   public myCvv = '';
   public numberMask = [/\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/];
-  public dateMask = [ /\d/, /\d/, '/', /\d/, /\d/];
-  public cvvMask = [ /\d/, /\d/, /\d/];
+  public dateMask = [/\d/, /\d/, '/', /\d/, /\d/];
+  public cvvMask = [/\d/, /\d/, /\d/];
   minDate: Date;
   maxDate: Date;
 
@@ -37,11 +31,13 @@ export class CompanyPageComponent implements OnInit, OnDestroy {
   typeArray: ProductTypeModel[];
   company: companyModel;
   walletFlag: boolean;
+  replenishFlag = false;
   productFlag: boolean = false;
   walletForm: FormGroup;
   productForm: FormGroup;
+  replenishForm: FormGroup;
   errorsMapWallet: Map<string, string> = new Map<string, string>();
-  errorsMapProduct: Map<string,string> = new Map<string, string>();
+  errorsMapProduct: Map<string, string> = new Map<string, string>();
   hiddenCardNumber: string;
   cardDateString: string;
 
@@ -51,7 +47,7 @@ export class CompanyPageComponent implements OnInit, OnDestroy {
               private walletServiceImpl: WalletServiceImpl,
               private productTypeService: ProductTypeServiceImpl,
               private productServiceImpl: ProductServiceImpl,
-              private router: Router){
+              private router: Router) {
     this.productForm = new FormGroup({
       "date": new FormControl("", [
         Validators.required,
@@ -93,15 +89,18 @@ export class CompanyPageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     if (this.companyService.company == null) {
       this.router.navigate(["/sign_in"]);
-    }
-    else {
+    } else {
       this.company = this.companyService.company;
       if (this.company.wallet != null) {
         if (this.company.wallet.cardCvvCode != 0) {
           this.walletFlag = true;
+          this.hiddenCardNumber = '**** **** **** ' + this.company.wallet.cardNumber.toString().substring(this.company.wallet.cardNumber.toString().length - 4);
+          let stringDate: string = new Date(this.company.wallet.cardDate).toLocaleDateString();
+          this.cardDateString = stringDate.substring(3, 5) + "/" + stringDate.substring(8);
+        } else {
+          this.walletFlag = false;
         }
-      }
-      else {
+      } else {
         this.walletFlag = false;
       }
       this.minDate = new Date();
@@ -109,6 +108,12 @@ export class CompanyPageComponent implements OnInit, OnDestroy {
       this.minDate.setDate(this.minDate.getDate() - 1090);
       this.maxDate.setDate(this.maxDate.getDate());
       this.getProductTypes();
+      this.replenishForm = new FormGroup({
+        "number": new FormControl("", [
+          Validators.required,
+          Validators.pattern('^[1-9]{1}[0-9]*$')
+        ])
+      })
     }
   }
 
@@ -116,7 +121,7 @@ export class CompanyPageComponent implements OnInit, OnDestroy {
     this.selectedFiles = event.target.files;
   }
 
-  private getProductTypes(): void{
+  private getProductTypes(): void {
     this.subscriptions.push(this.productTypeService.findTypes().subscribe(types => {
       this.typeArray = types as ProductTypeModel[];
     }));
@@ -126,21 +131,26 @@ export class CompanyPageComponent implements OnInit, OnDestroy {
     if (this.company.wallet == null) {
       this.company.wallet = new WalletModel();
     }
-    this.company.wallet.cardNumber = +cardNumber.replace(/\s/g, '');
-    this.company.wallet.cardDate = new Date(cardDate);
-    this.company.wallet.cardCvvCode = +cardCvv;
-    this.company.wallet.personName = cardHolderName;
-    this.company.password = "11111111";
-    this.subscriptions.push(this.companyService.saveCompanyWallet(this.company).subscribe( companyOrErrors => {
+    this.company = {
+      ...this.company,
+      password: "111111111",
+      wallet: {
+        ...this.company.wallet,
+        cardNumber: +cardNumber.replace(/\s/g, ''),
+        cardDate: new Date(cardDate.substring(0, 2) + "/01/20" + cardDate.substring(3)),
+        cardCvvCode: +cardCvv,
+        personName: cardHolderName
+      }
+    };
+    this.subscriptions.push(this.companyService.saveCompanyWallet(this.company).subscribe(companyOrErrors => {
       if (companyOrErrors.errors == null) {
         this.company = companyOrErrors.companyModel as companyModel;
         this.companyService.company = this.company;
-        this.errorsMapWallet.clear();
-        this.hiddenCardNumber = '**** **** ****' + cardNumber.substring(cardNumber.length - 4);
+        this.errorsMapWallet = new Map<string, string>();
+        this.hiddenCardNumber = '**** **** **** ' + cardNumber.substring(cardNumber.length - 4);
         this.cardDateString = cardDate;
         this.walletFlag = true;
-      }
-      else {
+      } else {
         this.errorsMapWallet = companyOrErrors.errors;
         this.company = this.companyService.company;
       }
@@ -148,49 +158,73 @@ export class CompanyPageComponent implements OnInit, OnDestroy {
   }
 
   private deleteCard(): void {
-    this.company.wallet.cardDate = null;
-    this.company.wallet.cardNumber = null;
-    this.company.wallet.personName = null;
-    this.company.wallet.cardCvvCode = null;
-    this.subscriptions.push(this.walletServiceImpl.deleteCard(this.company.wallet.idWallet).subscribe( () => {
+    this.subscriptions.push(this.walletServiceImpl.deleteCard(this.company.wallet.idWallet).subscribe(() => {
+      this.company.wallet.cardDate = null;
+      this.company.wallet.cardNumber = null;
+      this.company.wallet.personName = null;
+      this.company.wallet.cardCvvCode = null;
       this.companyService.company = this.company;
       this.walletFlag = false;
     }));
   }
 
-  private createProduct(name: string, date: Date, description: string, cost: number, typeIndex: number): void {
-    let product: ProductModel = new ProductModel();
-    let image: File = this.selectedFiles.item(0);
-    product.productName = name;
-    product.realiseDate = date;
-    product.description = description;
-    product.cost = cost;
-    product.type = this.typeArray[typeIndex];
-    product.companyId = this.company.id;
-    product.companyName = this.company.name;
-    product.isActive = 1;
-    //console.log(product);
-    this.subscriptions.push(this.productServiceImpl.saveProduct(product).subscribe( productOrErrors => {
-      if (productOrErrors.errors != null) {
-        this.errorsMapProduct = productOrErrors.errors;
-      }
-      else {
-        this.errorsMapProduct.clear();
-        let createdProduct: ProductModel = productOrErrors.product as ProductModel;
-        this.subscriptions.push(this.productServiceImpl.saveProductImageByProductId(createdProduct.id, image).subscribe(() => {
-          this.productFlag = true;
-        }));
+  private replenishCard(number: number): void {
+    this.company.wallet.balance += +number;
+    this.subscriptions.push(this.walletServiceImpl.replenishCard(this.company.wallet).subscribe(walletOrErrors => {
+      if (walletOrErrors.errors == null) {
+        this.companyService.company = this.company;
+        this.errorsMapWallet = new Map<string, string>();
+        this.replenishFlag = true;
+      } else {
+        this.errorsMapWallet = walletOrErrors.errors;
+        this.company = this.companyService.company;
       }
     }));
   }
 
+  changeReplenishFlag(): void {
+    this.replenishForm.reset();
+    this.replenishFlag = false;
+  }
+
+  private createProduct(name: string, date: string, description: string, cost: number, typeIndex: number): void {
+    let product: ProductModel = new ProductModel();
+    if (this.selectedFiles.item(0) == null) {
+      this.errorsMapProduct.set("file", "Select product image");
+    } else {
+      let image: File = this.selectedFiles.item(0);
+      product.productName = name;
+      product.realiseDate = new Date(date);
+      product.description = description;
+      product.cost = cost;
+      product.type = this.typeArray[typeIndex];
+      product.companyId = this.company.id;
+      product.companyName = this.company.name;
+      product.isActive = 1;
+      console.log(product);
+      this.subscriptions.push(this.productServiceImpl.saveProduct(product).subscribe(productOrErrors => {
+        if (productOrErrors.errors != null) {
+          this.errorsMapProduct = productOrErrors.errors;
+        } else {
+          this.errorsMapProduct = new Map<string, string>();
+          console.log("entry");
+          let createdProduct: ProductModel = productOrErrors.product as ProductModel;
+          console.log(createdProduct);
+          this.subscriptions.push(this.productServiceImpl.saveProductImageByProductId(createdProduct.id, image).subscribe(productOrErrors => {
+            if (productOrErrors.errors != null) {
+              this.errorsMapProduct = productOrErrors.errors;
+            } else {
+              this.productFlag = true;
+            }
+          }));
+        }
+      }));
+    }
+  }
+
   private changeProductCreatedFlag(): void {
     this.productFlag = false;
-    this.name.nativeElement.value = '';
-    this.date.nativeElement.value = '';
-    this.description.nativeElement.value = '';
-    this.file.nativeElement.value = null;
-    this.cost.nativeElement.value = '';
+    this.productForm.reset();
   }
 
   @ViewChild('staticTabs') staticTabs: TabsetComponent;

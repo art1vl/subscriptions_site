@@ -1,5 +1,6 @@
 package com.artsykov.fapi.controller;
 
+import com.artsykov.fapi.controller.handler.HandlerService;
 import com.artsykov.fapi.entity.ProductTypeEntity;
 import com.artsykov.fapi.models.*;
 import com.artsykov.fapi.service.ProductDataService;
@@ -24,6 +25,10 @@ public class ProductController {
     @Autowired
     private ProductDataService productDataService;
 
+    @Autowired
+    private HandlerService handlerService;
+
+    //todo
     @GetMapping
     public ResponseEntity<List<ProductModel>> getAllProducts() {
         ProductModel product = new ProductModel(1, 1, "Mttfyftyfyfyftyn  dr dy dry dr drt drt dtdtdd dr", "file:/C:/my_files/photos/iris.jpg", new ProductTypeModel(1, "business"), new Date(1570000000000L), 10, "Microsoft word 2013", 1);
@@ -40,6 +45,7 @@ public class ProductController {
         return ResponseEntity.ok(list);
     }
 
+    //todo
     @RequestMapping(value = "/{id}")
     public ResponseEntity<ProductModel> getProductById(@PathVariable String id) throws InterruptedException {
 //        Long billingAccountId = Long.valueOf(id);
@@ -51,12 +57,12 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductModel> saveProduct(@RequestBody @Valid ProductModel productModel) {
-        return ResponseEntity.ok(productDataService.saveProduct(productModel));
+    public ResponseEntity<ProductOrErrorsModel> saveProduct(@RequestBody @Valid ProductModel productModel) {
+        return ResponseEntity.ok(new ProductOrErrorsModel(productDataService.saveProduct(productModel)));
     }
 
     @PostMapping(value = "/{id}/image")
-    public ResponseEntity<ProductModel> saveProductImage(@PathVariable("id") Integer id, @RequestParam("file") MultipartFile file) {
+    public ResponseEntity<ProductOrErrorsModel> saveProductImage(@PathVariable("id") Integer id, @RequestParam(value = "file", required = false) MultipartFile file) {
         return ResponseEntity.ok(productDataService.saveProductImage(id, file));
     }
 
@@ -64,11 +70,6 @@ public class ProductController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ProductOrErrorsModel> handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
-        ProductOrErrorsModel productOrErrorsModel = new ProductOrErrorsModel();
-        Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getFieldErrors().forEach(error ->
-                errors.put(error.getField(), error.getDefaultMessage()));
-        productOrErrorsModel.setErrors(errors);
-        return ResponseEntity.ok(productOrErrorsModel);
+        return ResponseEntity.ok(new ProductOrErrorsModel(handlerService.handleMethodArgumentNotValid(ex)));
     }
 }
