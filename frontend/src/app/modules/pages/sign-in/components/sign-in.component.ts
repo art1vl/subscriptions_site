@@ -18,7 +18,7 @@ import {LogInInfServiceImpl} from "../../../../services/impl/logInInf.service.im
 export class SignInComponent implements OnInit, OnDestroy {
   myForm : FormGroup;
   customer: customerModel;
-  errorsMap: Map<string, string> = new Map<string, string>();
+  errorSignIn: string;
 
   private subscriptions: Subscription[] = [];
 
@@ -30,18 +30,53 @@ export class SignInComponent implements OnInit, OnDestroy {
   }
 
   submit(email: string, password: string){
-    this.errorsMap = new Map<string, string>();
-    this.subscriptions.push(this.logInInfService.signin(email, password).subscribe(user => {
-      if (user.errors == null) {
-        this.customerService.customer = user.customerModel as customerModel;
-        this.companyService.company = user.companyModel as companyModel;
-        this.adminService.admin = user.adminModel as adminModel;
-        this.router.navigate(["/"]);
-        this.errorsMap = new Map<string, string>();
+    this.subscriptions.push(this.logInInfService.signin(email, password).subscribe(signInModel => {
+      if (signInModel.error == null) {
+        this.errorSignIn = null;
+        localStorage.setItem("token", signInModel.token);
+        let logInInfId: number = signInModel.user.idLogInInf;
+        switch (signInModel.user.role) {
+          case "CUSTOMER":
+            this.subscriptions.push(this.customerService.findCustomerByLogInInfId(logInInfId).subscribe( customer => {
+              this.customerService.customer = customer as customerModel;
+              console.log(this.customerService);
+              if (this.customerService.customer.isActive == 0) {
+                this.errorSignIn = "Your account was blocked by administration. To know more, please, contact us by art_vl@mail.ru"
+              }
+              if (this.errorSignIn == null) {
+                this.router.navigate(["/"]);
+              }
+              else {
+                localStorage.clear();
+              }
+            }));
+            break;
+          case "COMPANY":
+            this.subscriptions.push(this.companyService.findCompanyByLogInInfId(logInInfId).subscribe( company => {
+              this.companyService.company = company as companyModel;
+              if (this.companyService.company.isActive == 0) {
+                this.errorSignIn = "Your account was blocked by administration. To know more, please, contact us by art_vl@mail.ru"
+              }
+              if (this.errorSignIn == null) {
+                this.router.navigate(["/"]);
+              }
+              else {
+                localStorage.clear();
+              }
+            }));
+            break;
+          case "ADMIN":
+            this.adminService.admin = new adminModel(signInModel.user.idLogInInf);
+            this.router.navigate(["/"]);
+            break;
+        }
+        // if (this.errorSignIn == null) {
+        //   this.router.navigate(["/"]);
+        // }
       }
       else {
-        this.errorsMap = user.errors;
-        this.myForm.reset();
+        this.errorSignIn = signInModel.error;
+        this.myForm.reset(); 
       }
     }));
   }
@@ -63,5 +98,6 @@ export class SignInComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    this.subscriptions = [];
   }
 }

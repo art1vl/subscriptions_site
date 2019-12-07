@@ -58,9 +58,9 @@ public class CustomerDataServiceImpl implements CustomerDataService {
     }
 
     @Override
-    public CustomerModel findCustomerById(Long idCustomer) {
+    public CustomerModel findCustomerByLogInInfId(int logInInfId) {
         RestTemplate restTemplate = new RestTemplate();
-        return customerConverter.convertFromBackToFront(restTemplate.getForObject(backendServerUrl + "/api/customer/" + idCustomer, CustomerEntity.class));
+        return customerConverter.convertFromBackToFront(restTemplate.getForObject(backendServerUrl + "/api/customer/log/in/inf/" + logInInfId, CustomerEntity.class));
     }
 
 //    @Override

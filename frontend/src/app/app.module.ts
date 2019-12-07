@@ -6,7 +6,7 @@ import { ModalModule } from "ngx-bootstrap/modal";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 import { AppComponent } from "./app.component";
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
 import {Ng4LoadingSpinnerModule} from "ng4-loading-spinner";
 import {RouterModule, Routes} from "@angular/router";
 import {SignInComponent} from "./modules/pages/sign-in/components/sign-in.component";
@@ -31,6 +31,7 @@ import {CompanyPageComponent} from "./modules/pages/company-page/components/comp
 import {AdminPageComponent} from "./modules/pages/admin-page/components/admin-page.component";
 import {WalletServiceImpl} from "./services/impl/wallet-service-impl.service";
 import {ProductServiceImpl} from "./services/impl/product.service.impl";
+import {AuthInterceptor} from "./services/impl/AuthInterceptor";
 
 const appRoutes: Routes = [
   {path: "", component: HomeComponent},
@@ -74,7 +75,12 @@ const appRoutes: Routes = [
     CustomerServiceImpl,
     HttpClient,
     WalletServiceImpl,
-    ProductServiceImpl
+    ProductServiceImpl,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

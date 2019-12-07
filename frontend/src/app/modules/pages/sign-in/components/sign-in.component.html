@@ -22,12 +22,8 @@
         </div>
       </div>
       <div class="alert alert-danger"
-           *ngIf="errorsMap['email'] != undefined">
-        {{errorsMap['email']}}
-      </div>
-      <div class="alert alert-danger"
-           *ngIf="errorsMap['password'] != undefined && errorsMap['email'] == undefined">
-        {{errorsMap['password']}}
+           *ngIf="errorSignIn != undefined">
+        {{errorSignIn}}
       </div>
       <button type="submit" class="btn btn-primary" [disabled]="myForm.invalid"
               (click)="submit(email.value, password.value)">Submit

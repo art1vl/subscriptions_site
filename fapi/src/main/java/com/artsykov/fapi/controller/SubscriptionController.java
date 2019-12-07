@@ -4,6 +4,7 @@ import com.artsykov.fapi.models.ProductTypeModel;
 import com.artsykov.fapi.models.SubscriptionModel;
 import com.artsykov.fapi.models.ProductModel;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,7 @@ import java.util.List;
 @RequestMapping("/api/subscription")
 public class SubscriptionController {
 
+    @Secured("ROLE_CUSTOMER")
     @RequestMapping(value = "/{id}")
     public ResponseEntity<List<SubscriptionModel>> findAllSubscriptionsByCustomerId(@PathVariable String id) throws InterruptedException {
 //        Long billingAccountId = Long.valueOf(id);
@@ -31,6 +33,8 @@ public class SubscriptionController {
         return ResponseEntity.ok(list);
     }
 
+
+    //todo do I need it????
     @RequestMapping
     public ResponseEntity<List<SubscriptionModel>> findAllSubscriptions() throws InterruptedException {
         ProductModel product = new ProductModel(1, 1, "Microsoft Word is a widely used commercial word processor designed by Microsoft. Microsoft Word is a component of the Microsoft Office suite of productivity software, but can also be purchased as a stand-alone product.\n" +

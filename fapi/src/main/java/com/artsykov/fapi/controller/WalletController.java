@@ -8,24 +8,28 @@ import com.artsykov.fapi.service.WalletDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/api/wallet")
 public class WalletController {
+
     @Autowired
     private WalletDataService walletDataService;
 
     @Autowired
     private HandlerService handlerService;
 
+    @Secured({"ROLE_COMPANY", "ROLE_CUSTOMER"})
     @DeleteMapping(value = "/{id}")
     public HttpStatus deleteWallet (@PathVariable("id") Integer id) {
         walletDataService.deleteWallet(id);
         return HttpStatus.OK;
     }
 
+    @Secured({"ROLE_COMPANY", "ROLE_CUSTOMER"})
     @PutMapping(value = "/replenish")
     public ResponseEntity<WalletOrErrorsModel> replenish (@RequestBody WalletModel walletModel) {
         walletDataService.replenish(walletModel);

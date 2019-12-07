@@ -6,7 +6,7 @@ import com.artsykov.fapi.models.CustomerOrErrorsModel;
 public interface CustomerDataService {
     CustomerModel checkAndSaveCustomer (CustomerModel customer);
 
-    CustomerModel findCustomerById(Long idCustomer);
+    CustomerModel findCustomerByLogInInfId(int logInInfId);
 
     CustomerModel[] findAll();
 

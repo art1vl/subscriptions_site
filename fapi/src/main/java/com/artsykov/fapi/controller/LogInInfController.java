@@ -43,25 +43,28 @@ public class LogInInfController {
 
     @PostMapping(value = "/sign/in")
     public ResponseEntity<?> getUserByEmail(@RequestBody @Valid LogInParam logInParam) throws InterruptedException {
+        Map<Object, Object> response = new HashMap<>();
         try {
             String username = logInParam.getEmail();
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, logInParam.getPassword()));
             LogInInfEntity logInInfEntity = logInInfDataService.findUserByEmail(username);
 
             if (logInInfEntity == null) {
-                throw new UsernameNotFoundException("User with email: " + username + " not found");
+                response.put("error", "Incorrect email or password");
+                //throw new UsernameNotFoundException("User with email: " + username + " not found");
             }
             String token = jwtTokenProvider.createToken(username, logInInfEntity.getRole().toString());
 
-            Map<Object, Object> response = new HashMap<>();
-            response.put("username", username);
+           // response.put("username", username);
+            logInInfEntity.setPassword(null);
             response.put("user", logInInfEntity);
             response.put("token", token);
-
-            return ResponseEntity.ok(response);
+            response.put("error", null);
         } catch (AuthenticationException e) {
-            throw new BadCredentialsException("Invalid username or password");
+            response.put("error", "Incorrect email or password");
+        //    throw new BadCredentialsException("Invalid username or password");
         }
+        return ResponseEntity.ok(response);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

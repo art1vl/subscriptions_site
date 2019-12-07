@@ -16,21 +16,27 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class CompanyDataServiceImpl implements CompanyDataService {
     private CompanyConverter companyConverter;
-  //  private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Value("${backend.server.url}")
     private String backendServerUrl;
 
     @Autowired
-    public CompanyDataServiceImpl(CompanyConverter companyConverter) {
+    public CompanyDataServiceImpl(CompanyConverter companyConverter, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.companyConverter = companyConverter;
-       // this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
+
+    @Override
+    public CompanyModel getCompanyByLogInInfId(int logInInfId) {
+        RestTemplate restTemplate = new RestTemplate();
+        return companyConverter.convertFromBackToFront(restTemplate.getForObject(backendServerUrl + "/api/company/log/in/inf/" + logInInfId, CompanyEntity.class));
     }
 
     @Override
     public CompanyModel saveCompany(CompanyModel company) {
         RestTemplate restTemplate = new RestTemplate();
-      //  company.setPassword(bCryptPasswordEncoder.encode(company.getPassword()));
+        company.setPassword(bCryptPasswordEncoder.encode(company.getPassword()));
         CompanyEntity companyEntity = companyConverter.convertFromFrontToBack(company);
         return companyConverter.convertFromBackToFront(restTemplate.postForEntity(backendServerUrl + "/api/company",
                 companyEntity, CompanyEntity.class).getBody());

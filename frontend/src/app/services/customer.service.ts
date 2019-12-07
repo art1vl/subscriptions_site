@@ -9,7 +9,7 @@ export interface CustomerService {
 
  // deleteCustomerById(customerId: string): Observable<void>;
 
-  //findCustomerById(customerId: string): Observable<customerModel>;
+  findCustomerByLogInInfId(logInInfId: number): Observable<customerModel>;
 
   //isActiveCustomerById(customerId: string): Observable<boolean>;
 
