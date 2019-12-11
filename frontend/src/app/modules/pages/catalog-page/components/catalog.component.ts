@@ -8,7 +8,7 @@ import {CustomerServiceImpl} from "../../../../services/impl/customer.service.im
 import {customerModel} from "../../../models/customerModel";
 import {ProductTypeServiceImpl} from "../../../../services/impl/productType.service.impl";
 import {ProductTypeModel} from "../../../models/productTypeModel";
-//import { Location } from '@angular/common';
+import {PaginationComponent} from "ng2-bootstrap";
 
 @Component({
   selector: "app-catalog",
@@ -20,6 +20,8 @@ export class CatalogComponent implements OnInit, OnDestroy {
   products: ProductModel[];
   searchForm: FormGroup;
   customer: customerModel;
+  totalPages: number;
+  totalProducts: number;
 
   private subscriptions: Subscription[] = [];
 
@@ -33,11 +35,10 @@ export class CatalogComponent implements OnInit, OnDestroy {
 
   // Calls on component init
   ngOnInit() {
-    this.loadProduct();
+    this.loadFirstPageProduct();
     this.getProductTypes();
     this.customer = this.customerServiceImpl.customer;
     this.searchForm = new FormGroup({
-
       "productName": new FormControl("", [
         Validators.pattern('^[0-9a-zA-Z]+$'),
       ])})
@@ -53,15 +54,20 @@ export class CatalogComponent implements OnInit, OnDestroy {
     }));
   }
 
-  private loadProduct(): void {
-    this.loadingService.show();
-    // Get data from BillingAccountService
-    this.subscriptions.push(this.ProductService.findProducts().subscribe(prod => {
-      // Parse json response into local array
-      this.products = prod as ProductModel[];
-      // Check data in console
-     // console.log(this.products);// don't use console.log in angular :)
-      this.loadingService.hide();
+  private loadFirstPageProduct(): void {
+    this.subscriptions.push(this.ProductService.findProducts(0, 2).subscribe(productPageModel => {
+      this.products = productPageModel.productModelList as ProductModel[];
+      this.totalProducts = productPageModel.totalElements;
+      this.totalPages = productPageModel.totalPages;
+      console.log(this.totalProducts);
+    }));
+  }
+
+  private loadNewPageProduct(pagination: PaginationComponent): void {
+    this.subscriptions.push(this.ProductService.findProducts(pagination.page - 1, 1).subscribe(productPageModel => {
+      this.products = productPageModel.productModelList as ProductModel[];
+      this.totalProducts = productPageModel.totalElements;
+      this.totalPages = productPageModel.totalPages;
     }));
   }
 

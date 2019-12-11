@@ -32,6 +32,7 @@ import {AdminPageComponent} from "./modules/pages/admin-page/components/admin-pa
 import {WalletServiceImpl} from "./services/impl/wallet-service-impl.service";
 import {ProductServiceImpl} from "./services/impl/product.service.impl";
 import {AuthInterceptor} from "./services/impl/AuthInterceptor";
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 const appRoutes: Routes = [
   {path: "", component: HomeComponent},
@@ -69,6 +70,7 @@ const appRoutes: Routes = [
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
     ModalModule.forRoot(),
+    PaginationModule.forRoot(),
     RouterModule.forRoot(appRoutes),
   ],
   providers: [

@@ -63,30 +63,6 @@ public class CustomerDataServiceImpl implements CustomerDataService {
         return customerConverter.convertFromBackToFront(restTemplate.getForObject(backendServerUrl + "/api/customer/log/in/inf/" + logInInfId, CustomerEntity.class));
     }
 
-//    @Override
-//    public CustomerOrErrorsModel findCustomerByEmail(String email, String password) {
-//        CustomerOrErrorsModel customerOrErrorsModel = new CustomerOrErrorsModel();
-//        Map<String, String> errorsMap = new HashMap<>();
-//        RestTemplate restTemplate = new RestTemplate();
-//        LogInInfEntity logInInfEntity = restTemplate.getForObject(backendServerUrl + "/api/log_in_inf/" + email, LogInInfEntity.class);
-//        if (logInInfEntity != null) {
-//            if (logInInfEntity.getPassword().equals(password)) {
-//                customerOrErrorsModel.setCustomerModel(CustomerConverter.convertFromBackToFront(restTemplate.getForObject(
-//                        backendServerUrl + "/api/customer/" + logInInfEntity.getIdLogInInf(), CustomerEntity.class)));
-//            }
-//            else {
-//                errorsMap.put("password", "incorrect password");
-//            }
-//        }
-//        else {
-//            errorsMap.put("email", "email wasn't found");
-//        }
-//        if (!errorsMap.isEmpty()) {
-//            customerOrErrorsModel.setErrors(errorsMap);
-//        }
-//        return customerOrErrorsModel;
-//    }
-
     @Override
     public void updateCustomerPersonalInf(CustomerModel customerModel) {
         RestTemplate restTemplate = new RestTemplate();

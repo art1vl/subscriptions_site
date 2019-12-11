@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {ProductModel} from "../../modules/models/productModel";
 import {ProductService} from "../product.service";
 import {ProductOrErrorModel} from "../../modules/models/productOrErrorModel";
+import {ProductPageModel} from "../../modules/models/productPageModel";
 
 @Injectable()
 // Data service
@@ -12,8 +13,8 @@ export class ProductServiceImpl implements ProductService {
   constructor(private http: HttpClient) {
   }
 
-  findProducts(): Observable<ProductModel[]> {
-    return this.http.get<ProductModel[]>('/api/product');
+  findProducts(page: number, amount: number): Observable<ProductPageModel> {
+    return this.http.get<ProductPageModel>('/api/product?page=' + page + "&amount=" + amount);
   }
 
   findProductById(productId: string): Observable<ProductModel> {

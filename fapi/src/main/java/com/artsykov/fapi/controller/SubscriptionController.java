@@ -34,7 +34,7 @@ public class SubscriptionController {
     }
 
 
-    //todo do I need it????
+    //todo do I need it????npm
     @RequestMapping
     public ResponseEntity<List<SubscriptionModel>> findAllSubscriptions() throws InterruptedException {
         ProductModel product = new ProductModel(1, 1, "Microsoft Word is a widely used commercial word processor designed by Microsoft. Microsoft Word is a component of the Microsoft Office suite of productivity software, but can also be purchased as a stand-alone product.\n" +

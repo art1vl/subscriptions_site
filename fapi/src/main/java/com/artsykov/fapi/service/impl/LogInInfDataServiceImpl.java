@@ -1,30 +1,21 @@
 package com.artsykov.fapi.service.impl;
 
-import com.artsykov.fapi.converter.CustomerConverter;
-import com.artsykov.fapi.entity.CompanyEntity;
-import com.artsykov.fapi.entity.CustomerEntity;
-import com.artsykov.fapi.entity.LogInInfEntity;
 import com.artsykov.fapi.converter.CompanyConverter;
-import com.artsykov.fapi.models.AdminModel;
-import com.artsykov.fapi.models.CustomerOrCompanyOrAdminOrErrorsModel;
+import com.artsykov.fapi.converter.CustomerConverter;
+import com.artsykov.fapi.entity.LogInInfEntity;
 import com.artsykov.fapi.security.JwtTokenProvider;
 import com.artsykov.fapi.service.LogInInfDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 @Service("logInIndService")

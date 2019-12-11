@@ -25,11 +25,11 @@
             </div>
           </div>
           <!--<div class="col-xs-12 col-12 col-md-4 form-group">-->
-            <!--<input type="text"-->
-                   <!--placeholder="Daterangepicker"-->
-                   <!--class="form-control"-->
-                   <!--bsDaterangepicker-->
-                   <!--[bsConfig]="{ adaptivePosition: true }">-->
+          <!--<input type="text"-->
+          <!--placeholder="Daterangepicker"-->
+          <!--class="form-control"-->
+          <!--bsDaterangepicker-->
+          <!--[bsConfig]="{ adaptivePosition: true }">-->
           <!--</div>-->
           <div class="form-row">
             <div class="form-group">
@@ -57,6 +57,13 @@
       <div class="flex-container">
         <div *ngFor="let product of products">
           <app-catalog-product [product]="product"></app-catalog-product>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-12">
+          <div class="pagin">
+            <pagination [totalItems]="totalProducts"  [itemsPerPage]="2" (pageChanged)="loadNewPageProduct(pagination)" #pagination></pagination>
+          </div>
         </div>
       </div>
     </div>
