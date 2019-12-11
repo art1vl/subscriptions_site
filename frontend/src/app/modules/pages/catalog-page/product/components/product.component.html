@@ -1,19 +1,11 @@
 <div class="catalog">
-  <!--<table>-->
-    <!--<tr>-->
-      <!--<td><a href="Кроссы.html"><img src="../../../../assets/footer-photos/7.jpg" alt="Мужские Кроссовки Jordan Formula 23 Low 919724 010"><br>Мужские Кроссовки Jordan Formula<br> 23 Low 919724 010</a></td>-->
-      <a routerLink="product/{{product.id}}"><img src="{{product.image}}" alt="product photo"><br>{{product.productName}}<br>{{product.companyName}}</a>
-      <!--<td><a href="Кроссы.html"><img src="7.jpg" alt="Мужские Кроссовки Jordan Eclipse Chukka 881453 101"><br>Мужские Кроссовки Jordan Eclipse<br> Chukka 881453 101</a></td>-->
-    <!--</tr>-->
-    <!--<tr>-->
-      <!--<td><a href="Кроссы.html"><img src="7.jpg" alt="Мужские Кроссовки Air Jordan 1 Mid 554724 110"><br>Мужские Кроссовки Air Jordan 1<br> Mid 554724 110</a></td>-->
-      <!--<td><a href="Кроссы.html"><img src="7.jpg" alt="Мужские Кроссовки Jordan Ultra Fly 2 Low AH8110 001"><br>Мужские Кроссовки Jordan Ultra Fly<br> 2 Low AH8110 001</a></td>-->
-      <!--<td><a href="Кроссы.html"><img src="7.jpg" alt="Мужские Кроссовки Jordan Grind AA4302 004"><br>Мужские Кроссовки Jordan Grind<br> AA4302 004</a></td>-->
-    <!--</tr>-->
-    <!--<tr>-->
-      <!--<td><a href="Кроссы.html"><img src="7.jpg" alt="Мужские Кроссовки Jordan Eclipse Chukka 881453 003"><br>Мужские Кроссовки Jordan Eclipse<br> Chukka 881453 003</a></td>-->
-      <!--<td><a href="Кроссы.html"><img src="7.jpg" alt="Мужские Кроссовки Jordan Eclipse 724010 033"><br>Мужские Кроссовки Jordan Eclipse<br> 724010 033</a></td>-->
-      <!--<td><a href="Кроссы.html"><img src="7.jpg" alt="Мужские Кроссовки Nike Air Jordan 1 Mid Prem 852542 001"><br>Мужские Кроссовки Nike Air Jordan<br> 1 Mid Prem 852542 001</a></td>-->
-    <!--</tr>-->
-  <!--</table>-->
+  <a routerLink="product/{{product.id}}">
+    <div class="image">
+      <img src="api/files/{{product.image}}" alt="product photo">
+    </div>
+    <br>
+    {{product.productName}}
+    <br>
+    {{product.companyName}}
+  </a>
 </div>

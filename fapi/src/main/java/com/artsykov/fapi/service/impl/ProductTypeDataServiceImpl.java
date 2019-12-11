@@ -26,7 +26,7 @@ public class ProductTypeDataServiceImpl implements ProductTypeDataService {
     @Override
     public List<ProductTypeModel> findTypes() {
         RestTemplate restTemplate = new RestTemplate();
-        ProductTypeEntity[] productTypeEntities = restTemplate.getForObject(backendServerUrl + "/api/product_type/", ProductTypeEntity[].class);
+        ProductTypeEntity[] productTypeEntities = restTemplate.getForObject(backendServerUrl + "/api/product/type/", ProductTypeEntity[].class);
         List<ProductTypeEntity> productTypeEntityList = new ArrayList<>(Arrays.asList(productTypeEntities));
         return productTypeEntityList.stream()
                                     .map(p -> productTypeConverter.convertFromBackToFront(p))

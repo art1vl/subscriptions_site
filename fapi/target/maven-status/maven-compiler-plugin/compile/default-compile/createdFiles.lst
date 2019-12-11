@@ -50,6 +50,7 @@ com\artsykov\fapi\controller\SubscriptionController.class
 com\artsykov\fapi\models\AdminModel.class
 com\artsykov\fapi\controller\handler\HandlerService.class
 com\artsykov\fapi\entity\RoleEnum.class
+com\artsykov\fapi\models\ProductPageModel.class
 com\artsykov\fapi\service\impl\CustomerDataServiceImpl.class
 com\artsykov\fapi\entity\LogInInfEntity.class
 com\artsykov\fapi\entity\ProductEntity.class

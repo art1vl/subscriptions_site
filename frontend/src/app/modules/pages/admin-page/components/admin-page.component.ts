@@ -22,6 +22,8 @@ export class AdminPageComponent implements OnInit, OnDestroy {
   customerModel: customerModel[] = [];
   errorsMapCompany: Map<string, string> = new Map<string, string>();
   companyCreatedFlag: boolean = false;
+  totalPagesProduct: number;
+  totalProducts: number;
 
   private subscriptions: Subscription[] = [];
 
@@ -31,7 +33,7 @@ export class AdminPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.loadProducts();
+    this.loadFirstPageProducts();
    // this.loadCompanies();
     this.myForm = new FormGroup({
       "email": new FormControl("", [
@@ -55,9 +57,11 @@ export class AdminPageComponent implements OnInit, OnDestroy {
     }, );
   }
 
-  private loadProducts(): void {
-    this.subscriptions.push(this.productService.findProducts().subscribe(products => {
-      this.productModel = products as ProductModel[];
+  private loadFirstPageProducts(): void {
+    this.subscriptions.push(this.productService.findProducts(0, 8).subscribe(productPageModel => {
+      this.productModel = productPageModel.productModelList as ProductModel[];
+      this.totalProducts = productPageModel.totalElements;
+      this.totalPagesProduct = productPageModel.totalPages;
     }));
   }
 

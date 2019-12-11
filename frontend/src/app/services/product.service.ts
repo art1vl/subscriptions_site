@@ -1,9 +1,10 @@
 import {Observable} from "rxjs";
 import {ProductModel} from "../modules/models/productModel";
 import {ProductOrErrorModel} from "../modules/models/productOrErrorModel";
+import {ProductPageModel} from "../modules/models/productPageModel";
 
 export interface ProductService {
-  findProducts(): Observable<ProductModel[]>;
+  findProducts(page: number, amount: number): Observable<ProductPageModel>;
 
   saveProduct(product: ProductModel): Observable<ProductOrErrorModel>;
 

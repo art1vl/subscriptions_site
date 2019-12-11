@@ -4,9 +4,11 @@ import com.artsykov.fapi.converter.ProductConverter;
 import com.artsykov.fapi.entity.ProductEntity;
 import com.artsykov.fapi.models.ProductModel;
 import com.artsykov.fapi.models.ProductOrErrorsModel;
+import com.artsykov.fapi.models.ProductPageModel;
 import com.artsykov.fapi.service.ProductDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,7 +16,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductDataServiceImpl implements ProductDataService {
@@ -62,5 +66,17 @@ public class ProductDataServiceImpl implements ProductDataService {
     public ProductModel getProduct(int id) {
         RestTemplate restTemplate = new RestTemplate();
         return productConverter.convertFromBackToFront(restTemplate.getForObject(backendServerUrl + "/api/product/" + id, ProductEntity.class));
+    }
+
+    @Override
+    public ProductPageModel getProductsByPage(int pageNumber, int amount) {
+        RestTemplate restTemplate = new RestTemplate();
+        ProductPageModel productPageModel = restTemplate.getForObject(backendServerUrl + "/api/product?page=" + pageNumber + "&amount=" + amount, ProductPageModel.class);
+        List<ProductModel> productModelList = productPageModel.getProductList().stream()
+                                                                .map(p -> productConverter.convertFromBackToFront(p))
+                                                                .collect(Collectors.toList());
+        productPageModel.setProductModelList(productModelList);
+        productPageModel.setProductList(null);
+        return productPageModel;
     }
 }

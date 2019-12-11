@@ -7,6 +7,7 @@ import {CommonModule} from "@angular/common";
 import {ProductServiceImpl} from "../../../services/impl/product.service.impl";
 import {ReactiveFormsModule} from "@angular/forms";
 import {ProductTypeServiceImpl} from "../../../services/impl/productType.service.impl";
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import {ProductTypeServiceImpl} from "../../../services/impl/productType.service
     RouterModule,
     ProductModule,
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PaginationModule.forRoot(),
   ],
   providers: [
     ProductServiceImpl,
