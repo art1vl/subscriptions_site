@@ -1,6 +1,6 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from "@angular/core";
-import {Subscription} from "rxjs";
-import {TabsetComponent} from "ngx-bootstrap";
+import {Component, OnDestroy, OnInit, ViewChild} from "@angular/core";
+import {Subject, Subscription} from "rxjs";
+import {PaginationComponent, TabsetComponent} from "ngx-bootstrap";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {WalletModel} from "../../../models/walletModel";
 import {companyModel} from "../../../models/companyModel";
@@ -11,6 +11,8 @@ import {ProductTypeServiceImpl} from "../../../../services/impl/productType.serv
 import {ProductServiceImpl} from "../../../../services/impl/product.service.impl";
 import {ProductModel} from "../../../models/productModel";
 import {Router} from "@angular/router";
+import {AdminServiceImpl} from "../../../../services/impl/admin.service.impl";
+import {CustomerServiceImpl} from "../../../../services/impl/customer.service.impl";
 
 @Component({
   selector: "app-company-page",
@@ -30,20 +32,38 @@ export class CompanyPageComponent implements OnInit, OnDestroy {
   selectedFiles: FileList;
   typeArray: ProductTypeModel[];
   company: companyModel;
-  walletFlag: boolean;
-  replenishFlag = false;
   productFlag: boolean = false;
   walletForm: FormGroup;
   productForm: FormGroup;
-  replenishForm: FormGroup;
+  withdrawForm: FormGroup;
   errorsMapWallet: Map<string, string> = new Map<string, string>();
   errorsMapProduct: Map<string, string> = new Map<string, string>();
   hiddenCardNumber: string;
   cardDateString: string;
+  products: ProductModel[];
+  totalPage: number;
+  totalElements: number;
+  numberOfLastLoadedPage: number;
+  balance: number = 0;
+  withdrawFlag: boolean = true;
+  private balanceFlag = new Subject<boolean>();
+  public balanceFlag$ = this.balanceFlag.asObservable();
+  private withDrawFlag = new Subject<boolean>();
+  public withDrawFlag$ = this.withDrawFlag.asObservable();
+  private paginationFlag = new Subject<boolean>();
+  public paginationFlag$ = this.paginationFlag.asObservable();
+  private productsEmptyFlag = new Subject<boolean>();
+  public productsEmptyFlag$ = this.productsEmptyFlag.asObservable();
+  private companyWalletExistFlag = new Subject<boolean>();
+  public companyWalletExistFlag$ = this.companyWalletExistFlag.asObservable();
+  private deleteWalletFlag = new Subject<boolean>();
+  public deleteWalletFlag$ = this.deleteWalletFlag.asObservable();
 
   private subscriptions: Subscription[] = [];
 
   constructor(private companyService: CompanyServiceImpl,
+              private adminService: AdminServiceImpl,
+              private customerService: CustomerServiceImpl,
               private walletServiceImpl: WalletServiceImpl,
               private productTypeService: ProductTypeServiceImpl,
               private productServiceImpl: ProductServiceImpl,
@@ -58,7 +78,7 @@ export class CompanyPageComponent implements OnInit, OnDestroy {
       ]),
       "description": new FormControl("", [
         Validators.required,
-        Validators.pattern('^[A-Z .,:;a-z0-9]+$'),
+        Validators.pattern('^[A-Z \'\\-.,:;a-z0-9]+$'),
         Validators.maxLength(500),
       ]),
       "cost": new FormControl("", [
@@ -84,36 +104,52 @@ export class CompanyPageComponent implements OnInit, OnDestroy {
         Validators.pattern('^[A-Z]+\\s[A-Z]+$')
       ])
     },);
+    this.withdrawForm = new FormGroup({
+      "number": new FormControl("", [
+        Validators.required,
+        Validators.pattern('^[1-9]{1}[0-9]*$'),
+      ])
+    })
   }
 
   ngOnInit() {
-    if (this.companyService.company == null) {
-      this.router.navigate(["/sign_in"]);
-    } else {
-      this.company = this.companyService.company;
-      if (this.company.wallet != null) {
-        if (this.company.wallet.cardCvvCode != 0) {
-          this.walletFlag = true;
-          this.hiddenCardNumber = '**** **** **** ' + this.company.wallet.cardNumber.toString().substring(this.company.wallet.cardNumber.toString().length - 4);
-          let stringDate: string = new Date(this.company.wallet.cardDate).toLocaleDateString();
-          this.cardDateString = stringDate.substring(3, 5) + "/" + stringDate.substring(8);
-        } else {
-          this.walletFlag = false;
+    if (this.companyService.company == null || this.companyService.company.isActive == 0) {
+      localStorage.clear();
+      this.companyService.company = null;
+      this.adminService.admin = null;
+      this.customerService.customer = null;
+      this.router.navigate(["/sign/in"]);
+    }
+    else {
+      this.subscriptions.push(this.companyService.findCompanyById(this.companyService.company.id).subscribe( company => {
+        this.company = company as companyModel;
+        if (this.company.wallet != null) {
+          if (this.company.wallet.cardNumber != 0) {
+            this.companyWalletExistFlag.next(true);
+            this.hiddenCardNumber = '**** **** **** ' + this.company.wallet.cardNumber.toString().substring(this.company.wallet.cardNumber.toString().length - 4);
+            let stringDate: string = new Date(this.company.wallet.cardDate).toLocaleDateString();
+            this.cardDateString = stringDate.substring(3, 5) + "/" + stringDate.substring(8);
+            this.balance = this.company.wallet.balance;
+            this.balanceFlag.next(true);
+          }
+          else {
+            this.companyWalletExistFlag.next(false);
+          }
         }
-      } else {
-        this.walletFlag = false;
-      }
+        else {
+          this.companyWalletExistFlag.next(false);
+        }
+        this.companyService.company = company;
+        this.paginationFlag.next(false);
+        this.loadProductsFirstPageOrReload(0);
+      }));
+      this.withDrawFlag.next(false);
+      this.deleteWalletFlag.next(false);
       this.minDate = new Date();
       this.maxDate = new Date();
       this.minDate.setDate(this.minDate.getDate() - 1090);
       this.maxDate.setDate(this.maxDate.getDate());
       this.getProductTypes();
-      this.replenishForm = new FormGroup({
-        "number": new FormControl("", [
-          Validators.required,
-          Validators.pattern('^[1-9]{1}[0-9]*$')
-        ])
-      })
     }
   }
 
@@ -127,13 +163,56 @@ export class CompanyPageComponent implements OnInit, OnDestroy {
     }));
   }
 
+  private loadProductsFirstPageOrReload(pageNumber: number): void {
+    this.subscriptions.push(this.productServiceImpl.findAllProductsByCompanyId(this.company.id, pageNumber, 5)
+      .subscribe(products => {
+        this.products = products.productModelList as ProductModel[];
+        this.totalPage = products.totalPages;
+        this.totalElements = products.totalElements;
+        if (this.totalElements > 5) {
+          this.paginationFlag.next(true);
+        }
+        if (this.products.length != 0) {
+          this.productsEmptyFlag.next(true);
+        }
+        else {
+          this.productsEmptyFlag.next(false);
+        }
+        this.numberOfLastLoadedPage = pageNumber;
+      }));
+  }
+
+  private loadProductPage(pagination: PaginationComponent): void {
+    this.subscriptions.push(this.productServiceImpl.findAllProductsByCompanyId(this.company.id, pagination.page - 1, 5)
+      .subscribe(products => {
+        this.products = products.productModelList as ProductModel[];
+        this.totalPage = products.totalPages;
+        this.totalElements = products.totalElements;
+        this.numberOfLastLoadedPage = pagination.page - 1;
+      }));
+  }
+
+  private deleteProduct(productId: number): void {
+    this.subscriptions.push(this.productServiceImpl.deleteProductById(productId).subscribe(() => {
+      if (this.products.length == 1) {
+        if (this.numberOfLastLoadedPage == 0) {
+          this.productsEmptyFlag.next(false);
+        }
+        else {
+          this.numberOfLastLoadedPage--;
+        }
+      }
+      this.loadProductsFirstPageOrReload(this.numberOfLastLoadedPage);
+    }));
+  }
+
   private saveWallet(cardNumber: string, cardDate: string, cardCvv: string, cardHolderName: string): void {
     if (this.company.wallet == null) {
       this.company.wallet = new WalletModel();
     }
     this.company = {
       ...this.company,
-      password: "111111111",
+      password: "00000000",
       wallet: {
         ...this.company.wallet,
         cardNumber: +cardNumber.replace(/\s/g, ''),
@@ -149,7 +228,7 @@ export class CompanyPageComponent implements OnInit, OnDestroy {
         this.errorsMapWallet = new Map<string, string>();
         this.hiddenCardNumber = '**** **** **** ' + cardNumber.substring(cardNumber.length - 4);
         this.cardDateString = cardDate;
-        this.walletFlag = true;
+        this.companyWalletExistFlag.next(true);
       } else {
         this.errorsMapWallet = companyOrErrors.errors;
         this.company = this.companyService.company;
@@ -158,33 +237,48 @@ export class CompanyPageComponent implements OnInit, OnDestroy {
   }
 
   private deleteCard(): void {
-    this.subscriptions.push(this.walletServiceImpl.deleteCard(this.company.wallet.idWallet).subscribe(() => {
-      this.company.wallet.cardDate = null;
-      this.company.wallet.cardNumber = null;
-      this.company.wallet.personName = null;
-      this.company.wallet.cardCvvCode = null;
-      this.companyService.company = this.company;
-      this.walletFlag = false;
-    }));
-  }
-
-  private replenishCard(number: number): void {
-    this.company.wallet.balance += +number;
-    this.subscriptions.push(this.walletServiceImpl.replenishCard(this.company.wallet).subscribe(walletOrErrors => {
-      if (walletOrErrors.errors == null) {
+    if (this.products.length != 0) {
+      this.deleteWalletFlag.next(true);
+    }
+    else {
+      this.subscriptions.push(this.walletServiceImpl.deleteCard(this.company.wallet.idWallet).subscribe(() => {
+        this.company.wallet.cardDate = null;
+        this.company.wallet.cardNumber = null;
+        this.company.wallet.personName = null;
+        this.company.wallet.cardCvvCode = null;
         this.companyService.company = this.company;
-        this.errorsMapWallet = new Map<string, string>();
-        this.replenishFlag = true;
-      } else {
-        this.errorsMapWallet = walletOrErrors.errors;
-        this.company = this.companyService.company;
-      }
-    }));
+        this.companyWalletExistFlag.next(false);
+      }));
+      this.deleteWalletFlag.next(false);
+      this.companyWalletExistFlag.next(false);
+    }
   }
 
-  changeReplenishFlag(): void {
-    this.replenishForm.reset();
-    this.replenishFlag = false;
+  private withdrawCard(number: number): void {
+    if (this.company.wallet.balance - number < 0) {
+      this.withdrawFlag = false;
+    }
+    else {
+      this.withdrawFlag = true;
+      this.company.wallet.balance -= +number;
+      this.subscriptions.push(this.walletServiceImpl.updateCard(this.company.wallet).subscribe(walletOrErrors => {
+        if (walletOrErrors.errors == null) {
+          this.companyService.company = this.company;
+          this.errorsMapWallet = new Map<string, string>();
+          this.withDrawFlag.next(true);
+          this.balance = this.company.wallet.balance;
+          this.balanceFlag.next(true);
+        } else {
+          this.errorsMapWallet = walletOrErrors.errors;
+          this.company = this.companyService.company;
+        }
+      }));
+    }
+  }
+
+  changeWithdrawFlag(): void {
+    this.withdrawForm.reset();
+    this.withDrawFlag.next(false);
   }
 
   private createProduct(name: string, date: string, description: string, cost: number, typeIndex: number): void {
@@ -215,6 +309,7 @@ export class CompanyPageComponent implements OnInit, OnDestroy {
               this.errorsMapProduct = productOrErrors.errors;
             } else {
               this.productFlag = true;
+              this.loadProductsFirstPageOrReload(this.numberOfLastLoadedPage);
             }
           }));
         }
@@ -225,6 +320,7 @@ export class CompanyPageComponent implements OnInit, OnDestroy {
   private changeProductCreatedFlag(): void {
     this.productFlag = false;
     this.productForm.reset();
+    this.selectedFiles = null;
   }
 
   @ViewChild('staticTabs') staticTabs: TabsetComponent;

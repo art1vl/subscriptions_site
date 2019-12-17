@@ -29,6 +29,27 @@ export class SignInComponent implements OnInit, OnDestroy {
               private adminService: AdminServiceImpl){
   }
 
+  ngOnInit() {
+    if (this.customerService.customer != null ||
+      this.companyService.company != null ||
+      this.adminService.admin != null) {
+      this.router.navigate(["/"]);
+    }
+    else {
+      this.myForm = new FormGroup({
+
+        "userEmail": new FormControl("", [
+          Validators.required,
+          Validators.email
+        ]),
+        "userPassword": new FormControl("", [
+          Validators.required,
+          Validators.minLength(8)
+        ])
+      });
+    }
+  }
+
   submit(email: string, password: string){
     this.subscriptions.push(this.logInInfService.signin(email, password).subscribe(signInModel => {
       if (signInModel.error == null) {
@@ -79,21 +100,6 @@ export class SignInComponent implements OnInit, OnDestroy {
         this.myForm.reset(); 
       }
     }));
-  }
-
-  ngOnInit() {
-    this.customer = this.customerService.customer;
-    this.myForm = new FormGroup({
-
-      "userEmail": new FormControl("", [
-        Validators.required,
-        Validators.email
-      ]),
-      "userPassword": new FormControl("", [
-        Validators.required,
-        Validators.minLength(8)
-      ])
-    });
   }
 
   ngOnDestroy(): void {

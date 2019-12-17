@@ -2,22 +2,33 @@ package com.artsykov.fapi.converter;
 
 import com.artsykov.fapi.entity.WalletEntity;
 import com.artsykov.fapi.models.WalletModel;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
 @Component
 public class WalletConverter {
+    @Value("${backend.server.url}")
+    private String backendServerUrl;
+
     public WalletEntity convertFromFrontToBack(WalletModel walletModel) {
         if (walletModel != null) {
-            WalletEntity walletEntity = new WalletEntity();
             if (walletModel.getIdWallet() != 0) {
-                walletEntity.setIdWallet(walletModel.getIdWallet());
+                RestTemplate restTemplate = new RestTemplate();
+                WalletEntity walletEntity = restTemplate.getForObject(backendServerUrl + "/api/wallet/" +
+                        walletModel.getIdWallet(), WalletEntity.class);
+                walletEntity.setBalance(walletModel.getBalance());
+                return walletEntity;
             }
-            walletEntity.setBalance(walletModel.getBalance());
-            walletEntity.setCardNumber(walletModel.getCardNumber());
-            walletEntity.setCardDate(walletModel.getCardDate());
-            walletEntity.setCardCvvCode(walletModel.getCardCvvCode());
-            walletEntity.setPersonName(walletModel.getPersonName());
-            return walletEntity;
+            else {
+                WalletEntity walletEntity = new WalletEntity();
+                walletEntity.setBalance(walletModel.getBalance());
+                walletEntity.setCardNumber(walletModel.getCardNumber());
+                walletEntity.setCardDate(walletModel.getCardDate());
+                walletEntity.setCardCvvCode(walletModel.getCardCvvCode());
+                walletEntity.setPersonName(walletModel.getPersonName());
+                return walletEntity;
+            }
         }
         else {
             return null;

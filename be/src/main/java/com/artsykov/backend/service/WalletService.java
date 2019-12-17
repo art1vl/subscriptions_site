@@ -7,5 +7,9 @@ public interface WalletService {
 
     WalletEntity find(int id);
 
-    WalletEntity replenish(WalletEntity walletEntity);
+    WalletEntity update(WalletEntity walletEntity);
+
+    WalletEntity findWalletByIdCustomer(int customerId);
+
+    WalletEntity findWalletByIdCompany(int companyId);
 }

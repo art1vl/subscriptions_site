@@ -1,6 +1,7 @@
 package com.artsykov.backend.service;
 
 import com.artsykov.backend.entity.CompanyEntity;
+import com.artsykov.backend.model.CompanyPageModel;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -14,4 +15,6 @@ public interface CompanyService {
     CompanyEntity findCompany(int companyId);
 
     CompanyEntity saveWallet(CompanyEntity companyEntity);
+
+    CompanyPageModel findAllByPage(int pageNumber, int amount);
 }

@@ -1,5 +1,5 @@
 import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
+import {APP_INITIALIZER, NgModule} from "@angular/core";
 import { BsDropdownModule } from "ngx-bootstrap/dropdown";
 import { TooltipModule } from "ngx-bootstrap/tooltip";
 import { ModalModule } from "ngx-bootstrap/modal";
@@ -33,10 +33,13 @@ import {WalletServiceImpl} from "./services/impl/wallet-service-impl.service";
 import {ProductServiceImpl} from "./services/impl/product.service.impl";
 import {AuthInterceptor} from "./services/impl/AuthInterceptor";
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import {initApp} from "./services/impl/app.initialiser";
+import {CompanyServiceImpl} from "./services/impl/company.service.impl";
+import {AdminServiceImpl} from "./services/impl/admin.service.impl";
 
 const appRoutes: Routes = [
   {path: "", component: HomeComponent},
-  {path: "sign_in", component: SignInComponent},
+  {path: "sign/in", component: SignInComponent},
   {path: "catalog", component: CatalogComponent},
   {path: "registration", component: RegistrationPageComponent},
   {path: "catalog/product/:id", component: ProductPageComponent},
@@ -78,10 +81,22 @@ const appRoutes: Routes = [
     HttpClient,
     WalletServiceImpl,
     ProductServiceImpl,
+    CompanyServiceImpl,
+    AdminServiceImpl,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initApp,
+      multi: true,
+      deps: [HttpClient,
+        CustomerServiceImpl,
+        CompanyServiceImpl,
+        AdminServiceImpl
+      ]
     }
   ],
   bootstrap: [AppComponent]

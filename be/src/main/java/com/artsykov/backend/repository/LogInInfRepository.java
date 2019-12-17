@@ -9,4 +9,6 @@ public interface LogInInfRepository extends CrudRepository<LogInInfEntity, Integ
 //    @Query(value = "SELECT *  FROM backend.log_in_inf WHERE e_mail = ?1",
 //            nativeQuery=true)
     LogInInfEntity findByEmail(String email);
+
+    boolean existsByEmail(String email);
 }

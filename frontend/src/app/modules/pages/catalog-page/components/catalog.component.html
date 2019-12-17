@@ -1,3 +1,5 @@
+<div class="wrapper">
+  <div class="content">
 <div class="background">
   <div class="row">
     <div class="side">
@@ -39,7 +41,9 @@
               </select>
             </div>
           </div>
-          <button type="submit" class="btn btn-primary">Search</button>
+          <div class="search">
+            <button type="submit" class="btn btn-primary">Search</button>
+          </div>
           <!--<div class="form-row">-->
           <!--<div class="form-group">-->
           <!--<label>ProductModel name</label>-->
@@ -62,11 +66,16 @@
       <div class="row">
         <div class="col-xs-12 col-12">
           <div class="pagin">
-            <pagination [totalItems]="totalProducts"  [itemsPerPage]="2" (pageChanged)="loadNewPageProduct(pagination)" #pagination></pagination>
+            <pagination [totalItems]="totalProducts" [itemsPerPage]="8" (pageChanged)="loadNewPageProduct(pagination)"
+                        #pagination></pagination>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <app-footer></app-footer>
+</div>
+  </div>
+  <div class="footer">
+    <app-footer></app-footer>
+  </div>
 </div>

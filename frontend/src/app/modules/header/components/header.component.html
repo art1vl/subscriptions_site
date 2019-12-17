@@ -14,10 +14,9 @@
       <ul class="nav navbar-nav">
         <li><a routerLink="/">Main page</a></li>
         <li><a routerLink="/catalog">Catalog</a></li>
-        <li><a routerLink="/">Contact us</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li *ngIf="!isSignIn()"><a routerLink="/sign_in">
+        <li *ngIf="!isSignIn()"><a routerLink="/sign/in">
           Sign in
         </a></li>
         <li *ngIf="!isSignIn()"><a routerLink="/registration">

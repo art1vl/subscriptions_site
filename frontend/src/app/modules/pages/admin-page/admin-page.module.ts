@@ -4,6 +4,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {AdminPageComponent} from "./components/admin-page.component";
 import {TabsModule} from "ng2-bootstrap";
+import {PaginationModule} from "ngx-bootstrap";
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import {TabsModule} from "ng2-bootstrap";
     CommonModule,
     FormsModule,
     TabsModule.forRoot(),
+    PaginationModule.forRoot()
   ],
   providers: [],
   exports: [AdminPageComponent]

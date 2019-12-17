@@ -1,6 +1,7 @@
 package com.artsykov.backend.controller;
 
 import com.artsykov.backend.entity.CustomerEntity;
+import com.artsykov.backend.model.CustomerPageModel;
 import com.artsykov.backend.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,18 +10,23 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/customer")
 public class CustomerController {
-
     @Autowired
     private CustomerService customerService;
 
-    @RequestMapping(value = "/log/in/inf/{id}")
+    @GetMapping(value = "/log/in/inf/{id}")
     public ResponseEntity<CustomerEntity> getCustomerByLogInInfId(@PathVariable("id") Integer logInInfId) throws InterruptedException {
         return ResponseEntity.ok(customerService.findCustomerByLogInInfId(logInInfId));
     }
 
-    @RequestMapping(value = "/{id}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<CustomerEntity> getCustomerById(@PathVariable("id") Integer customerId) {
         return ResponseEntity.ok(customerService.findCustomerById(customerId));
+    }
+
+    @GetMapping(value = "/all")
+    public ResponseEntity<CustomerPageModel> getAllByPage(@RequestParam("page") Integer pageNumber,
+                                                          @RequestParam("amount") Integer amount) {
+        return ResponseEntity.ok(customerService.findAllByPage(pageNumber, amount));
     }
 
     @PostMapping

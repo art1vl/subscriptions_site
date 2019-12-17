@@ -10,22 +10,22 @@ import java.util.Date;
 
 @Data
 public class WalletModel {
-    @Min(value=0, message="Incorrect wallet id")
+    @Min(value = 0, message = "Incorrect wallet id")
     private int idWallet;
 
     @NotEmpty(message = "Balance is required")
-    @Positive(message = "Balance can't be negative")
+    @Min(value = 0, message = "Balance can't be negative")
     private int balance;
 
     @NotEmpty(message = "Card number is required")
-    @Positive(message = "Card number can't be negative")
+    @Min(value = 0, message = "Card number can't be negative")
     private long cardNumber;
 
     @NotEmpty(message = "Card date ir required")
     private Date cardDate;
 
     @NotEmpty(message = "Cvv code is required")
-    @Positive(message = "Cvv code can't be negative")
+    @Min(value = 0, message = "Cvv code can't be negative")
     private int cardCvvCode;
 
     @NotEmpty(message = "Holder name is required")

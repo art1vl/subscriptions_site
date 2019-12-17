@@ -10,11 +10,14 @@ export class CompanyServiceImpl implements CompanyService {
   company: companyModel;
 
   constructor(private http: HttpClient) {
-    console.log("new");
   }
 
   findAllCompanies(): Observable<companyModel[]> {
     return this.http.get<companyModel[]>('/api/company');
+  }
+
+  findCompanyById(id: number): Observable<companyModel> {
+    return this.http.get<companyModel>('/api/company/' + id);
   }
 
   saveCompany(company: companyModel): Observable<companyOrErrorsModel> {
@@ -26,6 +29,6 @@ export class CompanyServiceImpl implements CompanyService {
   }
 
   findCompanyByLogInInfId(logInInfId: number): Observable<companyModel> {
-    return this.http.get<companyModel>('/api/company/' + logInInfId);
+    return this.http.get<companyModel>('/api/company/log/in/inf/' + logInInfId);
   }
 }

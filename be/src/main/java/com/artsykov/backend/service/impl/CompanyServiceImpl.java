@@ -1,12 +1,14 @@
 package com.artsykov.backend.service.impl;
 
 import com.artsykov.backend.entity.CompanyEntity;
+import com.artsykov.backend.model.CompanyPageModel;
 import com.artsykov.backend.repository.CompanyRepository;
 import com.artsykov.backend.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class CompanyServiceImpl implements CompanyService {
@@ -31,6 +33,16 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public CompanyEntity saveCompany(CompanyEntity companyEntity) {
         return companyRepository.save(companyEntity);
+    }
 
+    @Override
+    public CompanyPageModel findAllByPage(int pageNumber, int amount) {
+        Pageable pageable = PageRequest.of(pageNumber, amount);
+        Page<CompanyEntity> page = companyRepository.findAll(pageable);
+        CompanyPageModel companyPageModel = new CompanyPageModel();
+        companyPageModel.setCompanyEntityList(page.getContent());
+        companyPageModel.setTotalPages(page.getTotalPages());
+        companyPageModel.setTotalElements(page.getTotalElements());
+        return companyPageModel;
     }
 }

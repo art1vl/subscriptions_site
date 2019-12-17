@@ -22,7 +22,7 @@ public class ProductModel {
     private String companyName;
 
     @NotEmpty(message = "Description is required")
-    @Pattern(regexp = "^[A-Z a-z0-9.,:;]+$",
+    @Pattern(regexp = "^[A-Z a-z0-9.,:;\\-\']+$",
             message = "Description is invalid")
     private String description;
     private String image;

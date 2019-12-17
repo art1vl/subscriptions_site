@@ -1,7 +1,6 @@
 package com.artsykov.backend.entity;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Objects;
 
@@ -9,8 +8,7 @@ import java.util.Objects;
 @Table(name = "subscription", schema = "backend", catalog = "")
 public class SubscriptionEntity {
     private int idSubscription;
-//    private int idProduct;
-//    private int idCostumer;
+    private java.sql.Date nextPayDate;
     private Date startSubscriptDate;
     private byte isActive;
     private ProductEntity productByIdProduct;
@@ -56,6 +54,16 @@ public class SubscriptionEntity {
 
     public void setStartSubscriptDate(Date startSubscriptDate) {
         this.startSubscriptDate = startSubscriptDate;
+    }
+
+    @Basic
+    @Column(name = "next_pay_date")
+    public java.sql.Date getNextPayDate() {
+        return nextPayDate;
+    }
+
+    public void setNextPayDate(java.sql.Date nextPayDate) {
+        this.nextPayDate = nextPayDate;
     }
 
     @Basic

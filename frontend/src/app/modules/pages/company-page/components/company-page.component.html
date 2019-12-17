@@ -7,8 +7,12 @@
   <div class="form-group col-md-2">
     <div class="balance">
       <button type="button" class="btn btn-primary btn-sm" (click)="selectTab(2)">
-        <div *ngIf="company?.wallet == null"><h4>balance: 0$</h4></div>
-        <div *ngIf="company?.wallet != null"><h4>balance: {{company?.wallet.balance}}$</h4></div>
+        <div *ngIf="!(balanceFlag$  | async)">
+          <h4>balance: {{balance}}$</h4>
+        </div>
+        <div *ngIf="balanceFlag$  | async">
+          <h4>balance: {{company?.wallet?.balance}}$</h4>
+        </div>
       </button>
     </div>
   </div>
@@ -17,199 +21,150 @@
   <div>
     <tabset #staticTabs>
       <tab heading="My products">
-        <!--<div *ngIf="customerSubscriptions != null">-->
-        <!--<div *ngFor="let subscription of customerSubscriptions">-->
-        <!--<div class="subscription-customer">-->
-        <!--<div class="subscription">-->
-        <!--<div class="picture">-->
-        <!--<img src="{{subscription?.product.image}}">-->
-        <!--</div>-->
-        <!--<div class="text">-->
-        <!--{{subscription?.product.productName}}-->
-        <!--<br>-->
-        <!--every week cost: {{subscription?.product.cost}}$-->
-        <!--</div>-->
-        <!--<div class="button">-->
-        <!--<a href="product/{{subscription?.product.id}}">-->
-        <!--<button type="button" class="btn btn-info">Read more</button>-->
-        <!--</a>-->
-        <!--&nbsp; &nbsp; &nbsp; &nbsp;-->
-        <!--<button type="button" class="btn btn-danger"-->
-        <!--(click)="unsubscribe(subscription.id, subscription.idCustomer)">Unsubscribe-->
-        <!--</button>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--<div *ngIf="customerSubscriptions == null">-->
-        <!--<p align="center">-->
-        <!--<h3>You don't have any subscriptions</h3>-->
-        <!--</div>-->
+        <div *ngIf="productsEmptyFlag$  | async">
+          <div *ngFor="let product of products">
+            <div class="my-product">
+              <div class="product">
+                <div class="picture">
+                  <img src="api/files/{{product?.image}}">
+                </div>
+                <div class="text">
+                  {{product?.productName}}
+                  <br>
+                  every month cost: {{product?.cost}}$
+                  <br>
+                  <div class="attention" *ngIf="product?.isActive == 0">
+                    Attention, product was blocked by administration. Fee for that product isn't given.
+                  </div>
+                </div>
+                <div class="button">
+                  <a routerLink="/catalog/product/{{product?.id}}">
+                    <button type="button" class="btn btn-info">Read more</button>
+                  </a>
+                  &nbsp; &nbsp; &nbsp; &nbsp;
+                  <button type="button" class="btn btn-danger"
+                          (click)="deleteProduct(product.id)">Delete
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" *ngIf="paginationFlag$  | async">
+          <div class="col-xs-12 col-12">
+            <div class="pagin">
+              <pagination [totalItems]="totalElements" [itemsPerPage]="5" (pageChanged)="loadProductPage(pagination)"
+                          #pagination></pagination>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!(productsEmptyFlag$  | async)">
+          <p align="center">
+          <h3>You don't have any products</h3>
+        </div>
       </tab>
 
       <!--Create new product -->
       <tab heading="Add new product">
-        <div class="new-product">
-          <form [formGroup]="productForm">
-            <div class="alert alert-success"
-                 *ngIf="productFlag == true">
-              Product was created
-              <br>
-              <button type="button" class="btn btn-success" (click)="changeProductCreatedFlag()">Got it</button>
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label>Product name</label>
-                <input type="text" class="form-control" id="productName" placeholder="Product name"
-                       formControlName="name" #name>
-                <div class="alert alert-danger"
-                     *ngIf="productForm.controls['name'].invalid && productForm.controls['name'].touched">
-                  Incorrect product name
+        <div class="product-message" *ngIf="!(companyWalletExistFlag$  | async)">
+          You can't add new product until you don't add wallet
+        </div>
+        <div *ngIf="companyWalletExistFlag$  | async">
+          <div class="new-product">
+            <form [formGroup]="productForm">
+              <div class="alert alert-success"
+                   *ngIf="productFlag == true">
+                Product was created
+                <br>
+                <button type="button" class="btn btn-success" (click)="changeProductCreatedFlag()">Got it</button>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Product name</label>
+                  <input type="text" class="form-control" id="productName" placeholder="Product name"
+                         formControlName="name" #name>
                   <div class="alert alert-danger"
-                       *ngIf="errorsMapProduct && errorsMapProduct['productName'] != undefined">
-                    {{errorsMapProduct['productName']}}
+                       *ngIf="productForm.controls['name'].invalid && productForm.controls['name'].touched">
+                    Incorrect product name
+                    <div class="alert alert-danger"
+                         *ngIf="errorsMapProduct && errorsMapProduct['productName'] != undefined">
+                      {{errorsMapProduct['productName']}}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label>Product type</label>
-                <select id="inputType" class="form-control" #type>
-                  <option *ngFor="let type of typeArray">{{type.typeName}}</option>
-                </select>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Product type</label>
+                  <select id="inputType" class="form-control" #type>
+                    <option *ngFor="let type of typeArray">{{type.typeName}}</option>
+                  </select>
+                </div>
               </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label>Realise date</label>
-                <input class="form-control"
-                       placeholder="Select date"
-                       formControlName="date"
-                       ngModel
-                       bsDatepicker
-                       [minDate]="minDate"
-                       [maxDate]="maxDate"
-                       [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }" #date>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Realise date</label>
+                  <input class="form-control"
+                         placeholder="Select date"
+                         formControlName="date"
+                         ngModel
+                         bsDatepicker
+                         [minDate]="minDate"
+                         [maxDate]="maxDate"
+                         [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }" #date>
+                </div>
+                <div class="alert alert-danger"
+                     *ngIf="productForm?.controls['date'].invalid && productForm?.controls['date'].touched">
+                  Date is required
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Product description</label>
+                  <textarea type="text" class="form-control" id="description" placeholder="Product description"
+                            formControlName="description" style="resize: none; height: 100px" maxlength="500" cols="80"
+                            #description></textarea>
+                  <small id="descriptionHelp" class="form-text text-muted">Max description length is 500 characters.
+                  </small>
+                  <div class="alert alert-danger"
+                       *ngIf="productForm.controls['description'].invalid && productForm.controls['description'].touched">
+                    Incorrect product description
+                    <div class="alert alert-danger"
+                         *ngIf="errorsMapProduct && errorsMapProduct['description'] != undefined">
+                      {{errorsMapProduct['description']}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-row">
+                <input type="file" (change)="selectFile($event)" placeholder="Download product image" #file>
               </div>
               <div class="alert alert-danger"
-                   *ngIf="productForm?.controls['date'].invalid && productForm?.controls['date'].touched">
-                Date is required
+                   *ngIf="errorsMapProduct && errorsMapProduct['file'] != undefined">
+                {{errorsMapProduct['file']}}
               </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label>Product description</label>
-                <textarea type="text" class="form-control" id="description" placeholder="Product description"
-                          formControlName="description" style="resize: none; height: 100px" maxlength="500" cols="80"
-                          #description></textarea>
-                <small id="descriptionHelp" class="form-text text-muted">Max description length is 500 characters.
-                </small>
-                <div class="alert alert-danger"
-                     *ngIf="productForm.controls['description'].invalid && productForm.controls['description'].touched">
-                  Incorrect product description
+              <br>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Product per month cost in dollars</label>
+                  <input type="text" class="form-control" id="cost" placeholder="Product cost"
+                         formControlName="cost" #cost>
                   <div class="alert alert-danger"
-                       *ngIf="errorsMapProduct && errorsMapProduct['description'] != undefined">
-                    {{errorsMapProduct['description']}}
+                       *ngIf="productForm.controls['cost'].invalid && productForm.controls['cost'].touched">
+                    Incorrect product cost
+                    <div class="alert alert-danger"
+                         *ngIf="errorsMapProduct && errorsMapProduct['cost'] != undefined">
+                      {{errorsMapProduct['cost']}}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="form-row">
-              <input type="file" (change)="selectFile($event)" placeholder="Download product image" #file>
-            </div>
-            <div class="alert alert-danger"
-                 *ngIf="errorsMapProduct && errorsMapProduct['file'] != undefined">
-              {{errorsMapProduct['file']}}
-            </div>
-            <br>
-            <div class="form-row">
-              <div class="form-group">
-                <label>Product per week cost in dollars</label>
-                <input type="text" class="form-control" id="cost" placeholder="Product cost"
-                       formControlName="cost" #cost>
-                <div class="alert alert-danger"
-                     *ngIf="productForm.controls['cost'].invalid && productForm.controls['cost'].touched">
-                  Incorrect product cost
-                  <div class="alert alert-danger"
-                       *ngIf="errorsMapProduct && errorsMapProduct['cost'] != undefined">
-                    {{errorsMapProduct['cost']}}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <button class="btn btn-primary" [disabled]="productForm.invalid"
-                    (click)="createProduct(name.value, date.value, description.value, cost.value, type.selectedIndex)">
-              Create the product
-            </button>
-            <!--<div class="form-row">-->
-            <!--<div class="form-group">-->
-            <!--<label>Password</label>-->
-            <!--<input type="password" class="form-control" id="inputPassword1" placeholder="Password"-->
-            <!--formControlName="password" name="password" #password>-->
-            <!--<div class="alert alert-danger"-->
-            <!--*ngIf="myForm.controls['password'].invalid && myForm.controls['password'].touched">-->
-            <!--Incorrect password-->
-            <!--<div class="alert alert-danger"-->
-            <!--*ngIf="errors && errors['password'] != undefined">-->
-            <!--{{errors['password']}}-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--<small id="passwordHelp" class="form-text text-muted">Password should contain at least 8 characters.</small>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--<div class="form-row">-->
-            <!--<div class="form-group">-->
-            <!--<label>Repeat password</label>-->
-            <!--<input type="password" class="form-control" id="inputPassword2" placeholder="Password"-->
-            <!--formControlName="repeatPassword" name="repeatPassword" #repeatPassword>-->
-            <!--<div class="alert alert-danger"-->
-            <!--*ngIf="password.value!=repeatPassword.value && myForm.controls['repeatPassword'].touched">-->
-            <!--Passwords don't match-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--<div class="form-row">-->
-            <!--<div class="form-group">-->
-            <!--<label>First name</label>-->
-            <!--<input type="text" class="form-control" id="inputFirstName" placeholder="Mike" formControlName="userName"-->
-            <!--name="userName" #name>-->
-            <!--<div class="alert alert-danger"-->
-            <!--*ngIf="myForm.controls['userName'].invalid && myForm.controls['userName'].touched">-->
-            <!--Incorrect name-->
-            <!--</div>-->
-            <!--<div class="alert alert-danger"-->
-            <!--*ngIf="errors && errors['name'] != undefined">-->
-            <!--{{errors['name']}}-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--<div class="form-group">-->
-            <!--<label>Last name</label>-->
-            <!--<input type="text" class="form-control" id="inputLastName" placeholder="Smith" formControlName="userSurname"-->
-            <!--name="userSurname" #surname>-->
-            <!--<div class="alert alert-danger"-->
-            <!--*ngIf="myForm.controls['userSurname'].invalid && myForm.controls['userSurname'].touched">-->
-            <!--Incorrect last name-->
-            <!--</div>-->
-            <!--<div class="alert alert-danger"-->
-            <!--*ngIf="errors && errors['surname'] != undefined">-->
-            <!--{{errors['surname']}}-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--<div class="form-row">-->
-            <!--<div class="form-group">-->
-            <!--<label>Age</label>-->
-            <!--<select id="inputAge" class="form-control" #age>-->
-            <!--<option *ngFor="let age of ageArray">{{age}}</option>-->
-            <!--</select>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--<button class="btn btn-primary" [disabled]="myForm.invalid" (click)="submit(email.value, password.value,-->
-            <!--name.value, surname.value, age.value)">Create an account-->
-            <!--</button>-->
-          </form>
+              <button class="btn btn-primary" [disabled]="productForm.invalid"
+                      (click)="createProduct(name.value, date.value, description.value, cost.value, type.selectedIndex)">
+                Create the product
+              </button>
+            </form>
+          </div>
         </div>
       </tab>
 
@@ -217,7 +172,7 @@
       <tab heading="My wallet">
 
         <!--create walletByIdWallet -->
-        <div *ngIf="walletFlag == false">
+        <div *ngIf="!(companyWalletExistFlag$  | async)">
           <div class="wallet">
             <p align="center">
               Please, add you payment card</p>
@@ -295,8 +250,8 @@
           </div>
         </div>
 
-        <!--replenish walletByIdWallet -->
-        <div *ngIf="walletFlag == true">
+        <!--withdraw walletByIdWallet -->
+        <div *ngIf="companyWalletExistFlag$  | async">
           <div class="subscription-company">
             <div class="subscription">
               <div class="picture">
@@ -313,28 +268,32 @@
                 <button type="button" class="btn btn-danger"
                         (click)="deleteCard()">Delete card
                 </button>
+                <div class="attention" *ngIf="deleteWalletFlag$  | async">
+                  You can't delete wallet until you have your own products
+                </div>
               </div>
             </div>
           </div>
-          <div class="replenish">
+          <div class="withdraw">
             <p align="center">
-              Replenish balance
+              Withdraw funds
             </p>
             <div class="alert alert-success"
-                 *ngIf="replenishFlag == true">
-              Balance was replenished
+                 *ngIf="withDrawFlag$  | async">
+              Funds was withdrawn
               <br>
-              <button type="button" class="btn btn-success" (click)="changeReplenishFlag()">Got it</button>
+              <button type="button" class="btn btn-success" (click)="changeWithdrawFlag()">Got it</button>
             </div>
-            <form [formGroup]="replenishForm">
+            <form [formGroup]="withdrawForm">
               <div class="form-row">
                 <div class="form-group">
-                  <label for="number">Enter recharge amount</label>
+                  <label for="number">Enter withdraw amount</label>
                   <input type="text" class="form-control"
                          formControlName="number"
                          id="number" #number> $
                   <div class="alert alert-danger"
-                       *ngIf="replenishForm.controls['number'].invalid  && replenishForm.controls['number'].touched">
+                       *ngIf="(!withdrawFlag) ||
+                       (withdrawForm.controls['number'].invalid  && withdrawForm.controls['number'].touched)">
                     Incorrect number
                   </div>
                   <div class="alert alert-danger"
@@ -343,9 +302,9 @@
                   </div>
                 </div>
               </div>
-              <button class="btn btn-success" [disabled]="replenishForm.invalid"
-                      (click)="replenishCard(number.value)">
-                Replenish
+              <button class="btn btn-success" [disabled]="withdrawForm.invalid"
+                      (click)="withdrawCard(number.value)">
+                Withdraw
               </button>
             </form>
           </div>

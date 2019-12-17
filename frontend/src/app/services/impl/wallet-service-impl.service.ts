@@ -16,8 +16,8 @@ export class WalletServiceImpl implements WalletService {
     return this.http.delete<void>('/api/wallet/' + id);
   }
 
-  replenishCard(wallet: WalletModel): Observable<WalletOrErrorsModel> {
-    return this.http.put<WalletOrErrorsModel>('/api/wallet/replenish', wallet);
+  updateCard(wallet: WalletModel): Observable<WalletOrErrorsModel> {
+    return this.http.put<WalletOrErrorsModel>('/api/wallet/update', wallet);
   }
 
 

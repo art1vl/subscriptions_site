@@ -1,12 +1,10 @@
 package com.artsykov.fapi.models;
 
 import lombok.Data;
-import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.sql.Date;
-import java.sql.Timestamp;
 
 @Data
 public class SubscriptionModel {

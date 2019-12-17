@@ -9,6 +9,8 @@ public class CompanyOrErrorsModel {
     private CompanyModel companyModel;
     private Map<String, String> errors;
 
+    public CompanyOrErrorsModel() {}
+
     public CompanyOrErrorsModel(Map<String, String> errors) {
         this.errors = errors;
     }

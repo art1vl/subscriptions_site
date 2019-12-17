@@ -20,4 +20,9 @@ public class LogInInfServiceImpl implements LogInInfService {
     public LogInInfEntity findByEmail(String email) {
         return logInInfRepository.findByEmail(email);
     }
+
+    @Override
+    public boolean isEmailExist(String email) {
+        return logInInfRepository.existsByEmail(email);
+    }
 }

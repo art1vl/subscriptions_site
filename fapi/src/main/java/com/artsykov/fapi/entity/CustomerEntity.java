@@ -9,10 +9,6 @@ public class CustomerEntity {
     private String surname;
     private int age;
     private byte isActive;
-//    private int logInInf;
-//    private int idWallet;
     private LogInInfEntity logInInf;
     private WalletEntity walletByIdWallet;
-//    private Collection<SubscriptionEntity> subscriptionsByIdCostumer;
-
 }

@@ -22,7 +22,17 @@ public class WalletServiceImpl implements WalletService {
     }
 
     @Override
-    public WalletEntity replenish(WalletEntity walletEntity) {
+    public WalletEntity update(WalletEntity walletEntity) {
         return walletRepository.save(walletEntity);
+    }
+
+    @Override
+    public WalletEntity findWalletByIdCustomer(int customerId) {
+        return walletRepository.findWalletEntityByIdCustomer(customerId);
+    }
+
+    @Override
+    public WalletEntity findWalletByIdCompany(int companyId) {
+        return walletRepository.findWalletEntityByIdCompany(companyId);
     }
 }

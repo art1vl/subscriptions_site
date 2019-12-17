@@ -1,14 +1,17 @@
 package com.artsykov.fapi.service.impl;
 
-import com.artsykov.fapi.converter.CompanyConverter;
-import com.artsykov.fapi.converter.CustomerConverter;
 import com.artsykov.fapi.entity.LogInInfEntity;
+import com.artsykov.fapi.models.AdminModel;
+import com.artsykov.fapi.models.CustomerOrCompanyOrAdminOrErrorsModel;
 import com.artsykov.fapi.security.JwtTokenProvider;
+import com.artsykov.fapi.service.CompanyDataService;
+import com.artsykov.fapi.service.CustomerDataService;
 import com.artsykov.fapi.service.LogInInfDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,24 +23,19 @@ import java.util.Set;
 
 @Service("logInIndService")
 public class LogInInfDataServiceImpl implements LogInInfDataService, UserDetailsService {
-    private CustomerConverter customerConverter;
-    private CompanyConverter companyConverter;
-   // private BCryptPasswordEncoder bCryptPasswordEncoder;
-
     @Value("${backend.server.url}")
     private String backendServerUrl;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
-    @Autowired
     private JwtTokenProvider tokenProvider;
+    private CustomerDataService customerDataService;
+    private CompanyDataService companyDataService;
 
     @Autowired
-    public LogInInfDataServiceImpl (CustomerConverter customerConverter, CompanyConverter companyConverter) {
-        this.customerConverter = customerConverter;
-        this.companyConverter = companyConverter;
-      //  this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    public LogInInfDataServiceImpl (CustomerDataService customerDataService, CompanyDataService companyDataService,
+                                    JwtTokenProvider tokenProvider) {
+        this.customerDataService = customerDataService;
+        this.companyDataService = companyDataService;
+        this.tokenProvider = tokenProvider;
     }
 
 
@@ -58,38 +56,23 @@ public class LogInInfDataServiceImpl implements LogInInfDataService, UserDetails
 
     @Override
     public LogInInfEntity findUserByEmail(String email) {
-//        CustomerOrCompanyOrAdminOrErrorsModel customerOrCompanyOrAdminOrErrorsModel = new CustomerOrCompanyOrAdminOrErrorsModel();
-//        AdminModel adminModel = new AdminModel();
-//        Map<String, String> errorsMap = new HashMap<>();
         RestTemplate restTemplate = new RestTemplate();
-       // password = bCryptPasswordEncoder.encode(password);
-        LogInInfEntity logInInfEntity = restTemplate.getForObject(backendServerUrl + "/api/log_in_inf/" + email, LogInInfEntity.class);
-//        if (logInInfEntity != null) {
-//            if (logInInfEntity.getPassword().equals(password)) {
-//                switch (logInInfEntity.getRole()) {
-//                    case ADMIN:
-//                        adminModel.setIdLogInInf(logInInfEntity.getIdLogInInf());
-//                        customerOrCompanyOrAdminOrErrorsModel.setAdminModel(adminModel);
-//                        break;
-//                    case CUSTOMER:
-//                        customerOrCompanyOrAdminOrErrorsModel.setCustomerModel(customerConverter.convertFromBackToFront(restTemplate.getForObject(
-//                                backendServerUrl + "/api/customer/log/in/inf/" + logInInfEntity.getIdLogInInf(), CustomerEntity.class)));
-//                        break;
-//                    case COMPANY:
-//                        customerOrCompanyOrAdminOrErrorsModel.setCompanyModel(companyConverter.convertFromBackToFront(restTemplate.getForObject(
-//                                backendServerUrl + "/api/company/log/in/inf/" + logInInfEntity.getIdLogInInf(), CompanyEntity.class)));
-//                        break;
-//
-//                }
-//            } else {
-//                errorsMap.put("password", "Email or password is incorrect");
-//            }
-//        } else {
-//            errorsMap.put("email", "Email or password is incorrect");
-//        }
-//        if (!errorsMap.isEmpty()) {
-//            customerOrCompanyOrAdminOrErrorsModel.setErrors(errorsMap);
-//        }
-        return logInInfEntity;
+        return restTemplate.getForObject(backendServerUrl + "/api/log/in/inf/" + email, LogInInfEntity.class);
+    }
+
+    @Override
+    public CustomerOrCompanyOrAdminOrErrorsModel getUserByToken(String token) {
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken
+                = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) usernamePasswordAuthenticationToken.getPrincipal();
+        String email = userDetails.getUsername();
+        LogInInfEntity logInInfEntity = findUserByEmail(email);
+        CustomerOrCompanyOrAdminOrErrorsModel model = new CustomerOrCompanyOrAdminOrErrorsModel();
+        model.setCustomerModel(customerDataService.findCustomerByLogInInfId(logInInfEntity.getIdLogInInf()));
+        model.setCompanyModel(companyDataService.getCompanyByLogInInfId(logInInfEntity.getIdLogInInf()));
+        if (model.getCompanyModel() == null && model.getCustomerModel() == null) {
+            model.setAdminModel(new AdminModel(logInInfEntity.getIdLogInInf()));
+        }
+        return model;
     }
 }

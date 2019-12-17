@@ -6,7 +6,15 @@ import com.artsykov.backend.model.ProductPageModel;
 public interface ProductService {
     ProductEntity saveProduct(ProductEntity productEntity);
 
-    ProductEntity getProduct(int id);
+    void changeProductStatus(ProductEntity productEntity);
 
-    ProductPageModel findByPage(int pageNumber, int amount);
+    ProductEntity findProduct(int id);
+
+    ProductPageModel findByPageIsActive(int pageNumber, int amount);
+
+    ProductPageModel findAllByPage(int pageNumber, int amount);
+
+    ProductPageModel findByPageByCompanyId(int companyId, int pageNumber, int amount);
+
+    void deleteProductById(int productId);
 }

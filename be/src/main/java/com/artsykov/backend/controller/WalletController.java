@@ -14,9 +14,18 @@ public class WalletController {
     WalletService walletService;
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<WalletEntity> getWallet(@PathVariable("id") String id) {
-        int intId = Integer.valueOf(id);
-        return ResponseEntity.ok(walletService.find(intId));
+    public ResponseEntity<WalletEntity> getWallet(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok(walletService.find(id));
+    }
+
+    @GetMapping(value = "/customer/{id}")
+    public ResponseEntity<WalletEntity> getWalletByCustomerId(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok(walletService.findWalletByIdCustomer(id));
+    }
+
+    @GetMapping(value = "/company/{id}")
+    public ResponseEntity<WalletEntity> getWalletByCompanyId(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok(walletService.findWalletByIdCompany(id));
     }
 
     @PostMapping
@@ -25,8 +34,8 @@ public class WalletController {
     }
 
     @PutMapping
-    public HttpStatus replenish (@RequestBody WalletEntity walletEntity) {
-        walletService.replenish(walletEntity);
+    public HttpStatus updateWallet (@RequestBody WalletEntity walletEntity) {
+        walletService.update(walletEntity);
         return HttpStatus.OK;
     }
 }

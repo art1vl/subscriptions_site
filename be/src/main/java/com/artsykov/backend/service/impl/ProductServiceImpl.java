@@ -1,21 +1,35 @@
 package com.artsykov.backend.service.impl;
 
+import com.artsykov.backend.entity.CompanyEntity;
 import com.artsykov.backend.entity.ProductEntity;
 import com.artsykov.backend.model.ProductPageModel;
 import com.artsykov.backend.repository.ProductRepository;
+import com.artsykov.backend.service.CompanyService;
 import com.artsykov.backend.service.ProductService;
+import com.artsykov.backend.service.SubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import javax.transaction.Transactional;
 
 @Service
+@Transactional
 public class ProductServiceImpl implements ProductService {
-    @Autowired
     private ProductRepository productRepository;
+    private CompanyService companyService;
+    private SubscriptionService subscriptionService;
+
+    @Autowired
+    public ProductServiceImpl(ProductRepository productRepository,
+                              CompanyService companyService,
+                              SubscriptionService subscriptionService) {
+        this.productRepository = productRepository;
+        this.companyService = companyService;
+        this.subscriptionService = subscriptionService;
+    }
 
     @Override
     public ProductEntity saveProduct(ProductEntity productEntity) {
@@ -23,18 +37,48 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductEntity getProduct(int id) {
+    public ProductEntity findProduct(int id) {
         return productRepository.findByIdProduct(id);
     }
 
     @Override
-    public ProductPageModel findByPage(int pageNumber, int amount) {
+    public ProductPageModel findByPageIsActive(int pageNumber, int amount) {
+        Pageable pageable = PageRequest.of(pageNumber, amount);
+        Page<ProductEntity> page = productRepository.findAllByIsActive((byte) 1, pageable);
+        return createProductPageModel(page);
+    }
+
+    @Override
+    public ProductPageModel findByPageByCompanyId(int companyId, int pageNumber, int amount) {
+        Pageable pageable = PageRequest.of(pageNumber, amount);
+        CompanyEntity companyEntity = companyService.findCompany(companyId);
+        Page<ProductEntity> page = productRepository.findAllByCompany(companyEntity, pageable);
+        return createProductPageModel(page);
+    }
+
+    @Override
+    public ProductPageModel findAllByPage(int pageNumber, int amount) {
         Pageable pageable = PageRequest.of(pageNumber, amount);
         Page<ProductEntity> page = productRepository.findAll(pageable);
+        return createProductPageModel(page);
+    }
+
+    @Override
+    public void deleteProductById(int productId) {
+        productRepository.deleteByIdProduct(productId);
+    }
+
+    private ProductPageModel createProductPageModel(Page<ProductEntity> page) {
         ProductPageModel productPageModel = new ProductPageModel();
         productPageModel.setProductList(page.getContent());
-        productPageModel.setTotalElements(page.getTotalElements());
         productPageModel.setTotalPages(page.getTotalPages());
+        productPageModel.setTotalElements(page.getTotalElements());
         return productPageModel;
+    }
+
+    @Override
+    public void changeProductStatus(ProductEntity productEntity) {
+        productRepository.save(productEntity);
+        subscriptionService.changeSubscriptionStatusByProduct(productEntity);
     }
 }
