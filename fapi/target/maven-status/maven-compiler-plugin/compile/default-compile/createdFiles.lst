@@ -11,6 +11,7 @@ com\artsykov\fapi\config\WebSecurityConfig.class
 com\artsykov\fapi\service\WalletDataService.class
 com\artsykov\fapi\models\CustomerModel.class
 com\artsykov\fapi\controller\ProductTypeController.class
+com\artsykov\fapi\entity\SubscriptionEntity.class
 com\artsykov\fapi\security\JwtTokenFilter.class
 com\artsykov\fapi\service\impl\ProductTypeDataServiceImpl.class
 com\artsykov\fapi\service\impl\CompanyDataServiceImpl.class
@@ -24,8 +25,10 @@ com\artsykov\fapi\entity\CustomerEntity.class
 com\artsykov\fapi\converter\CustomerConverter.class
 com\artsykov\fapi\models\ProductTypeModel.class
 com\artsykov\fapi\FapiApplication.class
+com\artsykov\fapi\converter\SubscriptionConverter.class
 com\artsykov\fapi\service\ProductTypeDataService.class
 com\artsykov\fapi\security\JwtAuthenticationException.class
+com\artsykov\fapi\service\impl\SubscriptionServiceImpl.class
 com\artsykov\fapi\service\ProductDataService.class
 com\artsykov\fapi\security\JwtConfigurer.class
 com\artsykov\fapi\controller\ProductController.class
@@ -38,13 +41,16 @@ com\artsykov\fapi\entity\ProductTypeEntity.class
 com\artsykov\fapi\service\impl\WalletDataServiceImpl.class
 com\artsykov\fapi\converter\WalletConverter.class
 com\artsykov\fapi\service\LogInInfDataService.class
+com\artsykov\fapi\models\SubscriptionOrErrorsModel.class
 com\artsykov\fapi\controller\CustomerController.class
+com\artsykov\fapi\models\CustomerSubscriptionPageModel.class
 com\artsykov\fapi\converter\CompanyConverter.class
 com\artsykov\fapi\security\JwtTokenProvider.class
 com\artsykov\fapi\models\CustomerOrCompanyOrAdminOrErrorsModel.class
 com\artsykov\fapi\models\WalletModel.class
 com\artsykov\fapi\models\WalletOrErrorsModel.class
 com\artsykov\fapi\controller\handler\impl\HandlerServiceImpl.class
+com\artsykov\fapi\service\SubscriptionService.class
 com\artsykov\fapi\controller\CompanyController.class
 com\artsykov\fapi\controller\SubscriptionController.class
 com\artsykov\fapi\models\AdminModel.class

@@ -11,7 +11,7 @@
 /* Create two unequal columns that sits next to each other */
 /* Sidebar/left column */
 .side {
-  margin-top: 20px;
+  margin-top: 30px;
   margin-left: 30px;
   /*flex: 20%;*/
   background-color: #f1f1f1;
@@ -19,6 +19,8 @@
   height: 330px;
   border-radius: 10px;
   display: flex;
+  min-width: 320px;
+  width: 20%;
 }
 
 /* Main column */
@@ -45,6 +47,9 @@
   margin: 10px;
   padding: 20px;
   font-size: 30px;
+  word-break: break-word;
+  max-height: 360px;
+  min-width: 250px;
 }
 
 .flex-container > div:hover {
@@ -52,5 +57,26 @@
 }
 
 .pagin {
+  padding-left: 420px;
+}
+
+.search {
   text-align: center;
+}
+
+.wrapper {
+  position: absolute;
+  min-height: 90.3%;
+}
+
+.content {
+  padding-bottom: 90px;
+}
+
+.footer {
+  position: absolute;
+  left: 0;
+  bottom: 0px;
+  width: 1518px;
+  height: 80px;
 }

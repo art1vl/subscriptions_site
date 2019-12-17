@@ -1,7 +1,9 @@
 C:\my_files\Netcracker\Subscriptions\fapi\src\main\java\com\artsykov\fapi\controller\WalletController.java
+C:\my_files\Netcracker\Subscriptions\fapi\src\main\java\com\artsykov\fapi\models\SubscriptionOrErrorsModel.java
 C:\my_files\Netcracker\Subscriptions\fapi\src\main\java\com\artsykov\fapi\service\impl\WalletDataServiceImpl.java
 C:\my_files\Netcracker\Subscriptions\fapi\src\main\java\com\artsykov\fapi\controller\LogInInfController.java
 C:\my_files\Netcracker\Subscriptions\fapi\src\main\java\com\artsykov\fapi\entity\RoleEnum.java
+C:\my_files\Netcracker\Subscriptions\fapi\src\main\java\com\artsykov\fapi\service\impl\SubscriptionServiceImpl.java
 C:\my_files\Netcracker\Subscriptions\fapi\src\main\java\com\artsykov\fapi\models\CustomerModel.java
 C:\my_files\Netcracker\Subscriptions\fapi\src\main\java\com\artsykov\fapi\controller\handler\impl\HandlerServiceImpl.java
 C:\my_files\Netcracker\Subscriptions\fapi\src\main\java\com\artsykov\fapi\entity\ProductEntity.java
@@ -42,10 +44,14 @@ C:\my_files\Netcracker\Subscriptions\fapi\src\main\java\com\artsykov\fapi\config
 C:\my_files\Netcracker\Subscriptions\fapi\src\main\java\com\artsykov\fapi\security\SecurityJwtConstants.java
 C:\my_files\Netcracker\Subscriptions\fapi\src\main\java\com\artsykov\fapi\service\LogInInfDataService.java
 C:\my_files\Netcracker\Subscriptions\fapi\src\main\java\com\artsykov\fapi\converter\ProductTypeConverter.java
+C:\my_files\Netcracker\Subscriptions\fapi\src\main\java\com\artsykov\fapi\service\SubscriptionService.java
 C:\my_files\Netcracker\Subscriptions\fapi\src\main\java\com\artsykov\fapi\models\ProductModel.java
+C:\my_files\Netcracker\Subscriptions\fapi\src\main\java\com\artsykov\fapi\converter\SubscriptionConverter.java
+C:\my_files\Netcracker\Subscriptions\fapi\src\main\java\com\artsykov\fapi\entity\SubscriptionEntity.java
 C:\my_files\Netcracker\Subscriptions\fapi\src\main\java\com\artsykov\fapi\service\ProductTypeDataService.java
 C:\my_files\Netcracker\Subscriptions\fapi\src\main\java\com\artsykov\fapi\converter\CustomerConverter.java
 C:\my_files\Netcracker\Subscriptions\fapi\src\main\java\com\artsykov\fapi\entity\ProductTypeEntity.java
+C:\my_files\Netcracker\Subscriptions\fapi\src\main\java\com\artsykov\fapi\models\CustomerSubscriptionPageModel.java
 C:\my_files\Netcracker\Subscriptions\fapi\src\main\java\com\artsykov\fapi\models\SubscriptionModel.java
 C:\my_files\Netcracker\Subscriptions\fapi\src\main\java\com\artsykov\fapi\models\ProductOrErrorsModel.java
 C:\my_files\Netcracker\Subscriptions\fapi\src\main\java\com\artsykov\fapi\controller\CustomerController.java

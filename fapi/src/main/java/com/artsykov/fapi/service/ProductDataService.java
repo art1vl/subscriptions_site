@@ -13,7 +13,15 @@ public interface ProductDataService {
 
     ProductOrErrorsModel saveProductImage(int id, MultipartFile file);
 
-    ProductModel getProduct(int id);
+    ProductModel findProductById(int id);
 
-    ProductPageModel getProductsByPage(int pageNumber, int amount);
+    ProductPageModel findProductsByPageIsActive(int pageNumber, int amount);
+
+    ProductPageModel findProductsByPageByCompanyId(int companyId, int pageNumber, int amount);
+
+    ProductPageModel findAllByPage(int pageNumber, int amount);
+
+    void deleteProductById(int productId);
+
+    void changeProductStatus(ProductModel productModel);
 }

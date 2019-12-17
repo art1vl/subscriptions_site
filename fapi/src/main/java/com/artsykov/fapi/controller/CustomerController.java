@@ -8,43 +8,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.security.PermitAll;
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/customer")
 public class CustomerController {
-
-    @Autowired
     private CustomerDataService customerDataService;
-
-    @Autowired
     private HandlerService handlerService;
 
-//    @RequestMapping(value = "/{id}")
-//    public ResponseEntity<CustomerModel> getCustomerById(@PathVariable String id) throws InterruptedException {
-//        Long customerId = Long.valueOf(id);
-//        return ResponseEntity.ok(customerDataService.findCustomerById(customerId));
-////        WalletEntity walletByIdWallet = new WalletEntity(1, 100, 1111222233334444L, new Timestamp(1570000000000L), 123, "Ivan Ivanov");
-////        CustomerModel customerModel = new CustomerModel(1, "Jon", "Smith", 20, "jon@mail.ru", null, walletByIdWallet, true, 1);
-////        return ResponseEntity.ok(customerModel);
-//    }
-
-//    @RequestMapping(value = "/{email}/{password}")
-//    public ResponseEntity<CustomerOrErrorsModel> getCustomerByEmail(@PathVariable("email") String email, @PathVariable("password") String password) throws InterruptedException {
-//        return ResponseEntity.ok(customerDataService.findCustomerByEmail(email, password));
-//    }
-
-//    @PostMapping(value = "/sign/in")
-//    public ResponseEntity<CustomerOrErrorsModel> getCustomerByEmail(@RequestBody LogInParam logInParam) throws InterruptedException {
-//        return ResponseEntity.ok(customerDataService.findCustomerByEmail(logInParam.getEmail(), logInParam.getPassword()));
-//    }
+    @Autowired
+    public CustomerController(CustomerDataService customerDataService, HandlerService handlerService) {
+        this.customerDataService = customerDataService;
+        this.handlerService = handlerService;
+    }
 
     //todo
 //    @GetMapping
@@ -53,14 +32,20 @@ public class CustomerController {
 //    }
 
     @Secured("ROLE_CUSTOMER")
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/log/in/inf/{id}")
     public  ResponseEntity<CustomerModel> getCustomerByLogInInfId(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(customerDataService.findCustomerByLogInInfId(id));
     }
 
+    @Secured("ROLE_CUSTOMER")
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<CustomerModel> getCustomerById(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok(customerDataService.findCustomerById(id));
+    }
+
     @PostMapping
     public ResponseEntity<CustomerOrErrorsModel> checkAndSaveCustomer(@RequestBody @Valid CustomerModel customerModel) {
-        return ResponseEntity.ok(new CustomerOrErrorsModel(customerDataService.checkAndSaveCustomer(customerModel)));
+        return ResponseEntity.ok(customerDataService.checkAndSaveCustomer(customerModel));
     }
 
     @Secured("ROLE_CUSTOMER")

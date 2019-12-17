@@ -29,7 +29,7 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
-  height: 70px;
+  height: 83px;
 }
 
 .picture {
@@ -39,12 +39,13 @@
 .text {
   flex: 50%;
   font-size: 20px;
-  padding-top: 10px;
+  padding-top: 1px;
+  color: black;
 }
 
 .button {
   text-align: right;
-  padding-top: 20px;
+  padding-top: 25px;
   padding-right: 15px;
   flex: 10%;
 }
@@ -82,4 +83,17 @@
   padding: 10px;
   background-color: white;
   box-shadow: 10px 9px 13px gray;
+}
+
+.pagin {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.activeStatus {
+  color: green;
+}
+
+.blocked {
+  color: red;
 }

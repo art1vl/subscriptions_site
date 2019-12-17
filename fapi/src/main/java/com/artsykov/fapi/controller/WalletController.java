@@ -1,7 +1,6 @@
 package com.artsykov.fapi.controller;
 
 import com.artsykov.fapi.controller.handler.HandlerService;
-import com.artsykov.fapi.models.CompanyOrErrorsModel;
 import com.artsykov.fapi.models.WalletModel;
 import com.artsykov.fapi.models.WalletOrErrorsModel;
 import com.artsykov.fapi.service.WalletDataService;
@@ -30,9 +29,9 @@ public class WalletController {
     }
 
     @Secured({"ROLE_COMPANY", "ROLE_CUSTOMER"})
-    @PutMapping(value = "/replenish")
-    public ResponseEntity<WalletOrErrorsModel> replenish (@RequestBody WalletModel walletModel) {
-        walletDataService.replenish(walletModel);
+    @PutMapping(value = "/update")
+    public ResponseEntity<WalletOrErrorsModel> updateWallet (@RequestBody WalletModel walletModel) {
+        walletDataService.updateWallet(walletModel);
         return ResponseEntity.ok(new WalletOrErrorsModel());
     }
 

@@ -1,7 +1,7 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from "@angular/core";
-import {Subscription} from "rxjs";
+import {Component, OnDestroy, OnInit, ViewChild} from "@angular/core";
+import {Subject, Subscription} from "rxjs";
 import {CustomerServiceImpl} from "../../../../services/impl/customer.service.impl";
-import {TabsetComponent} from "ngx-bootstrap";
+import {PaginationComponent, TabsetComponent} from "ngx-bootstrap";
 import {subscriptionModel} from "../../../models/subscriptionModel";
 import {SubscriptionServiceImpl} from "../../../../services/impl/subscription.service.impl";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
@@ -9,6 +9,8 @@ import {customerModel} from "../../../models/customerModel";
 import {WalletModel} from "../../../models/walletModel";
 import {Router} from "@angular/router";
 import {WalletServiceImpl} from "../../../../services/impl/wallet-service-impl.service";
+import {CompanyServiceImpl} from "../../../../services/impl/company.service.impl";
+import {AdminServiceImpl} from "../../../../services/impl/admin.service.impl";
 
 @Component({
   selector: "app-customer-page",
@@ -38,10 +40,21 @@ export class CustomerPageComponent implements OnInit, OnDestroy {
   errorsMapReplenishWallet: Map<string, string> = new Map<string, string>();
   hiddenCardNumber: string;
   cardDateString: string;
+  totalPage: number;
+  totalElements: number;
+  numberOfLastLoadedPage: number;
+  private balanceFlag = new Subject<boolean>();
+  public balanceFlag$ = this.balanceFlag.asObservable();
+  private subscriptionFlag = new Subject<boolean>();
+  public subscriptionFlag$ = this.subscriptionFlag.asObservable();
+  private paginationFlag = new Subject<boolean>();
+  public paginationFlag$ = this.paginationFlag.asObservable();
 
   private subscriptions: Subscription[] = [];
 
-  constructor(private customerServiceImpl: CustomerServiceImpl,
+  constructor(private companyService: CompanyServiceImpl,
+              private adminService: AdminServiceImpl,
+              private customerServiceImpl: CustomerServiceImpl,
               private subscriptionServiceImpl: SubscriptionServiceImpl,
               private router: Router,
               private walletServiceImpl: WalletServiceImpl) {
@@ -66,26 +79,36 @@ export class CustomerPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    if (this.customerServiceImpl.customer == null) {
-      this.router.navigate(["/sign_in"]);
-    } else {
+    if (this.customerServiceImpl.customer == null || this.customerServiceImpl.customer.isActive == 0) {
+      localStorage.clear();
+      this.customerServiceImpl.customer = null;
+      this.companyService.company = null;
+      this.adminService.admin = null;
+      this.router.navigate(["/sign/in"]);
+    }
+    else {
       for (let i = 18; i < 101; i++) {
         this.ageArray.push(i);
       }
-      this.loadSubscriptions();
-      this.customer = this.customerServiceImpl.customer;
-      if (this.customer.wallet != null) {
-        if (this.customer.wallet.cardCvvCode != 0) {
-          this.walletFlag = true;
-          this.hiddenCardNumber = '**** **** **** ' + this.customer.wallet.cardNumber.toString().substring(this.customer.wallet.cardNumber.toString().length - 4);
-          let stringDate: string = new Date(this.customer.wallet.cardDate).toLocaleDateString();
-          this.cardDateString = stringDate.substring(3, 5) + "/" + stringDate.substring(8);
+      this.subscriptions.push(this.customerServiceImpl.findCustomerById(this.customerServiceImpl.customer.id).subscribe(customer => {
+        this.customer = customer as customerModel;
+        this.customerServiceImpl.customer = customer;
+        this.paginationFlag.next(false);
+        this.loadSubscriptionsFirstPageOrReload(0);
+        if (this.customer.wallet != null) {
+          if (this.customer.wallet.cardCvvCode != 0) {
+            this.walletFlag = true;
+            this.hiddenCardNumber = '**** **** **** ' + this.customer.wallet.cardNumber.toString().substring(this.customer.wallet.cardNumber.toString().length - 4);
+            let stringDate: string = new Date(this.customer.wallet.cardDate).toLocaleDateString();
+            this.cardDateString = stringDate.substring(3, 5) + "/" + stringDate.substring(8);
+            this.balanceFlag.next(true);
+          } else {
+            this.walletFlag = false;
+          }
         } else {
           this.walletFlag = false;
         }
-      } else {
-        this.walletFlag = false;
-      }
+      }));
       this.myForm = new FormGroup({
         "password": new FormControl("", [
           Validators.required,
@@ -115,19 +138,47 @@ export class CustomerPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  private loadSubscriptions(): void {
-    this.subscriptions.push(this.subscriptionServiceImpl.findAllSubscriptionsByCustomerId("1").subscribe(subscription => {
-      this.customerSubscriptions = subscription as subscriptionModel[];
+  private loadSubscriptionsFirstPageOrReload(pageNumber: number): void {
+    this.subscriptions.push(this.subscriptionServiceImpl.findAllSubscriptionsByCustomerId(this.customer.id, pageNumber, 5)
+      .subscribe(subscription => {
+      this.customerSubscriptions = subscription.subscriptionModels as subscriptionModel[];
+      this.totalPage = subscription.totalPages;
+      this.totalElements = subscription.totalElements;
+      if (this.totalElements > 5) {
+        this.paginationFlag.next(true);
+      }
+      if (this.customerSubscriptions.length != 0) {
+        this.subscriptionFlag.next(true);
+      }
+      else {
+        this.subscriptionFlag.next(false);
+      }
+      this.numberOfLastLoadedPage = pageNumber;
     }));
   }
 
-  public _updateSubscriptions(): void {
-    this.loadSubscriptions();
+  private loadSubscriptionsPage(pagination: PaginationComponent): void {
+    this.subscriptions.push(this.subscriptionServiceImpl.findAllSubscriptionsByCustomerId(this.customer.id, pagination.page - 1, 5)
+      .subscribe(subscription => {
+        this.customerSubscriptions = subscription.subscriptionModels as subscriptionModel[];
+        this.totalPage = subscription.totalPages;
+        this.totalElements = subscription.totalElements;
+        this.numberOfLastLoadedPage = pagination.page - 1;
+      }));
   }
 
-  private unsubscribe(subscriptionId: number, customerId: number): void {
-    this.subscriptions.push(this.subscriptionServiceImpl.deleteSubscriptionById(subscriptionId, customerId).subscribe(() => {
-      this._updateSubscriptions();
+
+  private unsubscribe(subscriptionId: number): void {
+    this.subscriptions.push(this.subscriptionServiceImpl.deleteSubscription(subscriptionId).subscribe(() => {
+      if (this.customerSubscriptions.length == 1) {
+        if (this.numberOfLastLoadedPage == 0) {
+          this.subscriptionFlag.next(false);
+        }
+        else {
+          this.numberOfLastLoadedPage--;
+        }
+      }
+      this.loadSubscriptionsFirstPageOrReload(this.numberOfLastLoadedPage);
     }));
   }
 
@@ -171,6 +222,7 @@ export class CustomerPageComponent implements OnInit, OnDestroy {
         this.hiddenCardNumber = '**** **** **** ' + cardNumber.substring(cardNumber.length - 4);
         this.cardDateString = cardDate;
         this.walletFlag = true;
+        this.myForm.reset();
       } else {
         this.errorsMapWallet = customerOrErrors.errors;
         this.customer = this.customerServiceImpl.customer;
@@ -191,11 +243,12 @@ export class CustomerPageComponent implements OnInit, OnDestroy {
 
   private replenishCard(number: number): void {
     this.customer.wallet.balance += +number;
-    this.subscriptions.push(this.walletServiceImpl.replenishCard(this.customer.wallet).subscribe(walletOrErrors => {
+    this.subscriptions.push(this.walletServiceImpl.updateCard(this.customer.wallet).subscribe(walletOrErrors => {
       if (walletOrErrors.errors == null) {
         this.customerServiceImpl.customer = this.customer;
         this.errorsMapReplenishWallet = new Map<string, string>();
         this.replenishFlag = true;
+        this.balanceFlag.next(true);
       } else {
         this.errorsMapReplenishWallet = walletOrErrors.errors;
         this.customer = this.customerServiceImpl.customer;

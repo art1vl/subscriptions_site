@@ -7,8 +7,12 @@
   <div class="form-group col-md-2">
     <div class="balance">
       <button type="button" class="btn btn-primary btn-sm" (click)="selectTab(2)">
-        <div *ngIf="customer?.wallet == null"><h4>balance: 0$</h4></div>
-        <div *ngIf="customer?.wallet != null"><h4>balance: {{customer?.wallet.balance}}$</h4></div>
+        <div *ngIf="!(balanceFlag$  | async)">
+          <h4>balance: 0$</h4>
+        </div>
+        <div *ngIf="balanceFlag$  | async">
+          <h4>balance: {{customer?.wallet?.balance}}$</h4>
+        </div>
       </button>
     </div>
   </div>
@@ -17,17 +21,21 @@
   <div>
     <tabset #staticTabs>
       <tab heading="My subscriptions">
-        <div *ngIf="customerSubscriptions != null">
+        <div *ngIf="subscriptionFlag$  | async">
           <div *ngFor="let subscription of customerSubscriptions">
             <div class="subscription-customer">
               <div class="subscription">
                 <div class="picture">
-                  <img src="{{subscription?.product.image}}">
+                  <img src="api/files/{{subscription?.product.image}}">
                 </div>
                 <div class="text">
                   {{subscription?.product.productName}}
                   <br>
-                  every week cost: {{subscription?.product.cost}}$
+                  every month cost: {{subscription?.product.cost}}$
+                  <br>
+                  <div class="attention" *ngIf="subscription?.isActive == 0">
+                    Attention, product was blocked by administration. Fee for that subscription isn't got.
+                  </div>
                 </div>
                 <div class="button">
                   <a routerLink="/catalog/product/{{subscription?.product.id}}">
@@ -35,14 +43,22 @@
                   </a>
                   &nbsp; &nbsp; &nbsp; &nbsp;
                   <button type="button" class="btn btn-danger"
-                          (click)="unsubscribe(subscription.id, subscription.idCustomer)">Unsubscribe
+                          (click)="unsubscribe(subscription.id)">Unsubscribe
                   </button>
                 </div>
               </div>
             </div>
           </div>
+          <div class="row" *ngIf="paginationFlag$  | async">
+            <div class="col-xs-12 col-12">
+              <div class="pagin">
+                <pagination [totalItems]="totalElements" [itemsPerPage]="5" (pageChanged)="loadSubscriptionsPage(pagination)"
+                            #pagination></pagination>
+              </div>
+            </div>
+          </div>
         </div>
-        <div *ngIf="customerSubscriptions == null">
+        <div *ngIf="!(subscriptionFlag$  | async)">
           <p align="center">
           <h3>You don't have any subscriptions</h3>
         </div>

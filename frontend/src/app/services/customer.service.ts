@@ -16,4 +16,6 @@ export interface CustomerService {
   updateCustomerPersonalInf(customer: customerModel): Observable<customerOrErrorsModel>;
 
   saveCustomerWallet(customer: customerModel): Observable<customerOrErrorsModel>;
+
+  findCustomerById(id: number): Observable<customerModel>;
 }

@@ -8,7 +8,6 @@ export class AdminServiceImpl implements AdminService {
   admin: adminModel;
 
   constructor(private http: HttpClient) {
-    console.log("new");
   }
 
 }

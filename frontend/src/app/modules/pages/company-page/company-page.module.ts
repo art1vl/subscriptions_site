@@ -8,6 +8,7 @@ import {TextMaskModule} from "angular2-text-mask";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {BsDatepickerModule} from "ngx-bootstrap/datepicker";
 import {ProductTypeServiceImpl} from "../../../services/impl/productType.service.impl";
+import {PaginationModule} from "ngx-bootstrap";
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import {ProductTypeServiceImpl} from "../../../services/impl/productType.service
     TabsModule.forRoot(),
     BrowserAnimationsModule,
     BsDatepickerModule.forRoot(),
+    PaginationModule.forRoot(),
   ],
   providers: [
     ProductTypeServiceImpl

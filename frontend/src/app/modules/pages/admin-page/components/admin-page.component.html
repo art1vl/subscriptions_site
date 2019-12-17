@@ -19,20 +19,27 @@
 
       <!--All products -->
       <tab heading="All products">
-        <div *ngIf="productModel.length != 0">
-          <div *ngFor="let product of productModel">
+        <div *ngIf="products.length != 0">
+          <div *ngFor="let product of products">
             <div class="subscription-all">
               <div class="subscription">
                 <div class="picture">
-                  <img src="{{product?.image}}">
+                  <img src="api/files/{{product?.image}}">
                 </div>
                 <div class="text">
                   {{product?.productName}}
                   <br>
-                  every week cost: {{product?.cost}}$
+                  every month cost: {{product?.cost}}$
+                  <br>
+                  <div class="activeStatus" *ngIf="product.isActive == 1">
+                    status: active
+                  </div>
+                  <div class="blocked" *ngIf="product.isActive == 0">
+                    status: blocked
+                  </div>
                 </div>
                 <div class="button">
-                  <a routerLink="product/{{product?.id}}">
+                  <a routerLink="/catalog/product/{{product?.id}}">
                     <button type="button" class="btn btn-info">Read more</button>
                   </a>
                   &nbsp; &nbsp; &nbsp; &nbsp;
@@ -47,9 +54,17 @@
             </div>
           </div>
         </div>
-        <div *ngIf="productModel.length == 0">
+        <div class="row" *ngIf="productPaginationFlag$  | async">
+          <div class="col-xs-12 col-12">
+            <div class="pagin">
+              <pagination [totalItems]="totalProducts" [itemsPerPage]="5" (pageChanged)="loadProductPage(pagination)"
+                          #pagination></pagination>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="products.length == 0">
           <p align="center">
-          <h3>The list of subscriptions is empty</h3>
+          <h3>The list of products is empty</h3>
         </div>
       </tab>
 

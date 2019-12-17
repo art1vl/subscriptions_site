@@ -4,15 +4,18 @@ import com.artsykov.fapi.converter.CustomerConverter;
 import com.artsykov.fapi.converter.WalletConverter;
 import com.artsykov.fapi.entity.CustomerEntity;
 import com.artsykov.fapi.entity.WalletEntity;
-import com.artsykov.fapi.validator.CustomerValidator;
 import com.artsykov.fapi.models.CustomerModel;
 import com.artsykov.fapi.models.CustomerOrErrorsModel;
+import com.artsykov.fapi.models.WalletModel;
 import com.artsykov.fapi.service.CustomerDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class CustomerDataServiceImpl implements CustomerDataService {
@@ -24,7 +27,9 @@ public class CustomerDataServiceImpl implements CustomerDataService {
     private String backendServerUrl;
 
     @Autowired
-    public CustomerDataServiceImpl(CustomerConverter customerConverter, WalletConverter walletConverter, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public CustomerDataServiceImpl(CustomerConverter customerConverter,
+                                   WalletConverter walletConverter,
+                                   BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.customerConverter = customerConverter;
         this.walletConverter = walletConverter;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
@@ -38,13 +43,28 @@ public class CustomerDataServiceImpl implements CustomerDataService {
     }
 
     @Override
-    public CustomerModel checkAndSaveCustomer(CustomerModel customer) {
+    public CustomerModel findCustomerById(int id) {
         RestTemplate restTemplate = new RestTemplate();
-        customer.setPassword(bCryptPasswordEncoder.encode(customer.getPassword()));
-        CustomerEntity customerEntity = customerConverter.convertFromFrontToBack(customer);
-        return customerConverter.convertFromBackToFront(restTemplate.postForEntity(backendServerUrl + "/api/customer",
-                customerEntity, CustomerEntity.class).getBody());
+        return customerConverter.convertFromBackToFront(restTemplate.getForObject(backendServerUrl + "/api/customer/" + id, CustomerEntity.class));
+    }
 
+    @Override
+    public CustomerOrErrorsModel checkAndSaveCustomer(CustomerModel customer) {
+        CustomerOrErrorsModel customerOrErrorsModel = new CustomerOrErrorsModel();
+        RestTemplate restTemplate = new RestTemplate();
+        boolean emailExists = restTemplate.getForObject(backendServerUrl + "/api/log/in/inf/exist/" + customer.getEmail(), Boolean.class);
+        if (emailExists) {
+            Map<String, String> errors = new HashMap<>();
+            errors.put("email", "This email is busy");
+            customerOrErrorsModel.setErrors(errors);
+        }
+        else {
+            customer.setPassword(bCryptPasswordEncoder.encode(customer.getPassword()));
+            CustomerEntity customerEntity = customerConverter.convertFromFrontToBack(customer);
+            customerOrErrorsModel.setCustomerModel(customerConverter.convertFromBackToFront(restTemplate.postForEntity(backendServerUrl + "/api/customer",
+                    customerEntity, CustomerEntity.class).getBody()));
+        }
+        return customerOrErrorsModel;
     }
 
     @Override
@@ -69,7 +89,10 @@ public class CustomerDataServiceImpl implements CustomerDataService {
         restTemplate.put(backendServerUrl + "/api/customer/update", customerConverter.convertFromFrontToBack(customerModel));
     }
 
-    private boolean isCustomerValid(CustomerModel customer) {
-        return true;
+    @Override
+    public WalletModel findWalletByCustomerId(int customerId) {
+        RestTemplate restTemplate = new RestTemplate();
+        return walletConverter.convertFromBackToFront(restTemplate.getForObject(backendServerUrl +
+                "/api/wallet/customer/" + customerId, WalletEntity.class));
     }
 }

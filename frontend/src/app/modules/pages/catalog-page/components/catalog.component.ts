@@ -26,14 +26,11 @@ export class CatalogComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   constructor(private ProductService: ProductServiceImpl,
-             // private location: Location,
-              //this.location.replaceState("/sign_in");
               private loadingService: Ng4LoadingSpinnerService,
               private customerServiceImpl: CustomerServiceImpl,
               private productTypeService: ProductTypeServiceImpl) {
   }
 
-  // Calls on component init
   ngOnInit() {
     this.loadFirstPageProduct();
     this.getProductTypes();
@@ -41,30 +38,26 @@ export class CatalogComponent implements OnInit, OnDestroy {
     this.searchForm = new FormGroup({
       "productName": new FormControl("", [
         Validators.pattern('^[0-9a-zA-Z]+$'),
-      ])})
+      ])
+    })
   }
 
-  private getProductTypes(): void{
+  private getProductTypes(): void {
     this.subscriptions.push(this.productTypeService.findTypes().subscribe(types => {
-      // Parse json response into local array
       this.typeArray = types as ProductTypeModel[];
-      // Check data in console
-    //  console.log(this.products);// don't use console.log in angular :)
-    //   this.loadingService.hide();
     }));
   }
 
   private loadFirstPageProduct(): void {
-    this.subscriptions.push(this.ProductService.findProducts(0, 2).subscribe(productPageModel => {
+    this.subscriptions.push(this.ProductService.findProductsIsActive(0, 8).subscribe(productPageModel => {
       this.products = productPageModel.productModelList as ProductModel[];
       this.totalProducts = productPageModel.totalElements;
       this.totalPages = productPageModel.totalPages;
-      console.log(this.totalProducts);
     }));
   }
 
   private loadNewPageProduct(pagination: PaginationComponent): void {
-    this.subscriptions.push(this.ProductService.findProducts(pagination.page - 1, 1).subscribe(productPageModel => {
+    this.subscriptions.push(this.ProductService.findProductsIsActive(pagination.page - 1, 8).subscribe(productPageModel => {
       this.products = productPageModel.productModelList as ProductModel[];
       this.totalProducts = productPageModel.totalElements;
       this.totalPages = productPageModel.totalPages;

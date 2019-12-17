@@ -3,27 +3,29 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {SubscriptionService} from "../subscription.service";
 import {subscriptionModel} from "../../modules/models/subscriptionModel";
+import {SubscriptionOrErrorsModel} from "../../modules/models/subscriptionOrErrorsModel";
+import {CustomerSubscriptionPageModel} from "../../modules/models/customerSubscriptionPageModel";
 
 @Injectable()
-// Data service
 export class SubscriptionServiceImpl implements SubscriptionService {
 
   constructor(private http: HttpClient) {
   }
 
-  //todo
-  createNewSubscription(subscription: subscriptionModel): Observable<subscriptionModel> {
-   // return this.http.post<ProductModel>('/api/product', product);
-    return undefined;
+  createNewSubscription(subscription: subscriptionModel): Observable<SubscriptionOrErrorsModel> {
+    return this.http.post<SubscriptionOrErrorsModel>('/api/subscription', subscription);
   }
 
-  //todo
-  deleteSubscriptionById(subscriptionId: number, customerId: number): Observable<void> {
-    return this.http.delete<void>('/api/subscription/' + subscriptionId + '/' + customerId);
+  deleteSubscription(subscriptionId: number): Observable<void> {
+    return this.http.delete<void>('/api/subscription/' + subscriptionId);
   }
 
-  findAllSubscriptionsByCustomerId(customerId: string): Observable<subscriptionModel[]> {
-    return this.http.get<subscriptionModel[]>('/api/subscription/' + customerId);
+  findSubscription(productId: number, customerId: number): Observable<subscriptionModel> {
+    return this.http.get<subscriptionModel>('/api/subscription?product=' + productId + '&customer=' + customerId);
+  }
+
+  findAllSubscriptionsByCustomerId(customerId: number, page: number, amount: number): Observable<CustomerSubscriptionPageModel> {
+    return this.http.get<CustomerSubscriptionPageModel>('/api/subscription/customer/' + customerId + '?page=' + page + '&amount=' + amount);
   }
 
   findAllSubscriptions(): Observable<subscriptionModel[]> {

@@ -5,5 +5,7 @@ import {WalletOrErrorsModel} from "../modules/models/walletOrErrorsModel";
 export interface WalletService {
   deleteCard(id: number): Observable<void>;
 
-  replenishCard(wallet: WalletModel): Observable<WalletOrErrorsModel>;
+  updateCard(wallet: WalletModel): Observable<WalletOrErrorsModel>;
+
+
 }

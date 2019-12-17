@@ -20,7 +20,8 @@ public class WalletDataServiceImpl implements WalletDataService {
     @Override
     public void deleteWallet(int id) {
         RestTemplate restTemplate = new RestTemplate();
-        WalletEntity walletEntity = restTemplate.getForEntity(backendServerUrl + "/api/wallet/" + id, WalletEntity.class).getBody();
+        WalletEntity walletEntity = restTemplate.getForEntity(
+                backendServerUrl + "/api/wallet/" + id, WalletEntity.class).getBody();
         walletEntity.setPersonName(null);
         walletEntity.setCardCvvCode(0);
         walletEntity.setCardNumber(0);
@@ -29,9 +30,16 @@ public class WalletDataServiceImpl implements WalletDataService {
     }
 
     @Override
-    public void replenish(WalletModel walletModel) {
+    public void updateWallet(WalletModel walletModel) {
         RestTemplate restTemplate = new RestTemplate();
         WalletEntity walletEntity = walletConverter.convertFromFrontToBack(walletModel);
         restTemplate.put(backendServerUrl + "/api/wallet", walletEntity);
+    }
+
+    @Override
+    public WalletModel findWalletById(int id) {
+        RestTemplate restTemplate = new RestTemplate();
+        return walletConverter.convertFromBackToFront(restTemplate.getForObject(
+                backendServerUrl + "/api/wallet/" + id, WalletEntity.class));
     }
 }

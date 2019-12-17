@@ -8,7 +8,6 @@ import com.artsykov.fapi.models.ProductPageModel;
 import com.artsykov.fapi.service.ProductDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
@@ -46,7 +45,7 @@ public class ProductDataServiceImpl implements ProductDataService {
         else {
             ProductModel savedProduct = new ProductModel();
             try {
-                ProductModel productModel = this.getProduct(id);
+                ProductModel productModel = this.findProductById(id);
                 String fileExtension = (file.getOriginalFilename()).split("\\.")[1];
                 String fileName = "image_" + productModel.getId() + "." + fileExtension;
                 String filePath = "C:/my_files/Netcracker/Subscriptions/fapi/image/" + fileName;
@@ -63,20 +62,56 @@ public class ProductDataServiceImpl implements ProductDataService {
     }
 
     @Override
-    public ProductModel getProduct(int id) {
+    public ProductModel findProductById(int id) {
         RestTemplate restTemplate = new RestTemplate();
-        return productConverter.convertFromBackToFront(restTemplate.getForObject(backendServerUrl + "/api/product/" + id, ProductEntity.class));
+        return productConverter.convertFromBackToFront(restTemplate.getForObject(backendServerUrl + "/api/product/" +
+                                                                                    id, ProductEntity.class));
     }
 
     @Override
-    public ProductPageModel getProductsByPage(int pageNumber, int amount) {
+    public ProductPageModel findProductsByPageIsActive(int pageNumber, int amount) {
         RestTemplate restTemplate = new RestTemplate();
-        ProductPageModel productPageModel = restTemplate.getForObject(backendServerUrl + "/api/product?page=" + pageNumber + "&amount=" + amount, ProductPageModel.class);
-        List<ProductModel> productModelList = productPageModel.getProductList().stream()
-                                                                .map(p -> productConverter.convertFromBackToFront(p))
-                                                                .collect(Collectors.toList());
-        productPageModel.setProductModelList(productModelList);
-        productPageModel.setProductList(null);
+        ProductPageModel productPageModel = restTemplate.getForObject(backendServerUrl + "/api/product?page=" +
+                                                            pageNumber + "&amount=" + amount, ProductPageModel.class);
+        return convertProductsInProductPageModel(productPageModel);
+    }
+
+    @Override
+    public ProductPageModel findProductsByPageByCompanyId(int companyId, int pageNumber, int amount) {
+        RestTemplate restTemplate = new RestTemplate();
+        ProductPageModel productPageModel = restTemplate.getForObject(backendServerUrl + "/api/product/company/" +
+                                            companyId + "?page=" + pageNumber + "&amount=" + amount, ProductPageModel.class);
+        return convertProductsInProductPageModel(productPageModel);
+    }
+
+    @Override
+    public void deleteProductById(int productId) {
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.delete(backendServerUrl + "/api/product/" + productId);
+    }
+
+    @Override
+    public ProductPageModel findAllByPage(int pageNumber, int amount) {
+        RestTemplate restTemplate = new RestTemplate();
+        ProductPageModel productPageModel = restTemplate.getForObject(backendServerUrl + "/api/product/all?page=" +
+                                                                pageNumber + "&amount=" + amount, ProductPageModel.class);
+        return convertProductsInProductPageModel(productPageModel);
+    }
+
+    @Override
+    public void changeProductStatus(ProductModel productModel) {
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.put(backendServerUrl + "/api/product", productConverter.convertFromFrontToBack(productModel));
+    }
+
+    private ProductPageModel convertProductsInProductPageModel(ProductPageModel productPageModel) {
+        if (productPageModel != null) {
+            List<ProductModel> productModelList = productPageModel.getProductList().stream()
+                    .map(p -> productConverter.convertFromBackToFront(p))
+                    .collect(Collectors.toList());
+            productPageModel.setProductModelList(productModelList);
+            productPageModel.setProductList(null);
+        }
         return productPageModel;
     }
 }

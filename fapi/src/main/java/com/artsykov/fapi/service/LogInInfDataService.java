@@ -7,5 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 public interface LogInInfDataService {
     LogInInfEntity findUserByEmail(String email);
 
-    public UserDetails loadUserByUsername(String email);
+    UserDetails loadUserByUsername(String email);
+
+    CustomerOrCompanyOrAdminOrErrorsModel getUserByToken(String token);
 }

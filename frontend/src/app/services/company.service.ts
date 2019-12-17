@@ -10,4 +10,6 @@ export interface CompanyService {
   saveCompanyWallet(company: companyModel): Observable<companyOrErrorsModel>;
 
   findCompanyByLogInInfId(logInInfId: number): Observable<companyModel>;
+
+  findCompanyById(id: number): Observable<companyModel>;
 }

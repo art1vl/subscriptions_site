@@ -1,7 +1,6 @@
 package com.artsykov.fapi.models;
 
 import lombok.Data;
-import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;

@@ -32,18 +32,12 @@ export class CustomerServiceImpl implements CustomerService {
   }
 
   findCustomerByLogInInfId(logInInfId: number): Observable<customerModel> {
-    return this.http.get<customerModel>('/api/customer/' + logInInfId);
+    return this.http.get<customerModel>('/api/customer/log/in/inf/' + logInInfId);
   }
 
 
-  findCustomerById(customerId: string): Observable<customerModel> {
-    return this.http.get<customerModel>('/api/customer/' + customerId)
-      .pipe(
-        catchError(value => {
-          // this.errorHandligService(value)
-          return of(null);
-        })
-      );
+  findCustomerById(id: number): Observable<customerModel> {
+    return this.http.get<customerModel>('/api/customer/' + id)
   }
 
   //todo

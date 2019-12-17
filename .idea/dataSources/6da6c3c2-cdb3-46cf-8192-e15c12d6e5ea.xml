@@ -1467,6 +1467,7 @@
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="350" parent="284" name="id_product">
@@ -1493,34 +1494,40 @@
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="354" parent="284" name="id_UNIQUE">
+    <column id="354" parent="284" name="next_pay_date">
+      <Position>6</Position>
+      <DataType>date|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="355" parent="284" name="id_UNIQUE">
       <ColNames>id_subscription</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <index id="355" parent="284" name="id_product_UNIQUE">
+    <index id="356" parent="284" name="id_product_UNIQUE">
       <ColNames>id_product</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <index id="356" parent="284" name="fk_id_costumer_subscr_idx">
+    <index id="357" parent="284" name="fk_id_costumer_subscr_idx">
       <ColNames>id_customer</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="357" parent="284" name="PRIMARY">
+    <key id="358" parent="284" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id_subscription</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="358" parent="284" name="id_UNIQUE">
+    <key id="359" parent="284" name="id_UNIQUE">
       <ColNames>id_subscription</ColNames>
       <UnderlyingIndexName>id_UNIQUE</UnderlyingIndexName>
     </key>
-    <key id="359" parent="284" name="id_product_UNIQUE">
+    <key id="360" parent="284" name="id_product_UNIQUE">
       <ColNames>id_product</ColNames>
       <UnderlyingIndexName>id_product_UNIQUE</UnderlyingIndexName>
     </key>
-    <foreign-key id="360" parent="284" name="fk_id_product_subscription">
+    <foreign-key id="361" parent="284" name="fk_id_product_subscription">
       <ColNames>id_product</ColNames>
       <RefSchemaName>backend</RefSchemaName>
       <RefTableName>product</RefTableName>
@@ -1528,7 +1535,7 @@
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="361" parent="284" name="fk_id_costumer_subscr">
+    <foreign-key id="362" parent="284" name="fk_id_costumer_subscr">
       <ColNames>id_customer</ColNames>
       <RefSchemaName>backend</RefSchemaName>
       <RefTableName>customer</RefTableName>
@@ -1536,50 +1543,50 @@
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="362" parent="285" name="id_wallet">
+    <column id="363" parent="285" name="id_wallet">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="363" parent="285" name="balance">
+    <column id="364" parent="285" name="balance">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="364" parent="285" name="card_number">
+    <column id="365" parent="285" name="card_number">
       <Position>3</Position>
       <DataType>bigint(16)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="365" parent="285" name="card_date">
+    <column id="366" parent="285" name="card_date">
       <Position>4</Position>
       <DataType>date|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="366" parent="285" name="card_cvv_code">
+    <column id="367" parent="285" name="card_cvv_code">
       <Position>5</Position>
       <DataType>int(3)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="367" parent="285" name="person_name">
+    <column id="368" parent="285" name="person_name">
       <Position>6</Position>
       <DataType>varchar(45)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="368" parent="285" name="id_UNIQUE">
+    <index id="369" parent="285" name="id_UNIQUE">
       <ColNames>id_wallet</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <key id="369" parent="285" name="PRIMARY">
+    <key id="370" parent="285" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id_wallet</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="370" parent="285" name="id_UNIQUE">
+    <key id="371" parent="285" name="id_UNIQUE">
       <ColNames>id_wallet</ColNames>
       <UnderlyingIndexName>id_UNIQUE</UnderlyingIndexName>
     </key>

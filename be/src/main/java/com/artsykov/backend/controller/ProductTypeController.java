@@ -14,11 +14,6 @@ public class ProductTypeController {
     @Autowired
     private ProductTypeService productTypeService;
 
-//    @Autowired
-//    public ProductTypeController(ProductTypeService productTypeService) {
-//        this.productTypeService = productTypeService;
-//    }
-
     @GetMapping
     public ResponseEntity<Iterable<ProductTypeEntity>> findAll() {
         return ResponseEntity.ok(productTypeService.findAll());

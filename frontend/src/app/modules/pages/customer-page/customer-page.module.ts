@@ -7,6 +7,7 @@ import {SubscriptionServiceImpl} from "../../../services/impl/subscription.servi
 import {TabsModule} from "ng2-bootstrap";
 import {TextMaskModule} from "angular2-text-mask";
 import {FooterModule} from "../../footer/footer.module";
+import {PaginationModule} from "ngx-bootstrap";
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import {FooterModule} from "../../footer/footer.module";
     TextMaskModule,
     FooterModule,
     TabsModule.forRoot(),
+    PaginationModule.forRoot(),
     ReactiveFormsModule
   ],
   providers: [

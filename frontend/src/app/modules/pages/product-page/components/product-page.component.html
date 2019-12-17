@@ -1,9 +1,10 @@
-<div>
+<div class="wrapper">
+  <div class="content">
   <div class="row">
     <div class="side">
       <div class="flex-container">
-        <div class="catalog">
-          <img src="{{product?.image}}">
+        <div class="catalog" *ngIf="product">
+          <img src="api/files/{{product?.image}}">
         </div>
       </div>
     </div>
@@ -21,13 +22,19 @@
         <br>
       </div>
       <div class="block-cost">
-        <b>Every week cost:</b> {{product?.cost}}$ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        <b>Every month cost:</b> {{product?.cost}}$ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-        <button *ngIf="company == null && admin == null" type="button" class="btn btn-primary" (click)="subscribe()">Subscribe</button>
+        <button *ngIf="company == null && admin == null && !(subject$ | async)" type="button" class="btn btn-primary" (click)="subscribe()">Subscribe</button>
+        <div class="alert alert-danger"
+             *ngIf="errors && errors['balance'] != undefined">
+          {{errors['balance']}}
+        </div>
+        <button *ngIf="subject$ | async" type="button" class="btn btn-danger" (click)="unsubscribe()">Unsubscribe</button>
       </div>
     </div>
   </div>
 </div>
 <div class="footer">
   <app-footer></app-footer>
+</div>
 </div>

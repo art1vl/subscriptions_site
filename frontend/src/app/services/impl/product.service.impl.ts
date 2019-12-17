@@ -7,14 +7,17 @@ import {ProductOrErrorModel} from "../../modules/models/productOrErrorModel";
 import {ProductPageModel} from "../../modules/models/productPageModel";
 
 @Injectable()
-// Data service
 export class ProductServiceImpl implements ProductService {
 
   constructor(private http: HttpClient) {
   }
 
-  findProducts(page: number, amount: number): Observable<ProductPageModel> {
-    return this.http.get<ProductPageModel>('/api/product?page=' + page + "&amount=" + amount);
+  findProductsIsActive(page: number, amount: number): Observable<ProductPageModel> {
+    return this.http.get<ProductPageModel>('/api/product?page=' + page + '&amount=' + amount);
+  }
+
+  findAllProducts(page: number, amount: number): Observable<ProductPageModel> {
+    return this.http.get<ProductPageModel>('/api/product/all?page=' + page + '&amount=' + amount);
   }
 
   findProductById(productId: string): Observable<ProductModel> {
@@ -35,8 +38,15 @@ export class ProductServiceImpl implements ProductService {
     return  this.http.request(req);
   }
 
-  //todo
-  deleteProductById(productId: string): Observable<void> {
+  findAllProductsByCompanyId(companyId: number, page: number, amount: number): Observable<ProductPageModel> {
+    return this.http.get<ProductPageModel>('/api/product/company/' + companyId + '?page=' + page + '&amount=' + amount);
+  }
+
+  changeProductStatus(product: ProductModel): Observable<ProductOrErrorModel> {
+    return this.http.put<ProductOrErrorModel>('/api/product', product);
+  }
+
+  deleteProductById(productId: number): Observable<void> {
     return this.http.delete<void>('/api/product/' + productId);
   }
 }

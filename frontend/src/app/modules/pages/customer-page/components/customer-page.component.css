@@ -20,6 +20,7 @@
   background: #f1f1f1;
   border-radius: 15px;
   padding: 10px;
+  height: 100px;
 }
 
 /*subscription*/
@@ -38,8 +39,10 @@
 }
 
 .picture {
-  padding-top: 10px ;
+  padding-top: 5px ;
   flex: 10%;
+  height: 30px;
+  width: 100%;
 }
 
 .text {
@@ -88,3 +91,11 @@
   box-shadow: 10px 9px 13px gray;
 }
 
+.pagin {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.attention {
+  color: red;
+}
