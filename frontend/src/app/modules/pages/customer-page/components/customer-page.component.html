@@ -1,7 +1,12 @@
 <div class="form-row">
-  <div class="form-group col-md-10">
+  <div class="form-group col-md-2">
     <div class="title">
-      My page
+      My page &nbsp; &nbsp; &nbsp;
+    </div>
+  </div>
+  <div class="form-group col-md-8">
+    <div *ngIf="true" class="blocked-status">
+      Your account was blocked, because you have a debt of 150$
     </div>
   </div>
   <div class="form-group col-md-2">
@@ -17,8 +22,8 @@
     </div>
   </div>
 </div>
+<div>
 <div class="taba">
-  <div>
     <tabset #staticTabs>
       <tab heading="My subscriptions">
         <div *ngIf="subscriptionFlag$  | async">
@@ -34,7 +39,7 @@
                   every month cost: {{subscription?.product.cost}}$
                   <br>
                   <div class="attention" *ngIf="subscription?.isActive == 0">
-                    Attention, product was blocked by administration. Fee for that subscription isn't got.
+                    Attention, ыгиыскшзешщт was blocked by administration. Fee for that subscription isn't got.
                   </div>
                 </div>
                 <div class="button">
@@ -322,5 +327,5 @@
     </tabset>
     <!--<input [textMask]="{mask: mask}" [(ngModel)]="myModel" type="text"/>-->
     <!--<input [textMask]="{mask: dateMask}" [(ngModel)]="myModel" type="text"/>-->
-  </div>
+</div>
 </div>

@@ -1,7 +1,10 @@
 package com.artsykov.backend.service;
 
+import com.artsykov.backend.entity.CompanyEntity;
 import com.artsykov.backend.entity.ProductEntity;
 import com.artsykov.backend.model.ProductPageModel;
+
+import java.util.List;
 
 public interface ProductService {
     ProductEntity saveProduct(ProductEntity productEntity);
@@ -17,4 +20,6 @@ public interface ProductService {
     ProductPageModel findByPageByCompanyId(int companyId, int pageNumber, int amount);
 
     void deleteProductById(int productId);
+
+    List<ProductEntity> findAllByCompanyEntity(CompanyEntity companyEntity);
 }

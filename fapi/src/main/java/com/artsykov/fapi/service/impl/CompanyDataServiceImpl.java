@@ -6,6 +6,7 @@ import com.artsykov.fapi.entity.CompanyEntity;
 import com.artsykov.fapi.entity.WalletEntity;
 import com.artsykov.fapi.models.CompanyModel;
 import com.artsykov.fapi.models.CompanyOrErrorsModel;
+import com.artsykov.fapi.models.CompanyPageModel;
 import com.artsykov.fapi.models.WalletModel;
 import com.artsykov.fapi.service.CompanyDataService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class CompanyDataServiceImpl implements CompanyDataService {
@@ -50,6 +53,21 @@ public class CompanyDataServiceImpl implements CompanyDataService {
     }
 
     @Override
+    public CompanyPageModel findAllByPage(int pageNumber, int amount) {
+        RestTemplate restTemplate = new RestTemplate();
+        CompanyPageModel companyPageModel = restTemplate.getForObject(backendServerUrl + "/api/company/all?page=" +
+                pageNumber + "&amount=" + amount, CompanyPageModel.class);
+        if (companyPageModel != null) {
+            List<CompanyModel> companyModelList = companyPageModel.getCompanyEntityList().stream()
+                    .map(p -> companyConverter.convertFromBackToFront(p))
+                    .collect(Collectors.toList());
+            companyPageModel.setCompanyModelList(companyModelList);
+            companyPageModel.setCompanyEntityList(null);
+        }
+        return companyPageModel;
+    }
+
+    @Override
     public CompanyOrErrorsModel saveCompany(CompanyModel company) {
         CompanyOrErrorsModel companyOrErrorsModel = new CompanyOrErrorsModel();
         RestTemplate restTemplate = new RestTemplate();
@@ -75,9 +93,11 @@ public class CompanyDataServiceImpl implements CompanyDataService {
         RestTemplate restTemplate = new RestTemplate();
         CompanyEntity companyEntity = companyConverter.convertFromFrontToBack(companyModel);
         WalletEntity walletEntity = companyEntity.getWalletByIdWallet();
-        walletEntity = restTemplate.postForEntity(backendServerUrl + "/api/wallet", walletEntity, WalletEntity.class).getBody();
+        walletEntity = restTemplate.postForEntity(backendServerUrl + "/api/wallet", walletEntity,
+                                                                                        WalletEntity.class).getBody();
         companyEntity.setWalletByIdWallet(walletEntity);
-        return companyConverter.convertFromBackToFront(restTemplate.postForEntity(backendServerUrl + "/api/company/wallet", companyEntity, CompanyEntity.class).getBody());
+        return companyConverter.convertFromBackToFront(restTemplate.postForEntity(backendServerUrl +
+                                                "/api/company/wallet", companyEntity, CompanyEntity.class).getBody());
     }
 
     @Override
@@ -85,5 +105,11 @@ public class CompanyDataServiceImpl implements CompanyDataService {
         RestTemplate restTemplate = new RestTemplate();
         return walletConverter.convertFromBackToFront(restTemplate.getForObject(backendServerUrl +
                 "/api/wallet/company/" + companyId, WalletEntity.class));
+    }
+
+    @Override
+    public void changeStatus(CompanyModel companyModel) {
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.put(backendServerUrl + "/api/company/status", companyConverter.convertFromFrontToBack(companyModel));
     }
 }

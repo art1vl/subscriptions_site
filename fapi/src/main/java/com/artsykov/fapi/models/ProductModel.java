@@ -38,22 +38,13 @@ public class ProductModel {
             message = "Product name is invalid")
     private String productName;
 
-    @Min(value=0, message="Incorrect active status")
-    @Max(value=1, message="Incorrect active status")
+    @Min(value=0, message="Incorrect product active status")
+    @Max(value=1, message="Incorrect product active status")
     private int isActive;
 
-    public ProductModel() {
-    }
+    @Min(value=0, message="Incorrect company active status")
+    @Max(value=1, message="Incorrect company active status")
+    private int companyActiveStatus;
 
-    public ProductModel(int id, int company, String description, String image, ProductTypeModel type, Date realiseDate, int cost, String productName, int isActive) {
-        this.id = id;
-        this.companyId = company;
-        this.description = description;
-        this.image = image;
-        this.type = type;
-        this.realiseDate = realiseDate;
-        this.cost = cost;
-        this.productName = productName;
-        this.isActive = isActive;
-    }
+    public ProductModel() {}
 }

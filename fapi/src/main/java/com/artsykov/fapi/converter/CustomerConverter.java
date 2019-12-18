@@ -4,22 +4,22 @@ import com.artsykov.fapi.entity.CustomerEntity;
 import com.artsykov.fapi.entity.LogInInfEntity;
 import com.artsykov.fapi.entity.RoleEnum;
 import com.artsykov.fapi.models.CustomerModel;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 @Component
 public class CustomerConverter {
-
-    //    public CustomerModel[] convertFromBackToFrontArray(CustomerEntity[] customerEntities) {
-//        CustomerModel[] customerModels = new CustomerModel[customerEntities.length];
-//        for (int i = 0; i < customerModels.length; i++) {
-//            customerModels[i] = this.convertFromBackToFront(customerEntities[i]);
-//        }
-//        return customerModels;
-//    }
     @Value("${backend.server.url}")
     private String backendServerUrl;
+
+    private WalletConverter walletConverter;
+
+    @Autowired
+    public CustomerConverter(WalletConverter walletConverter) {
+        this.walletConverter = walletConverter;
+    }
 
     public CustomerEntity convertFromFrontToBack(CustomerModel customerModel) {
         if (customerModel != null) {
@@ -35,10 +35,11 @@ public class CustomerConverter {
             } else {
                 customerEntity.setIsActive((byte) 0);
             }
-            customerEntity.setWalletByIdWallet(customerModel.getWallet());
+            customerEntity.setWalletByIdWallet(walletConverter.convertFromFrontToBack(customerModel.getWallet()));
             if (customerModel.getIdLogInInf() != 0) {
                 RestTemplate restTemplate = new RestTemplate();
-                CustomerEntity customerEntity1 = restTemplate.getForObject(backendServerUrl + "/api/customer/" + customerModel.getId(), CustomerEntity.class);
+                CustomerEntity customerEntity1 = restTemplate.getForObject(backendServerUrl + "/api/customer/" +
+                        customerModel.getId(), CustomerEntity.class);
                 customerEntity.setLogInInf(customerEntity1.getLogInInf());
             }
             else {
@@ -62,7 +63,7 @@ public class CustomerConverter {
             customerModel.setName(customerEntity.getName());
             customerModel.setSurname(customerEntity.getSurname());
             customerModel.setPassword(null);
-            customerModel.setWallet(customerEntity.getWalletByIdWallet());
+            customerModel.setWallet(walletConverter.convertFromBackToFront(customerEntity.getWalletByIdWallet()));
             customerModel.setIsActive(customerEntity.getIsActive());
             customerModel.setIdLogInInf(customerEntity.getLogInInf().getIdLogInInf());
             return customerModel;

@@ -19,4 +19,6 @@ public interface SubscriptionRepository extends CrudRepository<SubscriptionEntit
     void deleteAllByProductByIdProduct(ProductEntity productEntity);
 
     List<SubscriptionEntity> findAllByProductByIdProduct(ProductEntity productEntity);
+
+    List<SubscriptionEntity> findAllByCustomerByIdCustomer(CustomerEntity customerEntity);
 }

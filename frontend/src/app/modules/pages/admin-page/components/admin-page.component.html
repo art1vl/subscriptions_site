@@ -46,9 +46,11 @@
                   <button *ngIf="product.isActive == 1" type="button" class="btn btn-danger"
                           (click)="blockOrUnblockProduct(product, 0)">Block
                   </button>
-                  <button *ngIf="product.isActive == 0" type="button" class="btn btn-danger"
+                  <button [disabled]="product.companyActiveStatus == 0" *ngIf="product.isActive == 0" type="button" class="btn btn-danger"
                           (click)="blockOrUnblockProduct(product, 1)">Unblock
                   </button>
+                  <br>
+                  <small *ngIf="product.companyActiveStatus == 0">You can't unblock until product is blocked</small>
                 </div>
               </div>
             </div>
@@ -76,18 +78,38 @@
         </div>
         <div *ngIf="companyModel.length != 0">
           <div *ngFor="let company of companyModel">
-            <div class="company-customer">
-              <div class="company-customer-text">
-                {{company.name}}
+            <div class="company-customer-all">
+              <div class="company-customer">
+                <div class="picture">
+                  <img src="../../../../../assets/footer-photos/company-design-amped-name.png">
+                </div>
+                <div class="company-text">
+                  {{company.name}}
+                  <br>
+                  <div class="activeStatus" *ngIf="company.isActive == 1">
+                    status: active
+                  </div>
+                  <div class="blocked" *ngIf="company.isActive == 0">
+                    status: blocked
+                  </div>
+                </div>
+                <div class="company-customer-button">
+                  <button *ngIf="company.isActive == 1" type="button" class="btn btn-danger"
+                          (click)="blockOrUnblockCompany(company, 0)">Block
+                  </button>
+                  <button *ngIf="company.isActive == 0" type="button" class="btn btn-danger"
+                          (click)="blockOrUnblockCompany(company, 1)">Unblock
+                  </button>
+                </div>
               </div>
             </div>
-            <div class="company-customer-button">
-              <button *ngIf="company.isActive == 1" type="button" class="btn btn-danger"
-                      (click)="blockOrUnblockCompany(company, 0)">Block
-              </button>
-              <button *ngIf="company.isActive == 0" type="button" class="btn btn-danger"
-                      (click)="blockOrUnblockCompany(company, 1)">Unblock
-              </button>
+          </div>
+        </div>
+        <div class="row" *ngIf="companyPaginationFlag$  | async">
+          <div class="col-xs-12 col-12">
+            <div class="pagin">
+              <pagination [totalItems]="totalCompanies" [itemsPerPage]="5" (pageChanged)="loadCompanyPage(pagination)"
+                          #pagination></pagination>
             </div>
           </div>
         </div>
@@ -100,20 +122,40 @@
         </div>
         <div *ngIf="customerModel.length != 0">
           <div *ngFor="let customer of customerModel">
-            <div class="company-customer">
-              <div class="company-customer-text">
-                {{customer.surname}} {{customer.name}}
-                <br>
-                Age: {{customer.age}}
+            <div class="company-customer-all">
+              <div class="company-customer">
+                <div class="picture">
+                  <img src="../../../../../assets/footer-photos/Customer-concept-Fotolia.jpg">
+                </div>
+                <div class="customer-text">
+                  {{customer.surname}} {{customer.name}}
+                  <br>
+                  Age: {{customer.age}}
+                  <br>
+                  <div class="activeStatus" *ngIf="customer.isActive == 1">
+                    status: active
+                  </div>
+                  <div class="blocked" *ngIf="customer.isActive == 0">
+                    status: blocked
+                  </div>
+                </div>
+                <div class="company-customer-button">
+                  <button *ngIf="customer.isActive == 1" type="button" class="btn btn-danger"
+                          (click)="blockOrUnblockCustomer(customer, 0)">Block
+                  </button>
+                  <button *ngIf="customer.isActive == 0" type="button" class="btn btn-danger"
+                          (click)="blockOrUnblockCustomer(customer, 1)">Unblock
+                  </button>
+                </div>
               </div>
             </div>
-            <div class="company-customer-button">
-              <button *ngIf="customer.isActive == 1" type="button" class="btn btn-danger"
-                      (click)="blockOrUnblockCustomer(customer, 0)">Block
-              </button>
-              <button *ngIf="customer.isActive == 0" type="button" class="btn btn-danger"
-                      (click)="blockOrUnblockCustomer(customer, 1)">Unblock
-              </button>
+          </div>
+        </div>
+        <div class="row" *ngIf="customerPaginationFlag$  | async">
+          <div class="col-xs-12 col-12">
+            <div class="pagin">
+              <pagination [totalItems]="totalCustomers" [itemsPerPage]="5" (pageChanged)="loadCustomerPage(pagination)"
+                          #pagination></pagination>
             </div>
           </div>
         </div>

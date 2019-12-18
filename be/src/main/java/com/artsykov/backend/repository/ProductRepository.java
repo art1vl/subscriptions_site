@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ProductRepository extends JpaRepository<ProductEntity, Integer> {
     ProductEntity findByIdProduct(@Param("id_product") int id);
@@ -19,4 +21,6 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Integer>
     Page<ProductEntity> findAll(Pageable pageable);
 
     void deleteByIdProduct(@Param("id_product") int id);
+
+    List<ProductEntity> findAllByCompany(CompanyEntity companyEntity);
 }

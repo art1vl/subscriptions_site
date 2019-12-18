@@ -27,11 +27,10 @@ public class CustomerModel {
     @Email(message = "Email is incorrect")
     private String email;
 
-    @NotEmpty(message = "Password is required")
     @Pattern(regexp="^[A-Za-z0-9]{8,}$",
             message="Password is invalid")
     private String password;
-    private WalletEntity wallet;
+    private WalletModel wallet;
 
     @Min(value=0, message="Incorrect active status")
     @Max(value=1, message="Incorrect active status")
@@ -40,20 +39,5 @@ public class CustomerModel {
     @Min(value=0, message="Incorrect log in information id")
     private int idLogInInf;
 
-    public CustomerModel() {
-
-    }
-
-    public CustomerModel(int id, String name, String surname, int age, String email, String password,
-                         WalletEntity wallet, int isActive, int idLogInInf) {
-        this.id = id;
-        this.name = name;
-        this.surname = surname;
-        this.age = age;
-        this.email = email;
-        this.password = password;
-        this.wallet = wallet;
-        this.isActive = isActive;
-        this.idLogInInf = idLogInInf;
-    }
+    public CustomerModel() {}
 }

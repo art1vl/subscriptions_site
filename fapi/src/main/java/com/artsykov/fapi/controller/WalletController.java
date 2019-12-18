@@ -14,12 +14,15 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(value = "/api/wallet")
 public class WalletController {
-
-    @Autowired
     private WalletDataService walletDataService;
+    private HandlerService handlerService;
 
     @Autowired
-    private HandlerService handlerService;
+    public WalletController(WalletDataService walletDataService,
+                            HandlerService handlerService) {
+        this.walletDataService = walletDataService;
+        this.handlerService = handlerService;
+    }
 
     @Secured({"ROLE_COMPANY", "ROLE_CUSTOMER"})
     @DeleteMapping(value = "/{id}")

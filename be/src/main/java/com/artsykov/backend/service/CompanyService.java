@@ -17,4 +17,6 @@ public interface CompanyService {
     CompanyEntity saveWallet(CompanyEntity companyEntity);
 
     CompanyPageModel findAllByPage(int pageNumber, int amount);
+
+    void changeStatus(CompanyEntity companyEntity);
 }

@@ -4,6 +4,7 @@ import com.artsykov.backend.entity.CustomerEntity;
 import com.artsykov.backend.entity.ProductEntity;
 import com.artsykov.backend.entity.SubscriptionEntity;
 import com.artsykov.backend.model.CustomerSubscriptionPageModel;
+import com.artsykov.backend.repository.CustomerRepository;
 import com.artsykov.backend.repository.ProductRepository;
 import com.artsykov.backend.repository.SubscriptionRepository;
 import com.artsykov.backend.service.CustomerService;
@@ -23,15 +24,15 @@ import java.util.List;
 public class SubscriptionServiceImpl implements SubscriptionService {
     private SubscriptionRepository subscriptionRepository;
     private ProductRepository productRepository;
-    private CustomerService customerService;
+    private CustomerRepository customerRepository;
 
     @Autowired
     public SubscriptionServiceImpl(SubscriptionRepository subscriptionRepository,
                                    ProductRepository productRepository,
-                                   CustomerService customerService) {
+                                   CustomerRepository customerRepository) {
         this.subscriptionRepository = subscriptionRepository;
         this.productRepository = productRepository;
-        this.customerService = customerService;
+        this.customerRepository = customerRepository;
     }
 
     @Override
@@ -49,13 +50,13 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     @Override
     public SubscriptionEntity findSubscription(int productId, int customerId) {
         ProductEntity productEntity = productRepository.findByIdProduct(productId);
-        CustomerEntity customerEntity = customerService.findCustomerById(customerId);
+        CustomerEntity customerEntity = customerRepository.findByIdCustomer(customerId);
         return subscriptionRepository.findByProductByIdProductAndCustomerByIdCustomer(productEntity, customerEntity);
     }
 
     @Override
     public CustomerSubscriptionPageModel findAllByCustomerId(int customerId, int page, int amount) {
-        CustomerEntity customerEntity = customerService.findCustomerById(customerId);
+        CustomerEntity customerEntity = customerRepository.findByIdCustomer(customerId);
         Pageable pageable = PageRequest.of(page, amount);
         Page<SubscriptionEntity> entityPage = subscriptionRepository.findAllByCustomerByIdCustomer(customerEntity, pageable);
         CustomerSubscriptionPageModel customerSubscriptionPageModel = new CustomerSubscriptionPageModel();
@@ -74,6 +75,16 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     public void changeSubscriptionStatusByProduct(ProductEntity productEntity) {
         List<SubscriptionEntity> subscriptionEntityList = subscriptionRepository.findAllByProductByIdProduct(productEntity);
         byte status = productEntity.getIsActive();
+        for(SubscriptionEntity subscription: subscriptionEntityList) {
+            subscription.setIsActive(status);
+            subscriptionRepository.save(subscription);
+        }
+    }
+
+    @Override
+    public void changeSubscriptionStatusByCustomer(CustomerEntity customerEntity) {
+        List<SubscriptionEntity> subscriptionEntityList = subscriptionRepository.findAllByCustomerByIdCustomer(customerEntity);
+        byte status = customerEntity.getIsActive();
         for(SubscriptionEntity subscription: subscriptionEntityList) {
             subscription.setIsActive(status);
             subscriptionRepository.save(subscription);

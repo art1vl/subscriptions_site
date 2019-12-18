@@ -96,7 +96,7 @@ export class CustomerPageComponent implements OnInit, OnDestroy {
         this.paginationFlag.next(false);
         this.loadSubscriptionsFirstPageOrReload(0);
         if (this.customer.wallet != null) {
-          if (this.customer.wallet.cardCvvCode != 0) {
+          if (this.customer.wallet.cardNumber != 0) {
             this.walletFlag = true;
             this.hiddenCardNumber = '**** **** **** ' + this.customer.wallet.cardNumber.toString().substring(this.customer.wallet.cardNumber.toString().length - 4);
             let stringDate: string = new Date(this.customer.wallet.cardDate).toLocaleDateString();
@@ -213,7 +213,6 @@ export class CustomerPageComponent implements OnInit, OnDestroy {
     this.customer.wallet.cardDate = new Date(cardDate.substring(0, 2) + "/01/20" + cardDate.substring(3));
     this.customer.wallet.cardCvvCode = +cardCvv;
     this.customer.wallet.personName = cardHolderName;
-    this.customer.password = "11111111";
     this.subscriptions.push(this.customerServiceImpl.saveCustomerWallet(this.customer).subscribe(customerOrErrors => {
       if (customerOrErrors.errors == null) {
         this.customer = customerOrErrors.customerModel as customerModel;

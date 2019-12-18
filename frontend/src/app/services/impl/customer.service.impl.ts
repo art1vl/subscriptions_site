@@ -4,31 +4,14 @@ import {HttpClient} from "@angular/common/http";
 import {Observable, of} from "rxjs";
 import {catchError} from "rxjs/operators";
 import {customerOrErrorsModel} from "../../modules/models/customerOrErrorsModel";
-import {logInParam} from "../../modules/models/logInParam";
 import {Injectable} from "@angular/core";
+import {CustomerPageModel} from "../../modules/models/CustomerPageModel";
 
 @Injectable()
 export class CustomerServiceImpl implements CustomerService {
   customer: customerModel;
 
   constructor(private http: HttpClient) {
-  }
-
-  // public getCustomer() {
-  //   if (this.customer == null) {
-  //     return null;
-  //   }
-  //   else {
-  //     return customerModel.cloneBase(this.customer);
-  //   }
-  // }
-
-  // public setCustomer(value: customerModel) {
-  //   this.customer = value;
-  // }
-
-  deleteCustomerById(customerId: string): Observable<void> {
-    return undefined;
   }
 
   findCustomerByLogInInfId(logInInfId: number): Observable<customerModel> {
@@ -40,28 +23,12 @@ export class CustomerServiceImpl implements CustomerService {
     return this.http.get<customerModel>('/api/customer/' + id)
   }
 
-  //todo
-  findCustomers(): Observable<customerModel[]> {
-    return this.http.get<customerModel[]>('/api/customer');
-  }
-
-  isActiveCustomerById(customerId: string): Observable<boolean> {
-    return undefined;
+  findAllByPage(pageNumber: number, amount: number): Observable<CustomerPageModel> {
+    return this.http.get<CustomerPageModel>('/api/customer/all?page=' + pageNumber + '&amount=' + amount);
   }
 
   checkAndSaveCustomer(customer: customerModel): Observable<customerOrErrorsModel> {
-    return this.http.post<customerOrErrorsModel>('/api/customer', customer)
-      .pipe(
-        catchError(value => {
-          // this.errorHandligService(value)
-          return of(null);
-        })
-      );
-  }
-
-  signin (email: string, password: string): Observable<customerOrErrorsModel> {
-    let signinParam: logInParam = new logInParam(email, password);
-    return this.http.post<customerOrErrorsModel>('/api/customer/sign/in', signinParam);
+    return this.http.post<customerOrErrorsModel>('/api/customer', customer);
   }
 
   saveCustomerWallet(customer: customerModel): Observable<customerOrErrorsModel> {
@@ -70,5 +37,9 @@ export class CustomerServiceImpl implements CustomerService {
 
   updateCustomerPersonalInf(customer: customerModel): Observable<customerOrErrorsModel> {
     return this.http.put<customerOrErrorsModel>('/api/customer', customer)
+  }
+
+  changeStatus(customerModel: customerModel): Observable<customerOrErrorsModel> {
+    return this.http.put<customerOrErrorsModel>('/api/customer/status', customerModel);
   }
 }

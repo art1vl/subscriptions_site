@@ -29,8 +29,10 @@ C:\my_files\Netcracker\Subscriptions\fapi\src\main\java\com\artsykov\fapi\securi
 C:\my_files\Netcracker\Subscriptions\fapi\src\main\java\com\artsykov\fapi\service\impl\LogInInfDataServiceImpl.java
 C:\my_files\Netcracker\Subscriptions\fapi\src\main\java\com\artsykov\fapi\entity\LogInInfEntity.java
 C:\my_files\Netcracker\Subscriptions\fapi\src\main\java\com\artsykov\fapi\converter\ProductConverter.java
+C:\my_files\Netcracker\Subscriptions\fapi\src\main\java\com\artsykov\fapi\models\CustomerPageModel.java
 C:\my_files\Netcracker\Subscriptions\fapi\src\main\java\com\artsykov\fapi\controller\ProductController.java
 C:\my_files\Netcracker\Subscriptions\fapi\src\main\java\com\artsykov\fapi\models\CompanyOrErrorsModel.java
+C:\my_files\Netcracker\Subscriptions\fapi\src\main\java\com\artsykov\fapi\models\CompanyPageModel.java
 C:\my_files\Netcracker\Subscriptions\fapi\src\main\java\com\artsykov\fapi\models\ProductTypeModel.java
 C:\my_files\Netcracker\Subscriptions\fapi\src\main\java\com\artsykov\fapi\controller\SubscriptionController.java
 C:\my_files\Netcracker\Subscriptions\fapi\src\main\java\com\artsykov\fapi\config\WebSecurityConfig.java

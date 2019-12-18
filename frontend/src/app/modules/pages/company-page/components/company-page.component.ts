@@ -212,7 +212,6 @@ export class CompanyPageComponent implements OnInit, OnDestroy {
     }
     this.company = {
       ...this.company,
-      password: "00000000",
       wallet: {
         ...this.company.wallet,
         cardNumber: +cardNumber.replace(/\s/g, ''),

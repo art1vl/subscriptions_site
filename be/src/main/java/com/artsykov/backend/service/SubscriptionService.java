@@ -1,5 +1,6 @@
 package com.artsykov.backend.service;
 
+import com.artsykov.backend.entity.CustomerEntity;
 import com.artsykov.backend.entity.ProductEntity;
 import com.artsykov.backend.entity.SubscriptionEntity;
 import com.artsykov.backend.model.CustomerSubscriptionPageModel;
@@ -16,4 +17,6 @@ public interface SubscriptionService {
     void deleteByProductId(ProductEntity productEntity);
 
     void changeSubscriptionStatusByProduct(ProductEntity productEntity);
+
+    void changeSubscriptionStatusByCustomer(CustomerEntity customerEntity);
 }

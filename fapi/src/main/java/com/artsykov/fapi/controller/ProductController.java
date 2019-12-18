@@ -18,11 +18,15 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/api/product")
 public class ProductController {
-    @Autowired
     private ProductDataService productDataService;
+    private HandlerService handlerService;
 
     @Autowired
-    private HandlerService handlerService;
+    public ProductController(ProductDataService productDataService,
+                             HandlerService handlerService) {
+        this.productDataService = productDataService;
+        this.handlerService = handlerService;
+    }
 
     @GetMapping
     public ResponseEntity<ProductPageModel> getProductsByPageIsActive(@RequestParam("page") Integer pageNumber,
@@ -32,7 +36,7 @@ public class ProductController {
 
     @Secured("ROLE_ADMIN")
     @GetMapping(value = "/all")
-    public ResponseEntity<ProductPageModel> getAllByPAge(@RequestParam("page") Integer pageNumber,
+    public ResponseEntity<ProductPageModel> getAllByPфge(@RequestParam("page") Integer pageNumber,
                                                          @RequestParam("amount") Integer amount) {
         return ResponseEntity.ok(productDataService.findAllByPage(pageNumber, amount));
     }
@@ -58,7 +62,8 @@ public class ProductController {
 
     @Secured("ROLE_COMPANY")
     @PostMapping(value = "/{id}/image")
-    public ResponseEntity<ProductOrErrorsModel> saveProductImage(@PathVariable("id") Integer id, @RequestParam(value = "file", required = false) MultipartFile file) {
+    public ResponseEntity<ProductOrErrorsModel> saveProductImage(@PathVariable("id") Integer id,
+                                                                 @RequestParam(value = "file", required = false) MultipartFile file) {
         return ResponseEntity.ok(productDataService.saveProductImage(id, file));
     }
 

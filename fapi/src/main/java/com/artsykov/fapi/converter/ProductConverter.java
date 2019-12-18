@@ -47,6 +47,7 @@ public class ProductConverter {
             productTypeModel.setIdProductType(productEntity.getType().getIdProductType());
             productTypeModel.setTypeName(productEntity.getType().getTypeName());
             productModel.setType(productTypeModel);
+            productModel.setCompanyActiveStatus(productEntity.getCompany().getIsActive());
             productModel.setRealiseDate(productEntity.getRealiseDate());
             productModel.setCost(productEntity.getCost());
             productModel.setIsActive(productEntity.getIsActive());
