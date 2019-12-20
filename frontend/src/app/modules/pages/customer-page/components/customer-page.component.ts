@@ -29,7 +29,7 @@ export class CustomerPageComponent implements OnInit, OnDestroy {
   customer: customerModel;
   customerSubscriptions: subscriptionModel[];
   personalInfFlag: boolean = false;
-  replenishFlag = false;
+  replenishFlag: boolean = false;
   walletFlag: boolean;
   myForm: FormGroup;
   walletForm: FormGroup;
@@ -45,6 +45,8 @@ export class CustomerPageComponent implements OnInit, OnDestroy {
   numberOfLastLoadedPage: number;
   private balanceFlag = new Subject<boolean>();
   public balanceFlag$ = this.balanceFlag.asObservable();
+  private debtFlag = new Subject<boolean>();
+  public debtFlag$ = this.debtFlag.asObservable();
   private subscriptionFlag = new Subject<boolean>();
   public subscriptionFlag$ = this.subscriptionFlag.asObservable();
   private paginationFlag = new Subject<boolean>();
@@ -79,7 +81,7 @@ export class CustomerPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    if (this.customerServiceImpl.customer == null || this.customerServiceImpl.customer.isActive == 0) {
+    if (this.customerServiceImpl.customer == null) {
       localStorage.clear();
       this.customerServiceImpl.customer = null;
       this.companyService.company = null;
@@ -102,6 +104,9 @@ export class CustomerPageComponent implements OnInit, OnDestroy {
             let stringDate: string = new Date(this.customer.wallet.cardDate).toLocaleDateString();
             this.cardDateString = stringDate.substring(3, 5) + "/" + stringDate.substring(8);
             this.balanceFlag.next(true);
+            if (this.customer.wallet.debt != 0) {
+              this.debtFlag.next(true);
+            }
           } else {
             this.walletFlag = false;
           }
@@ -168,14 +173,28 @@ export class CustomerPageComponent implements OnInit, OnDestroy {
   }
 
 
-  private unsubscribe(subscriptionId: number): void {
-    this.subscriptions.push(this.subscriptionServiceImpl.deleteSubscription(subscriptionId).subscribe(() => {
+  private unsubscribe(subscription: subscriptionModel): void {
+    this.subscriptions.push(this.subscriptionServiceImpl.deleteSubscription(subscription.id).subscribe(() => {
       if (this.customerSubscriptions.length == 1) {
         if (this.numberOfLastLoadedPage == 0) {
           this.subscriptionFlag.next(false);
         }
         else {
           this.numberOfLastLoadedPage--;
+        }
+      }
+      if (this.customer.isActive == 0) {
+        if (subscription.isActive == 0) {
+          this.customer.wallet.debt -= subscription.product.cost;
+          if (this.customer.wallet.debt == 0) {
+            this.subscriptions.push(this.customerServiceImpl.findCustomerById(this.customer.id).subscribe(customer => {
+              this.customer = customer as customerModel;
+              this.customerServiceImpl.customer = this.customer;
+              if (this.customer.wallet.debt == 0) {
+                this.debtFlag.next(false);
+              }
+            }))
+          }
         }
       }
       this.loadSubscriptionsFirstPageOrReload(this.numberOfLastLoadedPage);
@@ -240,19 +259,39 @@ export class CustomerPageComponent implements OnInit, OnDestroy {
     }));
   }
 
-  private replenishCard(number: number): void {
-    this.customer.wallet.balance += +number;
-    this.subscriptions.push(this.walletServiceImpl.updateCard(this.customer.wallet).subscribe(walletOrErrors => {
-      if (walletOrErrors.errors == null) {
-        this.customerServiceImpl.customer = this.customer;
-        this.errorsMapReplenishWallet = new Map<string, string>();
-        this.replenishFlag = true;
-        this.balanceFlag.next(true);
-      } else {
-        this.errorsMapReplenishWallet = walletOrErrors.errors;
-        this.customer = this.customerServiceImpl.customer;
-      }
-    }));
+  private replenishCard(number: string): void {
+    if (this.customer.isActive == 0) {
+        this.customer.wallet.debt -= +number;
+        this.subscriptions.push(this.customerServiceImpl.liquidateDebt(this.customer).subscribe(customerOrErrors => {
+          if (customerOrErrors.errors == null) {
+            this.customerServiceImpl.customer = customerOrErrors.customerModel as customerModel;
+            this.customer = customerOrErrors.customerModel as customerModel;
+            if (this.customer.wallet.debt == 0) {
+              this.debtFlag.next(false);
+              this.loadSubscriptionsFirstPageOrReload(this.numberOfLastLoadedPage);
+            }
+            this.balanceFlag.next(true);
+            this.replenishFlag = true;
+          }
+          else {
+            this.customer = this.customerServiceImpl.customer;
+          }
+        }));
+    }
+    else {
+      this.customer.wallet.balance += +number;
+      this.subscriptions.push(this.walletServiceImpl.updateCard(this.customer.wallet).subscribe(walletOrErrors => {
+        if (walletOrErrors.errors == null) {
+          this.customerServiceImpl.customer = this.customer;
+          this.errorsMapReplenishWallet = new Map<string, string>();
+          this.replenishFlag = true;
+          this.balanceFlag.next(true);
+        } else {
+          this.errorsMapReplenishWallet = walletOrErrors.errors;
+          this.customer = this.customerServiceImpl.customer;
+        }
+      }));
+    }
   }
 
   changeReplenishFlag(): void {

@@ -57,6 +57,12 @@ public class CustomerController {
     }
 
     @Secured("ROLE_CUSTOMER")
+    @PostMapping(value = "/liquidate/debt")
+    public ResponseEntity<CustomerOrErrorsModel> liquidateDebt(@RequestBody @Valid CustomerModel customerModel) {
+        return ResponseEntity.ok(new CustomerOrErrorsModel(customerDataService.liquidateDebt(customerModel)));
+    }
+
+    @Secured("ROLE_CUSTOMER")
     @PutMapping
     public ResponseEntity<CustomerOrErrorsModel> updateCustomerPersonalInf(@RequestBody @Valid CustomerModel customerModel) {
         customerDataService.updateCustomerPersonalInf(customerModel);

@@ -18,11 +18,13 @@ public class WalletConverter {
                 WalletEntity walletEntity = restTemplate.getForObject(backendServerUrl + "/api/wallet/" +
                         walletModel.getIdWallet(), WalletEntity.class);
                 walletEntity.setBalance(walletModel.getBalance());
+                walletEntity.setDebt(walletModel.getDebt());
                 return walletEntity;
             }
             else {
                 WalletEntity walletEntity = new WalletEntity();
                 walletEntity.setBalance(walletModel.getBalance());
+                walletEntity.setDebt(walletModel.getDebt());
                 walletEntity.setCardNumber(walletModel.getCardNumber());
                 walletEntity.setCardDate(walletModel.getCardDate());
                 walletEntity.setCardCvvCode(walletModel.getCardCvvCode());
@@ -40,6 +42,7 @@ public class WalletConverter {
             WalletModel walletModel = new WalletModel();
             walletModel.setBalance(walletEntity.getBalance());
             walletModel.setIdWallet(walletEntity.getIdWallet());
+            walletModel.setDebt(walletEntity.getDebt());
             walletModel.setCardCvvCode(0);
             walletModel.setCardDate(walletEntity.getCardDate());
             walletModel.setCardNumber(walletEntity.getCardNumber());

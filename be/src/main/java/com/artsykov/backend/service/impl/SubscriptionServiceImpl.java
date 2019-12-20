@@ -3,10 +3,12 @@ package com.artsykov.backend.service.impl;
 import com.artsykov.backend.entity.CustomerEntity;
 import com.artsykov.backend.entity.ProductEntity;
 import com.artsykov.backend.entity.SubscriptionEntity;
+import com.artsykov.backend.entity.WalletEntity;
 import com.artsykov.backend.model.CustomerSubscriptionPageModel;
 import com.artsykov.backend.repository.CustomerRepository;
 import com.artsykov.backend.repository.ProductRepository;
 import com.artsykov.backend.repository.SubscriptionRepository;
+import com.artsykov.backend.repository.WalletRepository;
 import com.artsykov.backend.service.CustomerService;
 import com.artsykov.backend.service.ProductService;
 import com.artsykov.backend.service.SubscriptionService;
@@ -25,14 +27,17 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     private SubscriptionRepository subscriptionRepository;
     private ProductRepository productRepository;
     private CustomerRepository customerRepository;
+    private WalletRepository walletRepository;
 
     @Autowired
     public SubscriptionServiceImpl(SubscriptionRepository subscriptionRepository,
                                    ProductRepository productRepository,
-                                   CustomerRepository customerRepository) {
+                                   CustomerRepository customerRepository,
+                                   WalletRepository walletRepository) {
         this.subscriptionRepository = subscriptionRepository;
         this.productRepository = productRepository;
         this.customerRepository = customerRepository;
+        this.walletRepository = walletRepository;
     }
 
     @Override
@@ -40,11 +45,6 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         LocalDate nextPayDate = LocalDate.now().plusMonths(1);
         subscriptionEntity.setNextPayDate(Date.valueOf(nextPayDate));
         return subscriptionRepository.save(subscriptionEntity);
-    }
-
-    @Override
-    public void deleteById(int id) {
-        subscriptionRepository.deleteById(id);
     }
 
     @Override
@@ -89,5 +89,49 @@ public class SubscriptionServiceImpl implements SubscriptionService {
             subscription.setIsActive(status);
             subscriptionRepository.save(subscription);
         }
+    }
+
+    @Override
+    public void deleteById(int id) {
+        SubscriptionEntity subscriptionEntity = subscriptionRepository.findByIdSubscription(id);
+        byte subscriptionStatus = subscriptionEntity.getIsActive();
+        subscriptionRepository.deleteById(id);
+        if (subscriptionEntity.getCustomerByIdCustomer().getWalletByIdWallet().getDebt() != 0 &&
+                                                        subscriptionStatus == 0) {
+            WalletEntity customerWallet = subscriptionEntity.getCustomerByIdCustomer().getWalletByIdWallet();
+            customerWallet.setDebt(customerWallet.getDebt() - subscriptionEntity.getProductByIdProduct().getCost());
+            if (customerWallet.getDebt() == 0) {
+                CustomerEntity customerEntity = subscriptionEntity.getCustomerByIdCustomer();
+                customerEntity.setIsActive((byte) 1);
+                customerEntity.setWalletByIdWallet(customerWallet);
+                unblockSubscriptionsAfterCustomersUnblock(customerEntity);
+                customerRepository.save(customerEntity);
+            }
+            else {
+                walletRepository.save(customerWallet);
+            }
+        }
+    }
+
+    @Override
+    public void unblockSubscriptionsAfterCustomersUnblock(CustomerEntity customerEntity) {
+        List<SubscriptionEntity> subscriptionEntityList = subscriptionRepository
+                .findAllByCustomerByIdCustomerAndIsActive((byte) 0, customerEntity);
+        WalletEntity companyWallet;
+        WalletEntity customerWallet = customerEntity.getWalletByIdWallet();
+        Date nextPayDate = Date.valueOf(LocalDate.now());
+        int cost;
+        for (SubscriptionEntity subscription: subscriptionEntityList) {
+            companyWallet = walletRepository.findWalletEntityByIdCompany(subscription.getProductByIdProduct()
+                    .getCompany().getIdCompany());
+            cost = subscription.getProductByIdProduct().getCost();
+            companyWallet.setBalance(companyWallet.getBalance() + cost);
+            subscription.setIsActive((byte) 1);
+            subscription.setNextPayDate(nextPayDate);
+            customerWallet.setBalance(customerWallet.getBalance() - cost);
+            walletRepository.save(companyWallet);
+            subscriptionRepository.save(subscription);
+        }
+        customerEntity.setWalletByIdWallet(customerWallet);
     }
 }

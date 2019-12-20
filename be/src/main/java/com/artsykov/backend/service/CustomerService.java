@@ -17,4 +17,6 @@ public interface CustomerService {
     CustomerPageModel findAllByPage(int pageNumber, int amount);
 
     void changeStatus(CustomerEntity customerEntity);
+
+    CustomerEntity liquidateDebt(CustomerEntity customerEntity);
 }

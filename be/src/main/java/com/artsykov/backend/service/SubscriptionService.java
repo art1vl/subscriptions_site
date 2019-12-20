@@ -19,4 +19,6 @@ public interface SubscriptionService {
     void changeSubscriptionStatusByProduct(ProductEntity productEntity);
 
     void changeSubscriptionStatusByCustomer(CustomerEntity customerEntity);
+
+    void unblockSubscriptionsAfterCustomersUnblock(CustomerEntity customerEntity);
 }

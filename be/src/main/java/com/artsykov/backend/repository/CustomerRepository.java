@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface CustomerRepository extends JpaRepository<CustomerEntity, Integer> {
     CustomerEntity findByLogInInfIdLogInInf(@Param("log_in_inf") int logInInfId);
@@ -14,4 +16,6 @@ public interface CustomerRepository extends JpaRepository<CustomerEntity, Intege
     CustomerEntity findByIdCustomer(@Param("id_customer") int customerId);
 
     Page<CustomerEntity> findAll(Pageable pageable);
+
+    List<CustomerEntity> findAll();
 }

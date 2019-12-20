@@ -1,10 +1,12 @@
 package com.artsykov.backend.service.impl;
 
 import com.artsykov.backend.entity.CustomerEntity;
+import com.artsykov.backend.entity.WalletEntity;
 import com.artsykov.backend.model.CustomerPageModel;
 import com.artsykov.backend.repository.CustomerRepository;
 import com.artsykov.backend.service.CustomerService;
 import com.artsykov.backend.service.SubscriptionService;
+import com.artsykov.backend.service.WalletService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -63,5 +65,24 @@ public class CustomerServiceImpl implements CustomerService {
     public void changeStatus(CustomerEntity customerEntity) {
         repository.save(customerEntity);
         subscriptionService.changeSubscriptionStatusByCustomer(customerEntity);
+    }
+
+    @Override
+    public CustomerEntity liquidateDebt(CustomerEntity customerEntity) {
+        CustomerEntity customerFromDB = repository.findByIdCustomer(customerEntity.getIdCustomer());
+        WalletEntity customerWallet = customerEntity.getWalletByIdWallet();
+        if (customerEntity.getWalletByIdWallet().getDebt() <= 0) {
+            customerEntity.setIsActive((byte) 1);
+            customerWallet.setBalance(customerWallet.getBalance() + Math.abs(customerWallet.getDebt())
+                                                                  + customerFromDB.getWalletByIdWallet().getDebt());
+            customerWallet.setDebt(0);
+            customerEntity.setWalletByIdWallet(customerWallet);
+            subscriptionService.unblockSubscriptionsAfterCustomersUnblock(customerEntity);
+        }
+        else {
+            customerWallet.setBalance(customerWallet.getBalance() + customerFromDB.getWalletByIdWallet().getDebt() -
+                                                                    customerWallet.getDebt());
+        }
+        return repository.save(customerEntity);
     }
 }

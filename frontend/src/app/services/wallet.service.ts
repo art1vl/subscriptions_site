@@ -6,6 +6,4 @@ export interface WalletService {
   deleteCard(id: number): Observable<void>;
 
   updateCard(wallet: WalletModel): Observable<WalletOrErrorsModel>;
-
-
 }

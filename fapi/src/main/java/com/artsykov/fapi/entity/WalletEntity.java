@@ -13,6 +13,7 @@ public class WalletEntity {
     private Date cardDate;
     private int cardCvvCode;
     private String personName;
+    private int debt;
 
     public WalletEntity() {}
 

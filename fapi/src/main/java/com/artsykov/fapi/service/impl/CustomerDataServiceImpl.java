@@ -64,7 +64,8 @@ public class CustomerDataServiceImpl implements CustomerDataService {
     public CustomerOrErrorsModel checkAndSaveCustomer(CustomerModel customer) {
         CustomerOrErrorsModel customerOrErrorsModel = new CustomerOrErrorsModel();
         RestTemplate restTemplate = new RestTemplate();
-        boolean emailExists = restTemplate.getForObject(backendServerUrl + "/api/log/in/inf/exist/" + customer.getEmail(), Boolean.class);
+        boolean emailExists = restTemplate.getForObject(backendServerUrl + "/api/log/in/inf/exist/" +
+                                                                                customer.getEmail(), Boolean.class);
         if (emailExists) {
             Map<String, String> errors = new HashMap<>();
             errors.put("email", "This email is busy");
@@ -118,5 +119,13 @@ public class CustomerDataServiceImpl implements CustomerDataService {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.put(backendServerUrl + "/api/customer/status", customerConverter
                                                                             .convertFromFrontToBack(customerModel));
+    }
+
+    @Override
+    public CustomerModel liquidateDebt(CustomerModel customerModel) {
+        RestTemplate restTemplate = new RestTemplate();
+        return customerConverter.convertFromBackToFront(restTemplate.postForEntity(backendServerUrl +
+                        "/api/customer/liquidate/debt", customerConverter.convertFromFrontToBack(customerModel),
+                        CustomerEntity.class).getBody());
     }
 }

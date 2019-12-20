@@ -5,8 +5,8 @@
     </div>
   </div>
   <div class="form-group col-md-8">
-    <div *ngIf="true" class="blocked-status">
-      Your account was blocked, because you have a debt of 150$
+    <div *ngIf="debtFlag$  | async" class="blocked-status">
+      Your account was blocked, because you have a debt of {{customer.wallet.debt}}$
     </div>
   </div>
   <div class="form-group col-md-2">
@@ -39,7 +39,7 @@
                   every month cost: {{subscription?.product.cost}}$
                   <br>
                   <div class="attention" *ngIf="subscription?.isActive == 0">
-                    Attention, ыгиыскшзешщт was blocked by administration. Fee for that subscription isn't got.
+                    Attention, subscription was blocked by administration. Fee for that subscription isn't got.
                   </div>
                 </div>
                 <div class="button">
@@ -48,7 +48,7 @@
                   </a>
                   &nbsp; &nbsp; &nbsp; &nbsp;
                   <button type="button" class="btn btn-danger"
-                          (click)="unsubscribe(subscription.id)">Unsubscribe
+                          (click)="unsubscribe(subscription)">Unsubscribe
                   </button>
                 </div>
               </div>
