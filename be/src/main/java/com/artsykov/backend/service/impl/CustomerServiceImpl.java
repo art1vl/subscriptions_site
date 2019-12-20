@@ -4,6 +4,7 @@ import com.artsykov.backend.entity.CustomerEntity;
 import com.artsykov.backend.model.CustomerPageModel;
 import com.artsykov.backend.repository.CustomerRepository;
 import com.artsykov.backend.service.CustomerService;
+import com.artsykov.backend.service.SubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,13 +13,15 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
-    @Autowired
     private CustomerRepository repository;
+    private SubscriptionService subscriptionService;
 
-//    @Autowired
-//    public CustomerServiceImpl(CustomerRepository repository) {
-//        this.repository = repository;
-//    }
+    @Autowired
+    public CustomerServiceImpl(CustomerRepository repository,
+                               SubscriptionService subscriptionService) {
+        this.repository = repository;
+        this.subscriptionService = subscriptionService;
+    }
 
     @Override
     public CustomerEntity findCustomerByLogInInfId(int logInInfId) {
@@ -54,5 +57,11 @@ public class CustomerServiceImpl implements CustomerService {
         customerPageModel.setTotalPages(page.getTotalPages());
         customerPageModel.setTotalElements(page.getTotalElements());
         return customerPageModel;
+    }
+
+    @Override
+    public void changeStatus(CustomerEntity customerEntity) {
+        repository.save(customerEntity);
+        subscriptionService.changeSubscriptionStatusByCustomer(customerEntity);
     }
 }

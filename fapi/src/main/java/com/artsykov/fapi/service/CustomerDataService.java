@@ -2,6 +2,7 @@ package com.artsykov.fapi.service;
 
 import com.artsykov.fapi.models.CustomerModel;
 import com.artsykov.fapi.models.CustomerOrErrorsModel;
+import com.artsykov.fapi.models.CustomerPageModel;
 import com.artsykov.fapi.models.WalletModel;
 
 public interface CustomerDataService {
@@ -11,13 +12,13 @@ public interface CustomerDataService {
 
     CustomerModel findCustomerById(int id);
 
-    CustomerModel[] findAll();
-
-   // CustomerOrErrorsModel findCustomerByEmail(String email, String password);
+    CustomerPageModel findAllByPage(int pageNumber, int amount);
 
     void updateCustomerPersonalInf(CustomerModel customerModel);
 
     CustomerModel saveCustomerWallet(CustomerModel customerModel);
 
     WalletModel findWalletByCustomerId(int customerId);
+
+    void changeStatus(CustomerModel customerModel);
 }

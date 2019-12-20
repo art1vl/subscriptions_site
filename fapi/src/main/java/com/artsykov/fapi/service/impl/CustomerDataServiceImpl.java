@@ -6,6 +6,7 @@ import com.artsykov.fapi.entity.CustomerEntity;
 import com.artsykov.fapi.entity.WalletEntity;
 import com.artsykov.fapi.models.CustomerModel;
 import com.artsykov.fapi.models.CustomerOrErrorsModel;
+import com.artsykov.fapi.models.CustomerPageModel;
 import com.artsykov.fapi.models.WalletModel;
 import com.artsykov.fapi.service.CustomerDataService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class CustomerDataServiceImpl implements CustomerDataService {
@@ -35,17 +38,26 @@ public class CustomerDataServiceImpl implements CustomerDataService {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    //todo
-    @Override
-    public CustomerModel[] findAll() {
-        RestTemplate restTemplate = new RestTemplate();
-        return new CustomerModel[11];
-    }
-
     @Override
     public CustomerModel findCustomerById(int id) {
         RestTemplate restTemplate = new RestTemplate();
-        return customerConverter.convertFromBackToFront(restTemplate.getForObject(backendServerUrl + "/api/customer/" + id, CustomerEntity.class));
+        return customerConverter.convertFromBackToFront(restTemplate.getForObject(backendServerUrl +
+                                                                        "/api/customer/" + id, CustomerEntity.class));
+    }
+
+    @Override
+    public CustomerPageModel findAllByPage(int pageNumber, int amount) {
+        RestTemplate restTemplate = new RestTemplate();
+        CustomerPageModel customerPageModel = restTemplate.getForObject(backendServerUrl + "/api/customer/all?page=" +
+                pageNumber + "&amount=" + amount, CustomerPageModel.class);
+        if (customerPageModel != null) {
+            List<CustomerModel> customerModelList = customerPageModel.getCustomerEntityList().stream()
+                    .map(p -> customerConverter.convertFromBackToFront(p))
+                    .collect(Collectors.toList());
+            customerPageModel.setCustomerModelList(customerModelList);
+            customerPageModel.setCustomerEntityList(null);
+        }
+        return customerPageModel;
     }
 
     @Override
@@ -61,7 +73,8 @@ public class CustomerDataServiceImpl implements CustomerDataService {
         else {
             customer.setPassword(bCryptPasswordEncoder.encode(customer.getPassword()));
             CustomerEntity customerEntity = customerConverter.convertFromFrontToBack(customer);
-            customerOrErrorsModel.setCustomerModel(customerConverter.convertFromBackToFront(restTemplate.postForEntity(backendServerUrl + "/api/customer",
+            customerOrErrorsModel.setCustomerModel(customerConverter
+                    .convertFromBackToFront(restTemplate.postForEntity(backendServerUrl + "/api/customer",
                     customerEntity, CustomerEntity.class).getBody()));
         }
         return customerOrErrorsModel;
@@ -72,21 +85,25 @@ public class CustomerDataServiceImpl implements CustomerDataService {
         RestTemplate restTemplate = new RestTemplate();
         CustomerEntity customerEntity = customerConverter.convertFromFrontToBack(customerModel);
         WalletEntity walletEntity = customerEntity.getWalletByIdWallet();
-        walletEntity = restTemplate.postForEntity(backendServerUrl + "/api/wallet", walletEntity, WalletEntity.class).getBody();
+        walletEntity = restTemplate.postForEntity(backendServerUrl + "/api/wallet", walletEntity,
+                                                                                        WalletEntity.class).getBody();
         customerEntity.setWalletByIdWallet(walletEntity);
-        return customerConverter.convertFromBackToFront(restTemplate.postForEntity(backendServerUrl + "/api/customer/wallet", customerEntity, CustomerEntity.class).getBody());
+        return customerConverter.convertFromBackToFront(restTemplate.postForEntity(backendServerUrl +
+                "/api/customer/wallet", customerEntity, CustomerEntity.class).getBody());
     }
 
     @Override
     public CustomerModel findCustomerByLogInInfId(int logInInfId) {
         RestTemplate restTemplate = new RestTemplate();
-        return customerConverter.convertFromBackToFront(restTemplate.getForObject(backendServerUrl + "/api/customer/log/in/inf/" + logInInfId, CustomerEntity.class));
+        return customerConverter.convertFromBackToFront(restTemplate.getForObject(backendServerUrl +
+                "/api/customer/log/in/inf/" + logInInfId, CustomerEntity.class));
     }
 
     @Override
     public void updateCustomerPersonalInf(CustomerModel customerModel) {
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.put(backendServerUrl + "/api/customer/update", customerConverter.convertFromFrontToBack(customerModel));
+        restTemplate.put(backendServerUrl + "/api/customer/update", customerConverter
+                                                                            .convertFromFrontToBack(customerModel));
     }
 
     @Override
@@ -94,5 +111,12 @@ public class CustomerDataServiceImpl implements CustomerDataService {
         RestTemplate restTemplate = new RestTemplate();
         return walletConverter.convertFromBackToFront(restTemplate.getForObject(backendServerUrl +
                 "/api/wallet/customer/" + customerId, WalletEntity.class));
+    }
+
+    @Override
+    public void changeStatus(CustomerModel customerModel) {
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.put(backendServerUrl + "/api/customer/status", customerConverter
+                                                                            .convertFromFrontToBack(customerModel));
     }
 }

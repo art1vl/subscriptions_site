@@ -60,7 +60,6 @@ export class SignInComponent implements OnInit, OnDestroy {
           case "CUSTOMER":
             this.subscriptions.push(this.customerService.findCustomerByLogInInfId(logInInfId).subscribe( customer => {
               this.customerService.customer = customer as customerModel;
-              console.log(this.customerService);
               if (this.customerService.customer.isActive == 0) {
                 this.errorSignIn = "Your account was blocked by administration. To know more, please, contact us by art_vl@mail.ru"
               }
@@ -91,9 +90,6 @@ export class SignInComponent implements OnInit, OnDestroy {
             this.router.navigate(["/"]);
             break;
         }
-        // if (this.errorSignIn == null) {
-        //   this.router.navigate(["/"]);
-        // }
       }
       else {
         this.errorSignIn = signInModel.error;

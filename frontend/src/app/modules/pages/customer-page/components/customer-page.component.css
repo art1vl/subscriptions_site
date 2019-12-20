@@ -99,3 +99,12 @@
 .attention {
   color: red;
 }
+
+.blocked-status {
+  background-color: lightpink;
+  border-radius: 12px;
+  color: black;
+  font-size: 30px;
+  padding-left: 20px;
+  text-align: center;
+}

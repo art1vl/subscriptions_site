@@ -15,4 +15,6 @@ public interface CustomerService {
     CustomerEntity findCustomerById(int customerId);
 
     CustomerPageModel findAllByPage(int pageNumber, int amount);
+
+    void changeStatus(CustomerEntity customerEntity);
 }

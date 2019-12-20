@@ -41,4 +41,9 @@ public class CompanyController {
     public ResponseEntity<CompanyEntity> saveCompany(@RequestBody CompanyEntity companyEntity) {
         return ResponseEntity.ok(companyService.saveCompany(companyEntity));
     }
+
+    @PutMapping(value = "/status")
+    public void changeCompanyStatus(@RequestBody CompanyEntity companyEntity) {
+        companyService.changeStatus(companyEntity);
+    }
 }

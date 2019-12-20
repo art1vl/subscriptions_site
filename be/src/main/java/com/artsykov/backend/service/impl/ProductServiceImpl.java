@@ -3,6 +3,7 @@ package com.artsykov.backend.service.impl;
 import com.artsykov.backend.entity.CompanyEntity;
 import com.artsykov.backend.entity.ProductEntity;
 import com.artsykov.backend.model.ProductPageModel;
+import com.artsykov.backend.repository.CompanyRepository;
 import com.artsykov.backend.repository.ProductRepository;
 import com.artsykov.backend.service.CompanyService;
 import com.artsykov.backend.service.ProductService;
@@ -14,20 +15,21 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
 public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
-    private CompanyService companyService;
+    private CompanyRepository companyRepository;
     private SubscriptionService subscriptionService;
 
     @Autowired
     public ProductServiceImpl(ProductRepository productRepository,
-                              CompanyService companyService,
+                              CompanyRepository companyRepository,
                               SubscriptionService subscriptionService) {
         this.productRepository = productRepository;
-        this.companyService = companyService;
+        this.companyRepository = companyRepository;
         this.subscriptionService = subscriptionService;
     }
 
@@ -51,7 +53,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductPageModel findByPageByCompanyId(int companyId, int pageNumber, int amount) {
         Pageable pageable = PageRequest.of(pageNumber, amount);
-        CompanyEntity companyEntity = companyService.findCompany(companyId);
+        CompanyEntity companyEntity = companyRepository.findByIdCompany(companyId);
         Page<ProductEntity> page = productRepository.findAllByCompany(companyEntity, pageable);
         return createProductPageModel(page);
     }
@@ -80,5 +82,10 @@ public class ProductServiceImpl implements ProductService {
     public void changeProductStatus(ProductEntity productEntity) {
         productRepository.save(productEntity);
         subscriptionService.changeSubscriptionStatusByProduct(productEntity);
+    }
+
+    @Override
+    public List<ProductEntity> findAllByCompanyEntity(CompanyEntity companyEntity) {
+        return productRepository.findAllByCompany(companyEntity);
     }
 }

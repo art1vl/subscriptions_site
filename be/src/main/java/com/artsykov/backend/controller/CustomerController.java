@@ -43,4 +43,9 @@ public class CustomerController {
     public void updateCustomer(@RequestBody CustomerEntity customerEntity) {
         customerService.updateCustomer(customerEntity);
     }
+
+    @PutMapping(value = "/status")
+    public void changeCustomerStatus(@RequestBody CustomerEntity customerEntity) {
+        customerService.changeStatus(customerEntity);
+    }
 }
