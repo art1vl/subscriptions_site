@@ -12,6 +12,7 @@ import {CompanyServiceImpl} from "../../../../services/impl/company.service.impl
 import {AdminServiceImpl} from "../../../../services/impl/admin.service.impl";
 import {SubscriptionServiceImpl} from "../../../../services/impl/subscription.service.impl";
 import {subscriptionModel} from "../../../models/subscriptionModel";
+import {WalletServiceImpl} from "../../../../services/impl/wallet-service-impl.service";
 
 @Component({
   selector: "app-product-page",
@@ -30,12 +31,15 @@ export class ProductPageComponent implements OnInit, OnDestroy, AfterViewChecked
   errors: Map<string, string> = new Map<string, string>();
   private subject = new Subject<boolean>();
   public subject$ = this.subject.asObservable();
+  private blockedCustomer = new Subject<boolean>();
+  public blockedCustomer$ = this.blockedCustomer.asObservable();
 
   private subscriptions: Subscription[] = [];
 
   constructor(private productService: ProductServiceImpl,
               private customerServiceImpl: CustomerServiceImpl,
               private subscriptionService: SubscriptionServiceImpl,
+              private walletServiceImpl: WalletServiceImpl,
               private router: Router,
               public datePipe: DatePipe,
               private companyService: CompanyServiceImpl,
@@ -55,6 +59,7 @@ export class ProductPageComponent implements OnInit, OnDestroy, AfterViewChecked
     this.subscriptions.push(this.subscriptionService.findSubscription(this.product.id, this.customer.id).subscribe(subscription => {
       this.subscription = subscription as subscriptionModel;
       console.log(this.subscription);
+      console.log(this.customer);
       if (this.subscription == null) {
         this.subject.next(false);
       }
@@ -71,7 +76,6 @@ export class ProductPageComponent implements OnInit, OnDestroy, AfterViewChecked
       if (this.customer != null) {
         this.isCustomerSubscribed();
       } else {
-        // this.subscriptionFlag = false;
         this.subject.next(false);
       }
     }));
@@ -81,27 +85,46 @@ export class ProductPageComponent implements OnInit, OnDestroy, AfterViewChecked
     if (this.customer == null) {
       this.router.navigate(["sign/in"]);
     } else {
-      let subscription: subscriptionModel = new subscriptionModel();
-      subscription.isActive = 1;
-      subscription.idCustomer = this.customer.id;
-      subscription.product = this.product;
-      subscription.startSubscriptionDate = new Date();
-      this.subscriptions.push(this.subscriptionService.createNewSubscription(subscription).subscribe(subscriptionOrErrors => {
-        if (subscriptionOrErrors.errors == null) {
-          this.subscription = subscriptionOrErrors.subscriptionModel as subscriptionModel;
-          this.subject.next(true);
-        } else {
-          this.subscription = null;
-          this.subject.next(false);
-          this.errors = subscriptionOrErrors.errors;
-        }
-      }))
+      if (this.customer.isActive == 0) {
+        this.subscription = null;
+        this.blockedCustomer.next(true);
+        console.log(this.errors);
+      }
+      else {
+        this.blockedCustomer.next(false);
+        let subscription: subscriptionModel = new subscriptionModel();
+        subscription.isActive = 1;
+        subscription.idCustomer = this.customer.id;
+        subscription.product = this.product;
+        subscription.startSubscriptionDate = new Date();
+        this.subscriptions.push(this.subscriptionService.createNewSubscription(subscription).subscribe(subscriptionOrErrors => {
+          if (subscriptionOrErrors.errors == null) {
+            this.subscription = subscriptionOrErrors.subscriptionModel as subscriptionModel;
+            this.subject.next(true);
+          } else {
+            this.subscription = null;
+            this.subject.next(false);
+            this.errors = subscriptionOrErrors.errors;
+          }
+        }))
+      }
     }
   }
 
   private unsubscribe(): void {
     this.subscriptions.push(this.subscriptionService.deleteSubscription(this.subscription.id).subscribe(() => {
       this.subject.next(false);
+      if (this.customer.isActive == 0) {
+        if (this.subscription.isActive == 0) {
+          this.customer.wallet.debt -= this.subscription.product.cost;
+          if (this.customer.wallet.debt == 0) {
+            this.subscriptions.push(this.customerServiceImpl.findCustomerById(this.customer.id).subscribe(customer => {
+              this.customer = customer as customerModel;
+              this.customerServiceImpl.customer = this.customer;
+            }))
+          }
+        }
+      }
     }));
   }
 

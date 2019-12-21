@@ -1193,6 +1193,8 @@
       <RefSchemaName>backend</RefSchemaName>
       <RefTableName>wallet</RefTableName>
       <RefColNames>id_wallet</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
     <column id="300" parent="280" name="id_customer">
       <Position>1</Position>
@@ -1505,9 +1507,8 @@
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <index id="356" parent="284" name="id_product_UNIQUE">
+    <index id="356" parent="284" name="fk_id_product_id_idx">
       <ColNames>id_product</ColNames>
-      <Unique>1</Unique>
       <Type>btree</Type>
     </index>
     <index id="357" parent="284" name="fk_id_costumer_subscr_idx">
@@ -1523,19 +1524,13 @@
       <ColNames>id_subscription</ColNames>
       <UnderlyingIndexName>id_UNIQUE</UnderlyingIndexName>
     </key>
-    <key id="360" parent="284" name="id_product_UNIQUE">
-      <ColNames>id_product</ColNames>
-      <UnderlyingIndexName>id_product_UNIQUE</UnderlyingIndexName>
-    </key>
-    <foreign-key id="361" parent="284" name="fk_id_product_subscription">
+    <foreign-key id="360" parent="284" name="fk_id_product_id">
       <ColNames>id_product</ColNames>
       <RefSchemaName>backend</RefSchemaName>
       <RefTableName>product</RefTableName>
       <RefColNames>id_product</RefColNames>
-      <OnUpdate>cascade</OnUpdate>
-      <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="362" parent="284" name="fk_id_costumer_subscr">
+    <foreign-key id="361" parent="284" name="fk_id_costumer_subscr">
       <ColNames>id_customer</ColNames>
       <RefSchemaName>backend</RefSchemaName>
       <RefTableName>customer</RefTableName>
@@ -1543,37 +1538,42 @@
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="363" parent="285" name="id_wallet">
+    <column id="362" parent="285" name="id_wallet">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="364" parent="285" name="balance">
+    <column id="363" parent="285" name="balance">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="365" parent="285" name="card_number">
+    <column id="364" parent="285" name="card_number">
       <Position>3</Position>
       <DataType>bigint(16)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="366" parent="285" name="card_date">
+    <column id="365" parent="285" name="card_date">
       <Position>4</Position>
       <DataType>date|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="367" parent="285" name="card_cvv_code">
+    <column id="366" parent="285" name="card_cvv_code">
       <Position>5</Position>
       <DataType>int(3)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="368" parent="285" name="person_name">
+    <column id="367" parent="285" name="person_name">
       <Position>6</Position>
       <DataType>varchar(45)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="368" parent="285" name="debt">
+      <Position>7</Position>
+      <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <index id="369" parent="285" name="id_UNIQUE">

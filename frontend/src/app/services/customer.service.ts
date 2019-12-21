@@ -17,4 +17,6 @@ export interface CustomerService {
   findAllByPage(pageNumber: number, amount: number): Observable<CustomerPageModel>;
 
   changeStatus(customerModel: customerModel): Observable<customerOrErrorsModel>;
+
+  liquidateDebt(customerModel: customerModel): Observable<customerOrErrorsModel>;
 }

@@ -13,6 +13,7 @@ public class WalletEntity {
     private Date cardDate;
     private int cardCvvCode;
     private String personName;
+    private int debt;
 //    private Collection<CompanyEntity> companiesByIdWallet;
 //    private Collection<CustomerEntity> costumersByIdWallet;
 
@@ -35,6 +36,16 @@ public class WalletEntity {
 
     public void setBalance(int balance) {
         this.balance = balance;
+    }
+
+    @Basic
+    @Column(name = "debt")
+    public int getDebt() {
+        return debt;
+    }
+
+    public void setDebt(int debt) {
+        this.debt = debt;
     }
 
     @Basic

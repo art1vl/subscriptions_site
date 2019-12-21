@@ -1,6 +1,7 @@
 export class WalletModel {
   idWallet?: number;
   balance: number;
+  debt: number;
   cardNumber: number;
   cardDate: Date;
   cardCvvCode: number;

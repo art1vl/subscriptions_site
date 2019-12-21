@@ -2,10 +2,7 @@ package com.artsykov.fapi.models;
 
 import lombok.Data;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.*;
 import java.util.Date;
 
 @Data
@@ -16,6 +13,8 @@ public class WalletModel {
     @NotEmpty(message = "Balance is required")
     @Min(value = 0, message = "Balance can't be negative")
     private int balance;
+
+    private int debt;
 
     @NotEmpty(message = "Card number is required")
     @Min(value = 0, message = "Card number can't be negative")

@@ -1,8 +1,7 @@
 import {CustomerService} from "../customer.service";
 import {customerModel} from "../../modules/models/customerModel";
 import {HttpClient} from "@angular/common/http";
-import {Observable, of} from "rxjs";
-import {catchError} from "rxjs/operators";
+import {Observable} from "rxjs";
 import {customerOrErrorsModel} from "../../modules/models/customerOrErrorsModel";
 import {Injectable} from "@angular/core";
 import {CustomerPageModel} from "../../modules/models/CustomerPageModel";
@@ -41,5 +40,9 @@ export class CustomerServiceImpl implements CustomerService {
 
   changeStatus(customerModel: customerModel): Observable<customerOrErrorsModel> {
     return this.http.put<customerOrErrorsModel>('/api/customer/status', customerModel);
+  }
+
+  liquidateDebt(customerModel: customerModel): Observable<customerOrErrorsModel> {
+    return this.http.post<customerOrErrorsModel>('/api/customer/liquidate/debt', customerModel);
   }
 }

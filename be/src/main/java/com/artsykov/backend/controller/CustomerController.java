@@ -39,6 +39,13 @@ public class CustomerController {
         return ResponseEntity.ok(customerService.saveCustomerWallet(customerEntity));
     }
 
+    @PostMapping(value = "/liquidate/debt")
+    public ResponseEntity<CustomerEntity> liquidateDebt(@RequestBody CustomerEntity customerEntity) {
+        System.out.println("balance   " + customerEntity.getWalletByIdWallet().getBalance());
+        System.out.println("debt      " + customerEntity.getWalletByIdWallet().getDebt());
+        return ResponseEntity.ok(customerService.liquidateDebt(customerEntity));
+    }
+
     @PutMapping(value = "/update")
     public void updateCustomer(@RequestBody CustomerEntity customerEntity) {
         customerService.updateCustomer(customerEntity);

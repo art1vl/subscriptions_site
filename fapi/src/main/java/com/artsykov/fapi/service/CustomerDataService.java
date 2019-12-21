@@ -21,4 +21,6 @@ public interface CustomerDataService {
     WalletModel findWalletByCustomerId(int customerId);
 
     void changeStatus(CustomerModel customerModel);
+
+    CustomerModel liquidateDebt(CustomerModel customerModel);
 }
