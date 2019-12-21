@@ -14,9 +14,11 @@ export interface ProductService {
 
   deleteProductById(productId: number): Observable<void>;
 
-  findProductById(productId: string): Observable<ProductModel>;
+  findProductById(productId: number): Observable<ProductModel>;
 
   findAllProductsByCompanyId(companyId: number, page: number, amount: number): Observable<ProductPageModel>;
 
   changeProductStatus(product: ProductModel): Observable<ProductOrErrorModel>;
+
+  searchProductsByPage(param: Map<string, string>, pageNumber: number, amount: number): Observable<ProductPageModel>;
 }

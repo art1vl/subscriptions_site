@@ -137,7 +137,8 @@
                 </div>
               </div>
               <div class="form-row">
-                <input type="file" (change)="selectFile($event)" placeholder="Download product image" #file>
+                <input type="file" (change)="selectFile($event)" formControlName="file"
+                       placeholder="Download product image">
               </div>
               <div class="alert alert-danger"
                    *ngIf="errorsMapProduct && errorsMapProduct['file'] != undefined">
@@ -159,7 +160,8 @@
                   </div>
                 </div>
               </div>
-              <button class="btn btn-primary" [disabled]="productForm.invalid"
+              <button class="btn btn-primary" [disabled]="productForm.invalid || selectedFiles == null ||
+                                                                      productFlag == true"
                       (click)="createProduct(name.value, date.value, description.value, cost.value, type.selectedIndex)">
                 Create the product
               </button>
@@ -302,7 +304,7 @@
                   </div>
                 </div>
               </div>
-              <button class="btn btn-success" [disabled]="withdrawForm.invalid"
+              <button class="btn btn-success" [disabled]="withdrawForm.invalid || (withDrawFlag$  | async)"
                       (click)="withdrawCard(number.value)">
                 Withdraw
               </button>

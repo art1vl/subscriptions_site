@@ -4,45 +4,42 @@
 
 .row {
   display: flex;
-  /*flex-wrap: wrap;*/
   flex-direction: row;
 }
 
-/* Create two unequal columns that sits next to each other */
-/* Sidebar/left column */
+.emptySearch {
+  text-align: center;
+  padding-top: 30px;
+  padding-left: 410px;
+  font-size: 30px;
+}
+
 .side {
   margin-top: 30px;
   margin-left: 30px;
-  /*flex: 20%;*/
   background-color: #f1f1f1;
-  padding: 30px;
-  height: 330px;
+  padding: 20px 30px 30px;
+  height: fit-content;
   border-radius: 10px;
   display: flex;
   min-width: 320px;
   width: 20%;
 }
 
-/* Main column */
 .main {
-  /*flex: 75%;*/
   background-color: white;
   padding: 20px;
-  /*display: flex;*/
 }
 
 .flex-container {
   display: flex;
   flex-wrap: wrap;
-  /*background-color: DodgerBlue;*/
 }
 
 .flex-container > div {
-  /*background-color: #f1f1f1;*/
   border: 1px solid black;
   background: white;
   border-radius: 12px;
-  /*flex: 20%;*/
   width: 21%;
   margin: 10px;
   padding: 20px;

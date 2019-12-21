@@ -46,6 +46,18 @@ public class ProductController {
         return ResponseEntity.ok(productDataService.findProductById(id));
     }
 
+    @GetMapping(value = "/search")
+    public ResponseEntity<ProductPageModel> getProductBySearchByPage(@RequestParam(value = "product", required = false) String productName,
+                                                                     @RequestParam(value = "company", required = false) String companyName,
+                                                                     @RequestParam(value = "min", required = false) String min,
+                                                                     @RequestParam(value = "max", required = false) String max,
+                                                                     @RequestParam(value = "type", required = false) String productType,
+                                                                     @RequestParam(value = "page") Integer pageNumber,
+                                                                     @RequestParam(value = "amount") Integer amount) {
+        return ResponseEntity.ok(productDataService.findAllProductsBySearchByPage(productName, companyName, min, max, productType,
+                pageNumber, amount));
+    }
+
     @Secured("ROLE_COMPANY")
     @GetMapping(value = "/company/{id}")
     public ResponseEntity<ProductPageModel> getProductsByPageByCompanyId(@PathVariable("id") Integer companyId,

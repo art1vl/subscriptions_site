@@ -71,19 +71,23 @@ public class CompanyDataServiceImpl implements CompanyDataService {
     public CompanyOrErrorsModel saveCompany(CompanyModel company) {
         CompanyOrErrorsModel companyOrErrorsModel = new CompanyOrErrorsModel();
         RestTemplate restTemplate = new RestTemplate();
-        boolean existsEmail = restTemplate.getForObject(backendServerUrl + "/api/log/in/inf/exist/" +
-                         company.getEmail(), Boolean.class);
+        Boolean existsEmail = restTemplate.getForObject(backendServerUrl + "/api/log/in/inf/exist/" +
+                company.getEmail(), Boolean.class);
+        if (existsEmail == null) {
+            Map<String, String> errors = new HashMap<>();
+            errors.put("email", "Sorry, smth went wrong");
+            companyOrErrorsModel.setErrors(errors);
+        }
         if (existsEmail) {
             Map<String, String> errors = new HashMap<>();
             errors.put("email", "This email is busy");
             companyOrErrorsModel.setErrors(errors);
-        }
-        else {
+        } else {
             company.setPassword(bCryptPasswordEncoder.encode(company.getPassword()));
             CompanyEntity companyEntity = companyConverter.convertFromFrontToBack(company);
             companyOrErrorsModel.setCompanyModel(companyConverter.convertFromBackToFront(restTemplate
                     .postForEntity(backendServerUrl + "/api/company",
-                    companyEntity, CompanyEntity.class).getBody()));
+                            companyEntity, CompanyEntity.class).getBody()));
         }
         return companyOrErrorsModel;
     }
@@ -94,10 +98,10 @@ public class CompanyDataServiceImpl implements CompanyDataService {
         CompanyEntity companyEntity = companyConverter.convertFromFrontToBack(companyModel);
         WalletEntity walletEntity = companyEntity.getWalletByIdWallet();
         walletEntity = restTemplate.postForEntity(backendServerUrl + "/api/wallet", walletEntity,
-                                                                                        WalletEntity.class).getBody();
+                WalletEntity.class).getBody();
         companyEntity.setWalletByIdWallet(walletEntity);
         return companyConverter.convertFromBackToFront(restTemplate.postForEntity(backendServerUrl +
-                                                "/api/company/wallet", companyEntity, CompanyEntity.class).getBody());
+                "/api/company/wallet", companyEntity, CompanyEntity.class).getBody());
     }
 
     @Override

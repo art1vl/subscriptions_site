@@ -46,7 +46,8 @@
                   <button *ngIf="product.isActive == 1" type="button" class="btn btn-danger"
                           (click)="blockOrUnblockProduct(product, 0)">Block
                   </button>
-                  <button [disabled]="product.companyActiveStatus == 0" *ngIf="product.isActive == 0" type="button" class="btn btn-danger"
+                  <button [disabled]="product.companyActiveStatus == 0" *ngIf="product.isActive == 0" type="button"
+                          class="btn btn-danger"
                           (click)="blockOrUnblockProduct(product, 1)">Unblock
                   </button>
                   <br>

@@ -64,19 +64,25 @@ public class CustomerDataServiceImpl implements CustomerDataService {
     public CustomerOrErrorsModel checkAndSaveCustomer(CustomerModel customer) {
         CustomerOrErrorsModel customerOrErrorsModel = new CustomerOrErrorsModel();
         RestTemplate restTemplate = new RestTemplate();
-        boolean emailExists = restTemplate.getForObject(backendServerUrl + "/api/log/in/inf/exist/" +
+        Boolean emailExists = restTemplate.getForObject(backendServerUrl + "/api/log/in/inf/exist/" +
                                                                                 customer.getEmail(), Boolean.class);
-        if (emailExists) {
+        if (emailExists == null) {
             Map<String, String> errors = new HashMap<>();
-            errors.put("email", "This email is busy");
+            errors.put("email", "Sorry, smth went wrong");
             customerOrErrorsModel.setErrors(errors);
         }
         else {
-            customer.setPassword(bCryptPasswordEncoder.encode(customer.getPassword()));
-            CustomerEntity customerEntity = customerConverter.convertFromFrontToBack(customer);
-            customerOrErrorsModel.setCustomerModel(customerConverter
-                    .convertFromBackToFront(restTemplate.postForEntity(backendServerUrl + "/api/customer",
-                    customerEntity, CustomerEntity.class).getBody()));
+            if (emailExists) {
+                Map<String, String> errors = new HashMap<>();
+                errors.put("email", "This email is busy");
+                customerOrErrorsModel.setErrors(errors);
+            } else {
+                customer.setPassword(bCryptPasswordEncoder.encode(customer.getPassword()));
+                CustomerEntity customerEntity = customerConverter.convertFromFrontToBack(customer);
+                customerOrErrorsModel.setCustomerModel(customerConverter
+                        .convertFromBackToFront(restTemplate.postForEntity(backendServerUrl + "/api/customer",
+                                customerEntity, CustomerEntity.class).getBody()));
+            }
         }
         return customerOrErrorsModel;
     }

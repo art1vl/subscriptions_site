@@ -22,4 +22,7 @@ public interface ProductService {
     void deleteProductById(int productId);
 
     List<ProductEntity> findAllByCompanyEntity(CompanyEntity companyEntity);
+
+    ProductPageModel findAllProductsBySearchByPage(String productName, String companyName, Integer min, Integer max,
+                                                   String productType, int pageNumber, int amount);
 }

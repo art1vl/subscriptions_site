@@ -21,6 +21,9 @@ public interface ProductDataService {
 
     ProductPageModel findAllByPage(int pageNumber, int amount);
 
+    ProductPageModel findAllProductsBySearchByPage(String productName, String companyName, String min, String max,
+                                                   String productType, int pageNumber, int amount);
+
     void deleteProductById(int productId);
 
     void changeProductStatus(ProductModel productModel);

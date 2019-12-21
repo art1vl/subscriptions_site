@@ -36,6 +36,8 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import {initApp} from "./services/impl/app.initialiser";
 import {CompanyServiceImpl} from "./services/impl/company.service.impl";
 import {AdminServiceImpl} from "./services/impl/admin.service.impl";
+import {ErrorPageComponent} from "./modules/layout/components/404/components/error-page.component";
+import {ErrorPageModule} from "./modules/layout/components/404/error-page.module";
 
 const appRoutes: Routes = [
   {path: "", component: HomeComponent},
@@ -45,8 +47,8 @@ const appRoutes: Routes = [
   {path: "catalog/product/:id", component: ProductPageComponent},
   {path: "customer", component: CustomerPageComponent},
   {path: "company", component: CompanyPageComponent},
-  {path: "admin", component: AdminPageComponent}
-  // {path: "**"}
+  {path: "admin", component: AdminPageComponent},
+  {path: "**", component: ErrorPageComponent}
 ];
 
 @NgModule({
@@ -68,6 +70,7 @@ const appRoutes: Routes = [
     HomeModule,
     FooterModule,
     CatalogModule,
+    ErrorPageModule,
     HttpClientModule,
     Ng4LoadingSpinnerModule.forRoot(),
     BsDropdownModule.forRoot(),

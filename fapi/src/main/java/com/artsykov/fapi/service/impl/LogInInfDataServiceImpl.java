@@ -26,23 +26,21 @@ public class LogInInfDataServiceImpl implements LogInInfDataService, UserDetails
     @Value("${backend.server.url}")
     private String backendServerUrl;
 
-    private JwtTokenProvider tokenProvider;
     private CustomerDataService customerDataService;
     private CompanyDataService companyDataService;
 
     @Autowired
-    public LogInInfDataServiceImpl (CustomerDataService customerDataService, CompanyDataService companyDataService,
-                                    JwtTokenProvider tokenProvider) {
+    public LogInInfDataServiceImpl(CustomerDataService customerDataService,
+                                   CompanyDataService companyDataService) {
         this.customerDataService = customerDataService;
         this.companyDataService = companyDataService;
-        this.tokenProvider = tokenProvider;
     }
 
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         LogInInfEntity logInInfEntity = findUserByEmail(email);
-        if(logInInfEntity == null){
+        if (logInInfEntity == null) {
             throw new UsernameNotFoundException("User with email: " + email + " not found");
         }
         return new org.springframework.security.core.userdetails.User(logInInfEntity.getEmail(), logInInfEntity.getPassword(), getAuthority(logInInfEntity));

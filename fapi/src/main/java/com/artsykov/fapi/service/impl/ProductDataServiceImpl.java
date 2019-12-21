@@ -40,6 +40,7 @@ public class ProductDataServiceImpl implements ProductDataService {
         if (file == null) {
             Map<String,String> errors = new HashMap<>();
             errors.put("file", "Select product image");
+            deleteProductById(id);
             productOrErrorsModel.setErrors(errors);
         }
         else {
@@ -102,6 +103,51 @@ public class ProductDataServiceImpl implements ProductDataService {
     public void changeProductStatus(ProductModel productModel) {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.put(backendServerUrl + "/api/product", productConverter.convertFromFrontToBack(productModel));
+    }
+
+    @Override
+    public ProductPageModel findAllProductsBySearchByPage(String productName, String companyName, String min, String max,
+                                                          String productType, int pageNumber, int amount) {
+        if (productName == null && companyName == null && min == null && max == null && productType == null) {
+            return findProductsByPageIsActive(pageNumber, amount);
+        }
+        else {
+            String paramUrl = "";
+            String page;
+            page = "page=" + pageNumber + "&amount=" + amount;
+            if (productName != null) {
+                paramUrl += "product=" + productName;
+            }
+            if (companyName != null) {
+                if (paramUrl.length() != 0) {
+                    paramUrl += "&";
+                }
+                paramUrl += "company=" + companyName;
+            }
+            if (min != null) {
+                if (paramUrl.length() != 0) {
+                    paramUrl += "&";
+                }
+                paramUrl += "min=" + min;
+            }
+            if (max != null) {
+                if (paramUrl.length() != 0) {
+                    paramUrl += "&";
+                }
+                paramUrl += "max=" + max;
+            }
+            if (productType != null) {
+                if (paramUrl.length() != 0) {
+                    paramUrl += "&";
+                }
+                paramUrl += "type=" + productType;
+            }
+            paramUrl += "&" + page;
+            RestTemplate restTemplate = new RestTemplate();
+            ProductPageModel productPageModel = restTemplate.getForObject(backendServerUrl + "/api/product/search?" +
+                    paramUrl, ProductPageModel.class);
+            return convertProductsInProductPageModel(productPageModel);
+        }
     }
 
     private ProductPageModel convertProductsInProductPageModel(ProductPageModel productPageModel) {

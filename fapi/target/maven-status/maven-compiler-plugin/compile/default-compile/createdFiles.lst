@@ -34,7 +34,6 @@ com\artsykov\fapi\service\ProductDataService.class
 com\artsykov\fapi\security\JwtConfigurer.class
 com\artsykov\fapi\controller\ProductController.class
 com\artsykov\fapi\models\ProductOrErrorsModel.class
-com\artsykov\fapi\validator\CustomerValidator.class
 com\artsykov\fapi\entity\WalletEntity.class
 com\artsykov\fapi\models\CompanyModel.class
 com\artsykov\fapi\models\SubscriptionModel.class
