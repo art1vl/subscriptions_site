@@ -38,8 +38,11 @@
                   <br>
                   every month cost: {{subscription?.product.cost}}$
                   <br>
-                  <div class="attention" *ngIf="subscription?.isActive == 0">
-                    Attention, subscription was blocked by administration. Fee for that subscription isn't got.
+                  <div class="attention" *ngIf="subscription?.isActive == 0 && subscription.product.isActive == 1">
+                    Subscription was blocked by administration, because you don't have enough money.
+                  </div>
+                  <div class="attention" *ngIf="subscription?.isActive == 0 && subscription.product.isActive == 0">
+                    Attention, product was blocked by administration. Fee for that subscription isn't got.
                   </div>
                 </div>
                 <div class="button">
@@ -314,7 +317,7 @@
                   </div>
                 </div>
               </div>
-              <button class="btn btn-success" [disabled]="replenishForm.invalid"
+              <button class="btn btn-success" [disabled]="replenishForm.invalid || replenishFlag == true"
                       (click)="replenishCard(number.value)">
                 Replenish
               </button>

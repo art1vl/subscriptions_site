@@ -1,5 +1,5 @@
 import {AfterViewChecked, ChangeDetectorRef, Component, OnDestroy, OnInit} from "@angular/core";
-import {Subject, Subscription} from "rxjs";
+import {ReplaySubject, Subject, Subscription} from "rxjs";
 import {ProductModel} from "../../../models/productModel";
 import {ProductServiceImpl} from "../../../../services/impl/product.service.impl";
 import {Router} from "@angular/router";
@@ -24,13 +24,14 @@ export class ProductPageComponent implements OnInit, OnDestroy, AfterViewChecked
   productId: string;
   formatDate: string;
   customer: customerModel;
-  // subscriptionFlag: boolean;
   company: companyModel;
   admin: adminModel;
   subscription: subscriptionModel;
   errors: Map<string, string> = new Map<string, string>();
   private subject = new Subject<boolean>();
   public subject$ = this.subject.asObservable();
+  private productNotExists = new ReplaySubject<boolean>(1);
+  public productNotExists$ = this.productNotExists.asObservable();
   private blockedCustomer = new Subject<boolean>();
   public blockedCustomer$ = this.blockedCustomer.asObservable();
 
@@ -49,34 +50,39 @@ export class ProductPageComponent implements OnInit, OnDestroy, AfterViewChecked
 
   ngOnInit() {
     this.productId = this.router.url.substring(this.router.url.lastIndexOf('/') + 1);
-    this.customer = this.customerServiceImpl.customer;
-    this.company = this.companyService.company;
-    this.admin = this.adminService.admin;
-    this.loadProduct();
+    if (isNaN(+this.productId)) {
+      this.productNotExists.next(true);
+    } else {
+      this.customer = this.customerServiceImpl.customer;
+      this.company = this.companyService.company;
+      this.admin = this.adminService.admin;
+      this.loadProduct();
+    }
   }
 
   private isCustomerSubscribed(): void {
     this.subscriptions.push(this.subscriptionService.findSubscription(this.product.id, this.customer.id).subscribe(subscription => {
       this.subscription = subscription as subscriptionModel;
-      console.log(this.subscription);
-      console.log(this.customer);
       if (this.subscription == null) {
         this.subject.next(false);
-      }
-      else {
+      } else {
         this.subject.next(true);
       }
     }));
   }
 
   private loadProduct(): void {
-    this.subscriptions.push(this.productService.findProductById(this.productId).subscribe(prod => {
+    this.subscriptions.push(this.productService.findProductById(+this.productId).subscribe(prod => {
       this.product = prod as ProductModel;
-      this.formatDate = this.datePipe.transform(this.product.realiseDate, 'dd-MM-yyyy');
-      if (this.customer != null) {
-        this.isCustomerSubscribed();
+      if (this.product == null) {
+        this.productNotExists.next(true);
       } else {
-        this.subject.next(false);
+        this.formatDate = this.datePipe.transform(this.product.realiseDate, 'dd-MM-yyyy');
+        if (this.customer != null) {
+          this.isCustomerSubscribed();
+        } else {
+          this.subject.next(false);
+        }
       }
     }));
   }
@@ -89,8 +95,7 @@ export class ProductPageComponent implements OnInit, OnDestroy, AfterViewChecked
         this.subscription = null;
         this.blockedCustomer.next(true);
         console.log(this.errors);
-      }
-      else {
+      } else {
         this.blockedCustomer.next(false);
         let subscription: subscriptionModel = new subscriptionModel();
         subscription.isActive = 1;

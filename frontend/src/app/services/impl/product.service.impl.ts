@@ -20,7 +20,7 @@ export class ProductServiceImpl implements ProductService {
     return this.http.get<ProductPageModel>('/api/product/all?page=' + page + '&amount=' + amount);
   }
 
-  findProductById(productId: string): Observable<ProductModel> {
+  findProductById(productId: number): Observable<ProductModel> {
     return this.http.get<ProductModel>('/api/product/' + productId);
   }
 
@@ -35,11 +35,50 @@ export class ProductServiceImpl implements ProductService {
       reportProgress: true,
       responseType: 'json'
     });
-    return  this.http.request(req);
+    return this.http.request(req);
   }
 
   findAllProductsByCompanyId(companyId: number, page: number, amount: number): Observable<ProductPageModel> {
     return this.http.get<ProductPageModel>('/api/product/company/' + companyId + '?page=' + page + '&amount=' + amount);
+  }
+
+  searchProductsByPage(param: Map<string, string>, pageNumber: number, amount: number): Observable<ProductPageModel> {
+    if (param.size == 0) {
+      return this.findProductsIsActive(pageNumber, amount);
+    } else {
+      let paramUrl: string = "";
+      let page: string;
+      page = "page=" + pageNumber + "&amount=" + amount;
+      if (param.get("product") != undefined) {
+        paramUrl += "product=" + param.get("product");
+      }
+      if (param.get("company") != undefined) {
+        if (paramUrl.length != 0) {
+          paramUrl += "&";
+        }
+        paramUrl += "company=" + param.get("company");
+      }
+      if (param.get("min") != undefined) {
+        if (paramUrl.length != 0) {
+          paramUrl += "&";
+        }
+        paramUrl += "min=" + param.get("min");
+      }
+      if (param.get("max") != undefined) {
+        if (paramUrl.length != 0) {
+          paramUrl += "&";
+        }
+        paramUrl += "max=" + param.get("max");
+      }
+      if (param.get("type") != undefined) {
+        if (paramUrl.length != 0) {
+          paramUrl += "&";
+        }
+        paramUrl += "type=" + param.get("type");
+      }
+      paramUrl += "&" + page;
+      return this.http.get<ProductPageModel>('/api/product/search?' + paramUrl);
+    }
   }
 
   changeProductStatus(product: ProductModel): Observable<ProductOrErrorModel> {

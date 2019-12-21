@@ -37,6 +37,18 @@ public class ProductController {
         return ResponseEntity.ok(productService.findByPageByCompanyId(companyId, pageNumber, amount));
     }
 
+    @GetMapping(value = "/search")
+    public ResponseEntity<ProductPageModel> getProductBySearchByPage(@RequestParam(value = "product", required = false) String productName,
+                                                                     @RequestParam(value = "company", required = false) String companyName,
+                                                                     @RequestParam(value = "min", required = false) Integer min,
+                                                                     @RequestParam(value = "max", required = false) Integer max,
+                                                                     @RequestParam(value = "type", required = false) String productType,
+                                                                     @RequestParam(value = "page") Integer pageNumber,
+                                                                     @RequestParam(value = "amount") Integer amount) {
+        return ResponseEntity.ok(productService.findAllProductsBySearchByPage(productName, companyName, min, max, productType,
+                                                                                    pageNumber, amount));
+    }
+
     @PostMapping
     public ResponseEntity<ProductEntity> saveProduct(@RequestBody ProductEntity productEntity) {
         return ResponseEntity.ok(productService.saveProduct(productEntity));

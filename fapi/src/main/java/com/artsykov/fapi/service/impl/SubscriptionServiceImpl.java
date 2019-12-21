@@ -50,7 +50,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
             SubscriptionEntity subscriptionEntity = subscriptionConverter.convertFromFrontToBack(subscriptionModel);
             subscriptionOrErrorsModel.setSubscriptionModel(
                     subscriptionConverter.convertFromBackToFront(restTemplate.
-                        postForEntity(backendServerUrl + "/api/subscription", subscriptionEntity, SubscriptionEntity.class)
+                            postForEntity(backendServerUrl + "/api/subscription", subscriptionEntity, SubscriptionEntity.class)
                             .getBody())
             );
             customerWallet.setBalance(customerWallet.getBalance() - subscriptionModel.getProduct().getCost());
@@ -58,8 +58,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
             companyWallet.setBalance(companyWallet.getBalance() + subscriptionModel.getProduct().getCost());
             walletDataService.updateWallet(customerWallet);
             walletDataService.updateWallet(companyWallet);
-        }
-        else {
+        } else {
             Map<String, String> errors = new HashMap<>();
             errors.put("balance", "You don't have enough money for first month. Please, replenish your balance and then return");
             subscriptionOrErrorsModel.setErrors(errors);
@@ -69,7 +68,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
     @Override
     public SubscriptionModel findSubscription(int productId, int customerId) {
-        RestTemplate restTemplate  = new RestTemplate();
+        RestTemplate restTemplate = new RestTemplate();
         return subscriptionConverter.convertFromBackToFront(restTemplate.getForObject(backendServerUrl +
                 "/api/subscription?product=" + productId + "&customer=" + customerId, SubscriptionEntity.class));
     }
@@ -79,11 +78,11 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         RestTemplate restTemplate = new RestTemplate();
         CustomerSubscriptionPageModel customerSubscriptionPageModel = restTemplate.getForObject(backendServerUrl +
                         "/api/subscription/customer/" + customerId + "?page=" + page + "&amount=" + amount,
-                        CustomerSubscriptionPageModel.class);
+                CustomerSubscriptionPageModel.class);
         if (customerSubscriptionPageModel != null) {
             List<SubscriptionModel> subscriptionModels = customerSubscriptionPageModel.getSubscriptionEntities().stream()
-                                                                .map(p -> subscriptionConverter.convertFromBackToFront(p))
-                                                                .collect(Collectors.toList());
+                    .map(p -> subscriptionConverter.convertFromBackToFront(p))
+                    .collect(Collectors.toList());
             customerSubscriptionPageModel.setSubscriptionModels(subscriptionModels);
             customerSubscriptionPageModel.setSubscriptionEntities(null);
         }

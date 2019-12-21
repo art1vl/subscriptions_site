@@ -4,39 +4,45 @@
     <list default="true" id="66368552-c927-4084-adba-dd2bd392edd8" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/6da6c3c2-cdb3-46cf-8192-e15c12d6e5ea.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/6da6c3c2-cdb3-46cf-8192-e15c12d6e5ea.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/controller/CustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/controller/CustomerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/entity/WalletEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/entity/WalletEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/repository/CustomerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/repository/CustomerRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/controller/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/repository/CompanyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/repository/CompanyRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/repository/ProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/repository/ProductRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/repository/ProductTypeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/repository/ProductTypeRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/repository/SubscriptionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/repository/SubscriptionRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/repository/WalletRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/repository/WalletRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/CustomerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/CustomerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/SubscriptionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/SubscriptionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/impl/CustomerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/impl/CustomerServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/impl/SubscriptionServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/impl/SubscriptionServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/controller/CustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/controller/CustomerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/converter/WalletConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/converter/WalletConverter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/entity/WalletEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/entity/WalletEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/models/WalletModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/models/WalletModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/CustomerDataService.java" beforeDir="false" afterPath="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/CustomerDataService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/ProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/impl/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/impl/ProductServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/be/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/be/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fapi/image/image_48.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fapi/image/image_49.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/controller/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/ProductDataService.java" beforeDir="false" afterPath="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/ProductDataService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/impl/CompanyDataServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/impl/CompanyDataServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/impl/CustomerDataServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/impl/CustomerDataServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fapi/target/classes/com/artsykov/fapi/controller/CustomerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/fapi/target/classes/com/artsykov/fapi/controller/CustomerController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fapi/target/classes/com/artsykov/fapi/converter/WalletConverter.class" beforeDir="false" afterPath="$PROJECT_DIR$/fapi/target/classes/com/artsykov/fapi/converter/WalletConverter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fapi/target/classes/com/artsykov/fapi/entity/WalletEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/fapi/target/classes/com/artsykov/fapi/entity/WalletEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fapi/target/classes/com/artsykov/fapi/models/WalletModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/fapi/target/classes/com/artsykov/fapi/models/WalletModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fapi/target/classes/com/artsykov/fapi/service/CustomerDataService.class" beforeDir="false" afterPath="$PROJECT_DIR$/fapi/target/classes/com/artsykov/fapi/service/CustomerDataService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fapi/target/classes/com/artsykov/fapi/service/impl/CustomerDataServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/fapi/target/classes/com/artsykov/fapi/service/impl/CustomerDataServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/impl/LogInInfDataServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/impl/LogInInfDataServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/impl/ProductDataServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/impl/ProductDataServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/impl/ProductTypeDataServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/impl/ProductTypeDataServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/impl/SubscriptionServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/impl/SubscriptionServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/validator/CustomerValidator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fapi/target/classes/com/artsykov/fapi/validator/CustomerValidator.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/fapi/target/fapi-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/fapi/target/fapi-0.0.1-SNAPSHOT.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fapi/target/fapi-0.0.1-SNAPSHOT.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/fapi/target/fapi-0.0.1-SNAPSHOT.jar.original" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/modules/models/walletModel.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/modules/models/walletModel.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/modules/pages/customer-page/components/customer-page.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/modules/pages/customer-page/components/customer-page.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fapi/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/fapi/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fapi/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/fapi/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/modules/models/productTypeModel.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/modules/models/productTypeModel.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/modules/pages/admin-page/components/admin-page.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/modules/pages/admin-page/components/admin-page.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/modules/pages/catalog-page/components/catalog.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/modules/pages/catalog-page/components/catalog.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/modules/pages/catalog-page/components/catalog.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/modules/pages/catalog-page/components/catalog.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/modules/pages/catalog-page/components/catalog.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/modules/pages/catalog-page/components/catalog.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/modules/pages/company-page/components/company-page.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/modules/pages/company-page/components/company-page.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/modules/pages/company-page/components/company-page.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/modules/pages/company-page/components/company-page.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/modules/pages/customer-page/components/customer-page.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/modules/pages/customer-page/components/customer-page.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/modules/pages/customer-page/components/customer-page.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/modules/pages/customer-page/components/customer-page.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/modules/pages/product-page/components/product-page.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/modules/pages/product-page/components/product-page.component.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/modules/pages/product-page/components/product-page.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/modules/pages/product-page/components/product-page.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/modules/pages/product-page/components/product-page.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/modules/pages/product-page/components/product-page.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/modules/pages/sign-in/components/sign-in.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/modules/pages/sign-in/components/sign-in.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/services/customer.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/customer.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/services/impl/customer.service.impl.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/impl/customer.service.impl.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/services/wallet.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/wallet.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/services/impl/product.service.impl.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/impl/product.service.impl.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/services/product.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/product.service.ts" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/be/target/" />
     <ignored path="$PROJECT_DIR$/fapi/target/" />
@@ -90,100 +96,97 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/impl/SubscriptionServiceImpl.java">
+        <entry file="file://$PROJECT_DIR$/frontend/src/app/modules/pages/admin-page/components/admin-page.component.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="201">
-              <caret line="118" column="82" selection-start-line="118" selection-start-column="82" selection-end-line="118" selection-end-column="82" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/controller/ProductTypeController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/entity/RoleEnum.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/models/CustomerOrCompanyOrAdminOrErrorsModel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/impl/LogInInfDataServiceImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-343">
-              <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+            <state relative-caret-position="255">
+              <caret line="188" column="57" lean-forward="true" selection-start-line="188" selection-start-column="57" selection-end-line="188" selection-end-column="57" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#0#70#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/impl/SubscriptionServiceImpl.java">
+        <entry file="file://$PROJECT_DIR$/frontend/src/app/services/impl/company.service.impl.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="47" column="57" selection-start-line="47" selection-start-column="57" selection-end-line="47" selection-end-column="57" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="318">
+              <caret line="39" column="2" selection-start-line="39" selection-start-column="2" selection-end-line="39" selection-end-column="2" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/impl/ProductTypeDataServiceImpl.java">
+        <entry file="file://$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/controller/CompanyController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+            <state relative-caret-position="193">
+              <caret line="63" column="28" selection-start-line="63" selection-start-column="28" selection-end-line="63" selection-end-column="28" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/repository/SubscriptionRepository.java">
+        <entry file="file://$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/CompanyDataService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="38" column="102" selection-start-line="38" selection-start-column="102" selection-end-line="38" selection-end-column="102" />
+            <state relative-caret-position="289">
+              <caret line="20" column="9" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/impl/CompanyDataServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="301">
+              <caret line="114" column="16" selection-start-line="114" selection-start-column="16" selection-end-line="114" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/controller/CompanyController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="391">
+              <caret line="46" column="33" lean-forward="true" selection-start-line="46" selection-start-column="33" selection-end-line="46" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/CompanyService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="20" column="9" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/impl/CompanyServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="318">
+              <caret line="65" column="35" selection-start-line="65" selection-start-column="35" selection-end-line="65" selection-end-column="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/ProductService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="11" column="9" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/impl/ChargingServiceImpl.java">
+        <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/impl/ProductServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="50" column="99" selection-start-line="50" selection-start-column="99" selection-end-line="50" selection-end-column="99" />
+            <state relative-caret-position="162">
+              <caret line="77" column="16" selection-start-line="77" selection-start-column="16" selection-end-line="77" selection-end-column="16" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/repository/WalletRepository.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="14" column="55" selection-start-line="14" selection-start-column="38" selection-end-line="14" selection-end-column="55" />
             </state>
           </provider>
         </entry>
@@ -193,11 +196,11 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
-        <option value="CSS File" />
-        <option value="TypeScript File" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="CSS File" />
+        <option value="HTML File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -236,57 +239,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/CompanyService.java" />
-        <option value="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/repository/ProductRepository.java" />
-        <option value="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/ProductService.java" />
-        <option value="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/impl/ProductServiceImpl.java" />
-        <option value="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/impl/CompanyServiceImpl.java" />
-        <option value="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/controller/CompanyController.java" />
-        <option value="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/CompanyDataService.java" />
-        <option value="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/impl/CompanyDataServiceImpl.java" />
-        <option value="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/controller/ProductController.java" />
-        <option value="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/controller/WalletController.java" />
-        <option value="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/controller/SubscriptionController.java" />
-        <option value="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/controller/CompanyController.java" />
-        <option value="$PROJECT_DIR$/frontend/src/app/services/company.service.ts" />
-        <option value="$PROJECT_DIR$/frontend/src/app/services/impl/company.service.impl.ts" />
-        <option value="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/models/SubscriptionOrErrorsModel.java" />
-        <option value="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/models/CompanyModel.java" />
-        <option value="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/models/ProductModel.java" />
-        <option value="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/converter/ProductConverter.java" />
-        <option value="$PROJECT_DIR$/frontend/src/app/modules/models/productModel.ts" />
-        <option value="$PROJECT_DIR$/frontend/src/app/modules/pages/admin-page/components/admin-page.component.css" />
-        <option value="$PROJECT_DIR$/frontend/src/app/modules/pages/admin-page/components/admin-page.component.html" />
-        <option value="$PROJECT_DIR$/frontend/src/app/modules/pages/admin-page/components/admin-page.component.ts" />
-        <option value="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/models/CustomerModel.java" />
-        <option value="$PROJECT_DIR$/frontend/src/app/modules/pages/company-page/components/company-page.component.ts" />
-        <option value="$PROJECT_DIR$/frontend/src/app/services/wallet.service.ts" />
-        <option value="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/entity/WalletEntity.java" />
-        <option value="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/entity/WalletEntity.java" />
-        <option value="$PROJECT_DIR$/frontend/src/app/modules/pages/sign-in/components/sign-in.component.ts" />
-        <option value="$PROJECT_DIR$/frontend/src/app/modules/pages/product-page/components/product-page.component.html" />
-        <option value="$PROJECT_DIR$/frontend/src/app/modules/pages/customer-page/components/customer-page.component.css" />
-        <option value="$PROJECT_DIR$/frontend/src/app/modules/models/walletModel.ts" />
-        <option value="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/converter/WalletConverter.java" />
-        <option value="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/ChargingService.java" />
-        <option value="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/repository/CustomerRepository.java" />
-        <option value="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/repository/WalletRepository.java" />
         <option value="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/CustomerService.java" />
         <option value="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/SubscriptionService.java" />
         <option value="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/models/WalletModel.java" />
         <option value="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/CustomerDataService.java" />
-        <option value="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/impl/CustomerDataServiceImpl.java" />
         <option value="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/controller/CustomerController.java" />
         <option value="$PROJECT_DIR$/frontend/src/app/services/customer.service.ts" />
         <option value="$PROJECT_DIR$/frontend/src/app/services/impl/customer.service.impl.ts" />
-        <option value="$PROJECT_DIR$/frontend/src/app/modules/pages/customer-page/components/customer-page.component.html" />
         <option value="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/controller/CustomerController.java" />
         <option value="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/impl/CustomerServiceImpl.java" />
-        <option value="$PROJECT_DIR$/frontend/src/app/modules/pages/customer-page/components/customer-page.component.ts" />
-        <option value="$PROJECT_DIR$/frontend/src/app/modules/pages/product-page/components/product-page.component.ts" />
-        <option value="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/repository/SubscriptionRepository.java" />
         <option value="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/impl/SubscriptionServiceImpl.java" />
         <option value="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/impl/ChargingServiceImpl.java" />
+        <option value="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/repository/SubscriptionRepository.java" />
+        <option value="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/repository/ProductTypeRepository.java" />
+        <option value="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/repository/CompanyRepository.java" />
+        <option value="$PROJECT_DIR$/be/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/frontend/src/app/modules/layout/components/404/components/404.component.css" />
+        <option value="$PROJECT_DIR$/frontend/src/app/modules/layout/components/404/components/404.component.html" />
+        <option value="$PROJECT_DIR$/frontend/src/app/modules/layout/components/404/components/404.component.ts" />
+        <option value="$PROJECT_DIR$/frontend/src/app/modules/layout/components/404/404.module.ts" />
+        <option value="$PROJECT_DIR$/frontend/src/app/modules/layout/components/404/error-page.module.ts" />
+        <option value="$PROJECT_DIR$/frontend/src/app/modules/layout/components/404/components/error-page.component.html" />
+        <option value="$PROJECT_DIR$/frontend/src/app/modules/layout/components/404/components/error-page.component.ts" />
+        <option value="$PROJECT_DIR$/frontend/src/app/app.module.ts" />
+        <option value="$PROJECT_DIR$/frontend/src/app/modules/layout/components/404/components/error-page.component.css" />
+        <option value="$PROJECT_DIR$/frontend/src/app/modules/pages/product-page/components/product-page.component.css" />
+        <option value="$PROJECT_DIR$/frontend/src/app/modules/pages/product-page/components/product-page.component.html" />
+        <option value="$PROJECT_DIR$/frontend/src/app/modules/pages/product-page/components/product-page.component.ts" />
+        <option value="$PROJECT_DIR$/frontend/src/app/services/product.service.ts" />
+        <option value="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/impl/ProductServiceImpl.java" />
+        <option value="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/ProductService.java" />
+        <option value="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/controller/ProductController.java" />
+        <option value="$PROJECT_DIR$/frontend/src/app/modules/pages/admin-page/components/admin-page.component.html" />
+        <option value="$PROJECT_DIR$/frontend/src/app/modules/pages/customer-page/components/customer-page.component.ts" />
+        <option value="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/impl/CustomerDataServiceImpl.java" />
+        <option value="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/impl/CompanyDataServiceImpl.java" />
+        <option value="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/impl/LogInInfDataServiceImpl.java" />
+        <option value="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/impl/ProductTypeDataServiceImpl.java" />
+        <option value="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/impl/SubscriptionServiceImpl.java" />
+        <option value="$PROJECT_DIR$/frontend/src/app/modules/models/productTypeModel.ts" />
+        <option value="$PROJECT_DIR$/frontend/src/app/modules/pages/sign-in/components/sign-in.component.css" />
+        <option value="$PROJECT_DIR$/frontend/src/app/services/impl/product.service.impl.ts" />
+        <option value="$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/repository/ProductRepository.java" />
+        <option value="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/controller/ProductController.java" />
+        <option value="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/ProductDataService.java" />
+        <option value="$PROJECT_DIR$/frontend/src/app/modules/pages/catalog-page/components/catalog.component.html" />
+        <option value="$PROJECT_DIR$/frontend/src/app/modules/pages/catalog-page/components/catalog.component.css" />
+        <option value="$PROJECT_DIR$/frontend/src/app/modules/pages/catalog-page/components/catalog.component.ts" />
+        <option value="$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/impl/ProductDataServiceImpl.java" />
+        <option value="$PROJECT_DIR$/frontend/src/app/modules/pages/company-page/components/company-page.component.ts" />
+        <option value="$PROJECT_DIR$/frontend/src/app/modules/pages/company-page/components/company-page.component.html" />
+        <option value="$PROJECT_DIR$/frontend/src/app/modules/pages/customer-page/components/customer-page.component.html" />
       </list>
     </option>
   </component>
@@ -344,7 +347,39 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="PackagesPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Subscriptions" type="58d84e3e:PackageViewProjectNode" />
+              <item name="backend" type="616d4139:PackageViewModuleNode" />
+            </path>
+            <path>
+              <item name="Subscriptions" type="58d84e3e:PackageViewProjectNode" />
+              <item name="backend" type="616d4139:PackageViewModuleNode" />
+              <item name="com" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="Subscriptions" type="58d84e3e:PackageViewProjectNode" />
+              <item name="backend" type="616d4139:PackageViewModuleNode" />
+              <item name="com" type="1f31426a:PackageElementNode" />
+              <item name="artsykov.backend" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="Subscriptions" type="58d84e3e:PackageViewProjectNode" />
+              <item name="backend" type="616d4139:PackageViewModuleNode" />
+              <item name="com" type="1f31426a:PackageElementNode" />
+              <item name="artsykov.backend" type="1f31426a:PackageElementNode" />
+              <item name="repository" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="Subscriptions" type="58d84e3e:PackageViewProjectNode" />
+              <item name="fapi" type="616d4139:PackageViewModuleNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -451,14 +486,6 @@
             <path>
               <item name="Subscriptions" type="b2602c69:ProjectViewProjectNode" />
               <item name="Subscriptions" type="462c0819:PsiDirectoryNode" />
-              <item name="be" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Subscriptions" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Subscriptions" type="462c0819:PsiDirectoryNode" />
               <item name="fapi" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -519,6 +546,17 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="fapi" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+              <item name="handler" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Subscriptions" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Subscriptions" type="462c0819:PsiDirectoryNode" />
+              <item name="fapi" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="fapi" type="462c0819:PsiDirectoryNode" />
               <item name="converter" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -565,14 +603,6 @@
             <path>
               <item name="Subscriptions" type="b2602c69:ProjectViewProjectNode" />
               <item name="Subscriptions" type="462c0819:PsiDirectoryNode" />
-              <item name="fapi" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Subscriptions" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Subscriptions" type="462c0819:PsiDirectoryNode" />
               <item name="frontend" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -748,16 +778,6 @@
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="modules" type="462c0819:PsiDirectoryNode" />
               <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="home-page" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Subscriptions" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Subscriptions" type="462c0819:PsiDirectoryNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
               <item name="product-page" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -769,27 +789,6 @@
               <item name="modules" type="462c0819:PsiDirectoryNode" />
               <item name="pages" type="462c0819:PsiDirectoryNode" />
               <item name="product-page" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Subscriptions" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Subscriptions" type="462c0819:PsiDirectoryNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="registration-page" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Subscriptions" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Subscriptions" type="462c0819:PsiDirectoryNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="registration-page" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -832,13 +831,6 @@
             </path>
             <path>
               <item name="Subscriptions" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Subscriptions" type="462c0819:PsiDirectoryNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Subscriptions" type="b2602c69:ProjectViewProjectNode" />
               <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
             </path>
             <path>
@@ -850,7 +842,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -863,7 +855,7 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1576799870125" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1576944700606" />
     <property name="database.console.LAST_STATE" value="false" />
     <property name="editor.config.ad.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -904,7 +896,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.BackendApplication">
+  <component name="RunManager" selected="Application.FapiApplication">
     <configuration name="BackendApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.artsykov.backend.BackendApplication" />
       <module name="backend" />
@@ -995,8 +987,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.BackendApplication" />
         <item itemvalue="Application.FapiApplication" />
+        <item itemvalue="Application.BackendApplication" />
         <item itemvalue="Maven.backend [clean,install]" />
       </list>
     </recent_temporary>
@@ -1082,12 +1074,16 @@
       <workItem from="1575674338293" duration="3729000" />
       <workItem from="1575726052557" duration="115000" />
       <workItem from="1575726335386" duration="1850000" />
-      <workItem from="1575917490908" duration="194335000" />
+      <workItem from="1575917490908" duration="204598000" />
+      <workItem from="1576840941722" duration="23000" />
+      <workItem from="1576840978109" duration="2228000" />
+      <workItem from="1576844596688" duration="309000" />
+      <workItem from="1576855485969" duration="27314000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="733655000" />
+    <option name="totallyTimeSpent" value="773792000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1102,7 +1098,7 @@
     <frame x="-3" y="-3" width="1542" height="870" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.63429755" visible="true" weight="0.21409395" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.63429755" visible="true" weight="0.2261745" />
       <window_info id="Structure" order="1" sideWeight="0.36570248" side_tool="true" weight="0.21409395" />
       <window_info id="Designer" order="2" />
       <window_info id="Capture Tool" order="3" />
@@ -1112,14 +1108,14 @@
       <window_info id="Persistence" order="7" sideWeight="0.3659004" side_tool="true" weight="0.23557048" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32918397" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49798658" visible="true" weight="0.3305671" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49798658" weight="0.22268327" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49798658" weight="0.4218534" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49932885" weight="0.32918397" />
       <window_info anchor="bottom" id="Spring" order="7" sideWeight="0.49932885" weight="0.32918397" />
       <window_info anchor="bottom" id="Database Console" order="8" weight="0.3297587" />
-      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.4966443" weight="0.2780083" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.4966443" visible="true" weight="0.29045644" />
       <window_info anchor="bottom" id="Docker" order="10" show_stripe_button="false" />
       <window_info anchor="bottom" id="CheckStyle" order="11" weight="0.32918397" />
       <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.50201344" side_tool="true" weight="0.35408023" />
@@ -1230,13 +1226,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/impl/LogInInfDataServiceImpl.java</url>
-          <line>64</line>
+          <line>62</line>
           <properties />
           <option name="timeStamp" value="120" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/controller/ProductController.java</url>
-          <line>72</line>
+          <line>84</line>
           <properties />
           <option name="timeStamp" value="122" />
         </line-breakpoint>
@@ -1264,6 +1260,18 @@
           <properties />
           <option name="timeStamp" value="126" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/controller/ProductController.java</url>
+          <line>47</line>
+          <properties />
+          <option name="timeStamp" value="130" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/impl/ProductServiceImpl.java</url>
+          <line>90</line>
+          <properties />
+          <option name="timeStamp" value="131" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
@@ -1282,292 +1290,17 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/entity/SubscriptionEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="16" column="7" lean-forward="true" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/controller/WalletController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="22" column="47" selection-start-line="22" selection-start-column="47" selection-end-line="22" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/impl/WalletDataServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="43" column="5" lean-forward="true" selection-start-line="43" selection-start-column="5" selection-end-line="43" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/app/modules/pages/company-page/components/company-page.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="45" column="43" selection-start-line="45" selection-start-column="43" selection-end-line="45" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/app/services/impl/product.service.impl.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="48" column="2" selection-start-line="48" selection-start-column="2" selection-end-line="48" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/controller/ProductController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="372">
-          <caret line="79" column="35" lean-forward="true" selection-start-line="79" selection-start-column="35" selection-end-line="79" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/ProductDataService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="23" column="9" selection-start-line="23" selection-start-column="9" selection-end-line="23" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/impl/ProductDataServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="87" column="16" selection-start-line="87" selection-start-column="16" selection-end-line="87" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/controller/ProductController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="522">
-          <caret line="51" column="34" lean-forward="true" selection-start-line="51" selection-start-column="34" selection-end-line="51" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/impl/ProductServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="68" column="16" selection-start-line="68" selection-start-column="16" selection-end-line="68" selection-end-column="16" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2725#2726#0" expanded="true" />
-            <element signature="e#2787#2788#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/ChargingService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" selection-start-line="2" selection-end-line="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/impl/ProductTypeServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/repository/SubscriptionRepository.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/models/WalletModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="15" column="4" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/CustomerDataService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="24" column="61" selection-start-line="24" selection-start-column="61" selection-end-line="24" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/impl/CustomerDataServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-683">
-          <caret line="72" column="9" lean-forward="true" selection-start-line="72" selection-start-column="9" selection-end-line="72" selection-end-column="9" />
+          <caret line="16" column="17" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/controller/CustomerController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="59" column="41" selection-start-line="59" selection-start-column="26" selection-end-line="59" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/app/modules/pages/catalog-page/product/components/product.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#55#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/app/modules/pages/customer-page/components/customer-page.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="58" selection-start-line="18" selection-start-column="58" selection-end-line="18" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/controller/LogInInfController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="uml://MAVEN/com.arcykov:backend:0.0.1-SNAPSHOT">
-      <provider selected="true" editor-type-id="UmlEditorProvider">
-        <state>
-          <ID>MAVEN</ID>
-          <OriginalElement>com.arcykov:backend:0.0.1-SNAPSHOT</OriginalElement>
-          <nodes>
-            <node x="" y="">com.arcykov:backend:0.0.1-SNAPSHOT</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-data-jpa:jar:2.0.5.RELEASE</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-data-jpa:jar:2.0.5.RELEASE/org.springframework.boot:spring-boot-starter:jar:2.0.5.RELEASE</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-data-jpa:jar:2.0.5.RELEASE/org.springframework.boot:spring-boot-starter:jar:2.0.5.RELEASE/org.springframework.boot:spring-boot:jar:2.0.5.RELEASE</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-data-jpa:jar:2.0.5.RELEASE/org.springframework.boot:spring-boot-starter:jar:2.0.5.RELEASE/org.springframework.boot:spring-boot-autoconfigure:jar:2.0.5.RELEASE</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-data-jpa:jar:2.0.5.RELEASE/org.springframework.boot:spring-boot-starter:jar:2.0.5.RELEASE/org.springframework.boot:spring-boot-starter-logging:jar:2.0.5.RELEASE</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-data-jpa:jar:2.0.5.RELEASE/org.springframework.boot:spring-boot-starter:jar:2.0.5.RELEASE/org.springframework.boot:spring-boot-starter-logging:jar:2.0.5.RELEASE/ch.qos.logback:logback-classic:jar:1.2.3</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-data-jpa:jar:2.0.5.RELEASE/org.springframework.boot:spring-boot-starter:jar:2.0.5.RELEASE/org.springframework.boot:spring-boot-starter-logging:jar:2.0.5.RELEASE/ch.qos.logback:logback-classic:jar:1.2.3/ch.qos.logback:logback-core:jar:1.2.3</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-data-jpa:jar:2.0.5.RELEASE/org.springframework.boot:spring-boot-starter:jar:2.0.5.RELEASE/org.springframework.boot:spring-boot-starter-logging:jar:2.0.5.RELEASE/org.apache.logging.log4j:log4j-to-slf4j:jar:2.10.0</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-data-jpa:jar:2.0.5.RELEASE/org.springframework.boot:spring-boot-starter:jar:2.0.5.RELEASE/org.springframework.boot:spring-boot-starter-logging:jar:2.0.5.RELEASE/org.apache.logging.log4j:log4j-to-slf4j:jar:2.10.0/org.apache.logging.log4j:log4j-api:jar:2.10.0</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-data-jpa:jar:2.0.5.RELEASE/org.springframework.boot:spring-boot-starter:jar:2.0.5.RELEASE/org.springframework.boot:spring-boot-starter-logging:jar:2.0.5.RELEASE/org.slf4j:jul-to-slf4j:jar:1.7.25</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-data-jpa:jar:2.0.5.RELEASE/org.springframework.boot:spring-boot-starter:jar:2.0.5.RELEASE/javax.annotation:javax.annotation-api:jar:1.3.2</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-data-jpa:jar:2.0.5.RELEASE/org.springframework.boot:spring-boot-starter:jar:2.0.5.RELEASE/org.yaml:snakeyaml:jar:1.19</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-data-jpa:jar:2.0.5.RELEASE/org.springframework.boot:spring-boot-starter-aop:jar:2.0.5.RELEASE</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-data-jpa:jar:2.0.5.RELEASE/org.springframework.boot:spring-boot-starter-aop:jar:2.0.5.RELEASE/org.springframework:spring-aop:jar:5.0.9.RELEASE</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-data-jpa:jar:2.0.5.RELEASE/org.springframework.boot:spring-boot-starter-aop:jar:2.0.5.RELEASE/org.aspectj:aspectjweaver:jar:1.8.13</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-data-jpa:jar:2.0.5.RELEASE/org.springframework.boot:spring-boot-starter-jdbc:jar:2.0.5.RELEASE</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-data-jpa:jar:2.0.5.RELEASE/org.springframework.boot:spring-boot-starter-jdbc:jar:2.0.5.RELEASE/com.zaxxer:HikariCP:jar:2.7.9</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-data-jpa:jar:2.0.5.RELEASE/org.springframework.boot:spring-boot-starter-jdbc:jar:2.0.5.RELEASE/org.springframework:spring-jdbc:jar:5.0.9.RELEASE</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-data-jpa:jar:2.0.5.RELEASE/javax.transaction:javax.transaction-api:jar:1.2</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-data-jpa:jar:2.0.5.RELEASE/org.hibernate:hibernate-core:jar:5.2.17.Final</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-data-jpa:jar:2.0.5.RELEASE/org.hibernate:hibernate-core:jar:5.2.17.Final/org.jboss.logging:jboss-logging:jar:3.3.2.Final</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-data-jpa:jar:2.0.5.RELEASE/org.hibernate:hibernate-core:jar:5.2.17.Final/org.hibernate.javax.persistence:hibernate-jpa-2.1-api:jar:1.0.2.Final</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-data-jpa:jar:2.0.5.RELEASE/org.hibernate:hibernate-core:jar:5.2.17.Final/org.javassist:javassist:jar:3.22.0-GA</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-data-jpa:jar:2.0.5.RELEASE/org.hibernate:hibernate-core:jar:5.2.17.Final/antlr:antlr:jar:2.7.7</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-data-jpa:jar:2.0.5.RELEASE/org.hibernate:hibernate-core:jar:5.2.17.Final/org.jboss:jandex:jar:2.0.3.Final</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-data-jpa:jar:2.0.5.RELEASE/org.hibernate:hibernate-core:jar:5.2.17.Final/com.fasterxml:classmate:jar:1.3.4</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-data-jpa:jar:2.0.5.RELEASE/org.hibernate:hibernate-core:jar:5.2.17.Final/dom4j:dom4j:jar:1.6.1</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-data-jpa:jar:2.0.5.RELEASE/org.hibernate:hibernate-core:jar:5.2.17.Final/org.hibernate.common:hibernate-commons-annotations:jar:5.0.1.Final</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-data-jpa:jar:2.0.5.RELEASE/org.springframework.data:spring-data-jpa:jar:2.0.10.RELEASE</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-data-jpa:jar:2.0.5.RELEASE/org.springframework.data:spring-data-jpa:jar:2.0.10.RELEASE/org.springframework.data:spring-data-commons:jar:2.0.10.RELEASE</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-data-jpa:jar:2.0.5.RELEASE/org.springframework.data:spring-data-jpa:jar:2.0.10.RELEASE/org.springframework:spring-orm:jar:5.0.9.RELEASE</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-data-jpa:jar:2.0.5.RELEASE/org.springframework.data:spring-data-jpa:jar:2.0.10.RELEASE/org.springframework:spring-context:jar:5.0.9.RELEASE</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-data-jpa:jar:2.0.5.RELEASE/org.springframework.data:spring-data-jpa:jar:2.0.10.RELEASE/org.springframework:spring-tx:jar:5.0.9.RELEASE</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-data-jpa:jar:2.0.5.RELEASE/org.springframework.data:spring-data-jpa:jar:2.0.10.RELEASE/org.springframework:spring-beans:jar:5.0.9.RELEASE</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-data-jpa:jar:2.0.5.RELEASE/org.springframework.data:spring-data-jpa:jar:2.0.10.RELEASE/org.slf4j:slf4j-api:jar:1.7.25</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-data-jpa:jar:2.0.5.RELEASE/org.springframework:spring-aspects:jar:5.0.9.RELEASE</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-web:jar:2.0.5.RELEASE</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-web:jar:2.0.5.RELEASE/org.springframework.boot:spring-boot-starter-json:jar:2.0.5.RELEASE</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-web:jar:2.0.5.RELEASE/org.springframework.boot:spring-boot-starter-json:jar:2.0.5.RELEASE/com.fasterxml.jackson.core:jackson-databind:jar:2.9.6</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-web:jar:2.0.5.RELEASE/org.springframework.boot:spring-boot-starter-json:jar:2.0.5.RELEASE/com.fasterxml.jackson.core:jackson-databind:jar:2.9.6/com.fasterxml.jackson.core:jackson-annotations:jar:2.9.0</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-web:jar:2.0.5.RELEASE/org.springframework.boot:spring-boot-starter-json:jar:2.0.5.RELEASE/com.fasterxml.jackson.core:jackson-databind:jar:2.9.6/com.fasterxml.jackson.core:jackson-core:jar:2.9.6</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-web:jar:2.0.5.RELEASE/org.springframework.boot:spring-boot-starter-json:jar:2.0.5.RELEASE/com.fasterxml.jackson.datatype:jackson-datatype-jdk8:jar:2.9.6</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-web:jar:2.0.5.RELEASE/org.springframework.boot:spring-boot-starter-json:jar:2.0.5.RELEASE/com.fasterxml.jackson.datatype:jackson-datatype-jsr310:jar:2.9.6</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-web:jar:2.0.5.RELEASE/org.springframework.boot:spring-boot-starter-json:jar:2.0.5.RELEASE/com.fasterxml.jackson.module:jackson-module-parameter-names:jar:2.9.6</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-web:jar:2.0.5.RELEASE/org.springframework.boot:spring-boot-starter-tomcat:jar:2.0.5.RELEASE</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-web:jar:2.0.5.RELEASE/org.springframework.boot:spring-boot-starter-tomcat:jar:2.0.5.RELEASE/org.apache.tomcat.embed:tomcat-embed-core:jar:8.5.34</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-web:jar:2.0.5.RELEASE/org.springframework.boot:spring-boot-starter-tomcat:jar:2.0.5.RELEASE/org.apache.tomcat.embed:tomcat-embed-el:jar:8.5.34</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-web:jar:2.0.5.RELEASE/org.springframework.boot:spring-boot-starter-tomcat:jar:2.0.5.RELEASE/org.apache.tomcat.embed:tomcat-embed-websocket:jar:8.5.34</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-web:jar:2.0.5.RELEASE/org.hibernate.validator:hibernate-validator:jar:6.0.12.Final</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-web:jar:2.0.5.RELEASE/org.hibernate.validator:hibernate-validator:jar:6.0.12.Final/javax.validation:validation-api:jar:2.0.1.Final</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-web:jar:2.0.5.RELEASE/org.springframework:spring-web:jar:5.0.9.RELEASE</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-web:jar:2.0.5.RELEASE/org.springframework:spring-webmvc:jar:5.0.9.RELEASE</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-web:jar:2.0.5.RELEASE/org.springframework:spring-webmvc:jar:5.0.9.RELEASE/org.springframework:spring-expression:jar:5.0.9.RELEASE</node>
-            <node x="" y="">mysql:mysql-connector-java:jar:5.1.47</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-test:jar:2.0.5.RELEASE</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-test:jar:2.0.5.RELEASE/org.springframework.boot:spring-boot-test:jar:2.0.5.RELEASE</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-test:jar:2.0.5.RELEASE/org.springframework.boot:spring-boot-test-autoconfigure:jar:2.0.5.RELEASE</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-test:jar:2.0.5.RELEASE/com.jayway.jsonpath:json-path:jar:2.4.0</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-test:jar:2.0.5.RELEASE/com.jayway.jsonpath:json-path:jar:2.4.0/net.minidev:json-smart:jar:2.3</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-test:jar:2.0.5.RELEASE/com.jayway.jsonpath:json-path:jar:2.4.0/net.minidev:json-smart:jar:2.3/net.minidev:accessors-smart:jar:1.2</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-test:jar:2.0.5.RELEASE/com.jayway.jsonpath:json-path:jar:2.4.0/net.minidev:json-smart:jar:2.3/net.minidev:accessors-smart:jar:1.2/org.ow2.asm:asm:jar:5.0.4</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-test:jar:2.0.5.RELEASE/junit:junit:jar:4.12</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-test:jar:2.0.5.RELEASE/org.assertj:assertj-core:jar:3.9.1</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-test:jar:2.0.5.RELEASE/org.mockito:mockito-core:jar:2.15.0</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-test:jar:2.0.5.RELEASE/org.mockito:mockito-core:jar:2.15.0/net.bytebuddy:byte-buddy:jar:1.7.11</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-test:jar:2.0.5.RELEASE/org.mockito:mockito-core:jar:2.15.0/net.bytebuddy:byte-buddy-agent:jar:1.7.11</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-test:jar:2.0.5.RELEASE/org.mockito:mockito-core:jar:2.15.0/org.objenesis:objenesis:jar:2.6</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-test:jar:2.0.5.RELEASE/org.hamcrest:hamcrest-core:jar:1.3</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-test:jar:2.0.5.RELEASE/org.hamcrest:hamcrest-library:jar:1.3</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-test:jar:2.0.5.RELEASE/org.skyscreamer:jsonassert:jar:1.5.0</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-test:jar:2.0.5.RELEASE/org.skyscreamer:jsonassert:jar:1.5.0/com.vaadin.external.google:android-json:jar:0.0.20131108.vaadin1</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-test:jar:2.0.5.RELEASE/org.springframework:spring-core:jar:5.0.9.RELEASE</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-test:jar:2.0.5.RELEASE/org.springframework:spring-core:jar:5.0.9.RELEASE/org.springframework:spring-jcl:jar:5.0.9.RELEASE</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-test:jar:2.0.5.RELEASE/org.springframework:spring-test:jar:5.0.9.RELEASE</node>
-            <node x="" y="">org.springframework.boot:spring-boot-starter-test:jar:2.0.5.RELEASE/org.xmlunit:xmlunit-core:jar:2.5.1</node>
-            <node x="" y="">org.projectlombok:lombok:jar:1.18.10</node>
-            <node x="" y="">javax.persistence:persistence-api:jar:1.0.2</node>
-          </nodes>
-          <notes />
-          <edges />
-          <settings layout="Hierarchic Group" zoom="0.19607843137254904" x="2488.9999999999995" y="589.5" />
-          <SelectedNodes />
-          <Categories />
-          <VISIBILITY>All</VISIBILITY>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/ProductService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="21" column="9" selection-start-line="21" selection-start-column="9" selection-end-line="21" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/CustomerService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="20" column="32" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/models/SubscriptionModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="12" column="16" lean-forward="true" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/converter/SubscriptionConverter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="31" column="43" selection-start-line="31" selection-start-column="43" selection-end-line="31" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/app/services/impl/customer.service.impl.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="395">
-          <caret line="48" selection-start-line="48" selection-end-line="48" />
-          <folding>
-            <element signature="e#0#52#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/app/services/customer.service.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="81" selection-start-line="20" selection-start-column="81" selection-end-line="20" selection-end-column="81" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/app/modules/pages/customer-page/customer-page.module.ts">
+    <entry file="file://$PROJECT_DIR$/frontend/src/app/modules/pages/company-page/company-page.module.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <folding>
@@ -1576,160 +1309,84 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/SubscriptionService.java">
+    <entry file="file://$PROJECT_DIR$/frontend/src/app/services/productType.service.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="14" column="9" selection-start-line="14" selection-start-column="9" selection-end-line="14" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/controller/SubscriptionController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="35" selection-start-line="35" selection-end-line="35" />
+        <state>
           <folding>
-            <element signature="e#1734#1735#0" expanded="true" />
+            <element signature="e#0#32#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/app/modules/pages/customer-page/components/customer-page.component.ts">
+    <entry file="file://$PROJECT_DIR$/frontend/src/app/services/product.service.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="283">
-          <caret line="193" column="40" selection-start-line="193" selection-start-column="40" selection-end-line="193" selection-end-column="40" />
+        <state relative-caret-position="374">
+          <caret line="22" column="91" lean-forward="true" selection-start-line="22" selection-start-column="91" selection-end-line="22" selection-end-column="91" />
           <folding>
-            <element signature="e#0#70#0" expanded="true" />
+            <element signature="e#0#32#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/app/modules/pages/product-page/components/product-page.component.ts">
+    <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/impl/SubscriptionServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="126" column="7" selection-start-line="126" selection-start-column="7" selection-end-line="126" selection-end-column="7" />
+        <state relative-caret-position="463">
+          <caret line="118" column="82" selection-start-line="118" selection-start-column="82" selection-end-line="118" selection-end-column="82" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/app/modules/pages/company-page/components/company-page.component.css">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/app/modules/models/subscriptionModel.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="19" lean-forward="true" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/app/modules/models/productModel.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="19" lean-forward="true" selection-start-line="12" selection-start-column="19" selection-end-line="12" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/impl/ChargingServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-121">
+          <caret line="35" column="56" lean-forward="true" selection-start-line="35" selection-start-column="56" selection-end-line="35" selection-end-column="56" />
           <folding>
-            <element signature="e#0#96#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/app/modules/pages/company-page/components/company-page.component.ts">
+    <entry file="file://$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/models/ProductPageModel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1281">
-          <caret line="195" column="61" selection-start-line="195" selection-start-column="61" selection-end-line="195" selection-end-column="61" />
-          <folding>
-            <element signature="e#0#70#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/impl/WalletServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="29" column="34" selection-start-line="29" selection-start-column="34" selection-end-line="29" selection-end-column="34" />
-          <folding>
-            <element signature="e#485#486#0" expanded="true" />
-            <element signature="e#543#544#0" expanded="true" />
-            <element signature="e#749#750#0" expanded="true" />
-            <element signature="e#807#808#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/repository/CompanyRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+        <state relative-caret-position="136">
+          <caret line="11" column="5" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/repository/ProductTypeRepository.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/repository/ProductRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="13" column="17" selection-start-line="13" selection-start-column="17" selection-end-line="13" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/repository/CustomerRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="19" column="35" selection-start-line="19" selection-start-column="35" selection-end-line="19" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/repository/LogInInfRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="9" column="30" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/impl/CustomerServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="729">
-          <caret line="82" column="43" selection-start-line="82" selection-start-column="43" selection-end-line="82" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/controller/CustomerController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="39" column="5" lean-forward="true" selection-start-line="39" selection-start-column="5" selection-end-line="39" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/impl/CompanyServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="850">
-          <caret line="65" column="54" selection-start-line="65" selection-start-column="54" selection-end-line="65" selection-end-column="54" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/controller/ProductTypeController.java">
-      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
-          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+          <caret line="8" column="50" selection-start-line="8" selection-start-column="50" selection-end-line="8" selection-end-column="50" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/entity/RoleEnum.java">
+    <entry file="file://$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/impl/CustomerDataServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/models/CustomerOrCompanyOrAdminOrErrorsModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        <state relative-caret-position="66">
+          <caret line="70" column="44" lean-forward="true" selection-start-line="70" selection-start-column="44" selection-end-line="70" selection-end-column="44" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/impl/LogInInfDataServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-343">
-          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/impl/SubscriptionServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="47" column="57" selection-start-line="47" selection-start-column="57" selection-end-line="47" selection-end-column="57" />
+        <state relative-caret-position="374">
+          <caret line="37" selection-start-line="37" selection-end-line="37" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1738,36 +1395,284 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/impl/ProductTypeDataServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+        <state relative-caret-position="391">
+          <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/repository/WalletRepository.java">
+    <entry file="file://$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/impl/SubscriptionServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="14" column="55" selection-start-line="14" selection-start-column="38" selection-end-line="14" selection-end-column="55" />
+        <state relative-caret-position="1292">
+          <caret line="94" column="31" selection-start-line="94" selection-start-column="31" selection-end-line="94" selection-end-column="31" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/impl/SubscriptionServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/impl/WalletDataServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="118" column="82" selection-start-line="118" selection-start-column="82" selection-end-line="118" selection-end-column="82" />
+        <state relative-caret-position="34">
+          <caret line="2" column="7" lean-forward="true" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/repository/SubscriptionRepository.java">
+    <entry file="file://$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/config/MvcConfig.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="38" column="102" selection-start-line="38" selection-start-column="102" selection-end-line="38" selection-end-column="102" />
+        <state relative-caret-position="102">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/impl/ChargingServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/frontend/src/app/modules/pages/catalog-page/product/components/product.component.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/app/modules/models/productTypeModel.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/app/modules/pages/sign-in/components/sign-in.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="32" column="8" lean-forward="true" selection-start-line="32" selection-start-column="8" selection-end-line="32" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/app/modules/pages/sign-in/components/sign-in.component.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
-          <caret line="50" column="99" selection-start-line="50" selection-start-column="99" selection-end-line="50" selection-end-column="99" />
+          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/app/modules/footer/components/footer.component.ts">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/app/modules/footer/components/footer.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="30" lean-forward="true" selection-start-line="1" selection-start-column="24" selection-end-line="1" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/app/modules/pages/admin-page/components/admin-page.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="59" column="65" lean-forward="true" selection-start-line="59" selection-start-column="8" selection-end-line="59" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/config/WebSecurityConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-118">
+          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/controller/CustomerController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-255">
+          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/controller/ProductController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="49" column="5" lean-forward="true" selection-start-line="39" selection-start-column="2" selection-end-line="49" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/repository/ProductRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="28" column="32" selection-start-line="28" selection-start-column="32" selection-end-line="28" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/app/services/impl/AuthInterceptor.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-255">
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/app/services/impl/app.initialiser.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1">
+          <folding>
+            <element signature="e#0#60#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/controller/ProductController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="52" column="122" selection-start-line="52" selection-start-column="122" selection-end-line="52" selection-end-column="122" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/ProductDataService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="293">
+          <caret line="23" column="109" selection-start-line="23" selection-start-column="109" selection-end-line="23" selection-end-column="109" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/app/services/impl/product.service.impl.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="79" column="66" lean-forward="true" selection-start-line="79" selection-start-column="46" selection-end-line="79" selection-end-column="66" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/app/modules/pages/catalog-page/components/catalog.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="76" column="29" lean-forward="true" selection-start-line="76" selection-start-column="29" selection-end-line="76" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/app/modules/pages/catalog-page/components/catalog.component.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="18" selection-start-line="12" selection-start-column="18" selection-end-line="12" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/app/modules/pages/catalog-page/components/catalog.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret line="105" column="51" selection-start-line="105" selection-start-column="51" selection-end-line="105" selection-end-column="51" />
+          <folding>
+            <element signature="e#0#59#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/impl/ProductDataServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="49" column="29" lean-forward="true" selection-start-line="49" selection-start-column="29" selection-end-line="49" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/app/modules/pages/company-page/components/company-page.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="383">
+          <caret line="322" column="18" lean-forward="true" selection-start-line="322" selection-start-column="18" selection-end-line="322" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#70#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/app/modules/pages/company-page/components/company-page.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="160" column="22" lean-forward="true" selection-start-line="160" selection-start-column="22" selection-end-line="160" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/app/modules/pages/customer-page/components/customer-page.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="139" column="52" selection-start-line="139" selection-start-column="30" selection-end-line="139" selection-end-column="52" />
+          <folding>
+            <element signature="e#0#70#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/app/modules/pages/customer-page/components/customer-page.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="41" column="21" selection-start-line="41" selection-start-column="21" selection-end-line="41" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/app/modules/pages/admin-page/components/admin-page.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="188" column="57" lean-forward="true" selection-start-line="188" selection-start-column="57" selection-end-line="188" selection-end-column="57" />
+          <folding>
+            <element signature="e#0#70#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/app/services/impl/company.service.impl.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="318">
+          <caret line="39" column="2" selection-start-line="39" selection-start-column="2" selection-end-line="39" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/controller/CompanyController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="63" column="28" selection-start-line="63" selection-start-column="28" selection-end-line="63" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/CompanyDataService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="20" column="9" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fapi/src/main/java/com/artsykov/fapi/service/impl/CompanyDataServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="301">
+          <caret line="114" column="16" selection-start-line="114" selection-start-column="16" selection-end-line="114" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/controller/CompanyController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="46" column="33" lean-forward="true" selection-start-line="46" selection-start-column="33" selection-end-line="46" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/CompanyService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="20" column="9" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/impl/CompanyServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="318">
+          <caret line="65" column="35" selection-start-line="65" selection-start-column="35" selection-end-line="65" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/ProductService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="11" column="9" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/be/src/main/java/com/artsykov/backend/service/impl/ProductServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="77" column="16" selection-start-line="77" selection-start-column="16" selection-end-line="77" selection-end-column="16" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

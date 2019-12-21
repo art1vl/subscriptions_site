@@ -1529,6 +1529,7 @@
       <RefSchemaName>backend</RefSchemaName>
       <RefTableName>product</RefTableName>
       <RefColNames>id_product</RefColNames>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
     <foreign-key id="361" parent="284" name="fk_id_costumer_subscr">
       <ColNames>id_customer</ColNames>
@@ -1574,6 +1575,7 @@
     <column id="368" parent="285" name="debt">
       <Position>7</Position>
       <DataType>int(11)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
     <index id="369" parent="285" name="id_UNIQUE">

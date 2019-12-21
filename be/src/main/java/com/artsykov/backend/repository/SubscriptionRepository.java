@@ -31,8 +31,7 @@ public interface SubscriptionRepository extends CrudRepository<SubscriptionEntit
                                                                                     Date nextPayDate,
                                                                                     byte status);
 
-    @Query(value = "SELECT id_subscription, subscription.id_product, id_customer, start_subscript_date," +
-            " subscription.is_active, next_pay_date FROM subscription JOIN product on" +
+    @Query(value = "SELECT subscription.* FROM subscription JOIN product on" +
             " subscription.id_product = product.id_product WHERE subscription.is_active = ?1 and" +
             " product.is_active = 1 and subscription.id_customer = ?2", nativeQuery=true)
     List<SubscriptionEntity> findAllByCustomerByIdCustomerAndIsActive(@Param("subscription.is_active") byte status,

@@ -29,7 +29,7 @@ public class ProductTypeDataServiceImpl implements ProductTypeDataService {
         ProductTypeEntity[] productTypeEntities = restTemplate.getForObject(backendServerUrl + "/api/product/type/", ProductTypeEntity[].class);
         List<ProductTypeEntity> productTypeEntityList = new ArrayList<>(Arrays.asList(productTypeEntities));
         return productTypeEntityList.stream()
-                                    .map(p -> productTypeConverter.convertFromBackToFront(p))
-                                    .collect(Collectors.toList());
+                .map(p -> productTypeConverter.convertFromBackToFront(p))
+                .collect(Collectors.toList());
     }
 }

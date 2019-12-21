@@ -78,12 +78,13 @@ export class CompanyPageComponent implements OnInit, OnDestroy {
       ]),
       "description": new FormControl("", [
         Validators.required,
-        Validators.pattern('^[A-Z \'\\-.,:;a-z0-9]+$'),
+        Validators.pattern('^[A-Za-z0-9]{1}[A-Z \'\\-.,:;a-z0-9]+$'),
         Validators.maxLength(500),
       ]),
+      "file": new FormControl(),
       "cost": new FormControl("", [
         Validators.required,
-        Validators.pattern('^[1-9][0-9]+$'),
+        Validators.pattern('^[1-9]{1}|[1-9][0-9]+$'),
       ])
     });
     this.walletForm = new FormGroup({
@@ -107,7 +108,7 @@ export class CompanyPageComponent implements OnInit, OnDestroy {
     this.withdrawForm = new FormGroup({
       "number": new FormControl("", [
         Validators.required,
-        Validators.pattern('^[1-9]{1}[0-9]*$'),
+        Validators.pattern('^[1-9]{1}|[1-9][0-9]+$'),
       ])
     })
   }

@@ -1,79 +1,102 @@
 <div class="wrapper">
   <div class="content">
-<div class="background">
-  <div class="row">
-    <div class="side">
-      <div>
-        <form [formGroup]="searchForm">
-          <div class="form-row">
-            <div class="form-group">
-              <input type="text" class="form-control" id="searchQueryByName" placeholder="Search in catalog by name">
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <input type="text" class="form-control" id="searchQueryByCompany"
-                     placeholder="Search in catalog by company">
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="minPrice">Min price</label>
-              <input type="text" class="form-control" id="minPrice" placeholder="min">
-            </div>
-            <div class="form-group col-md-6">
-              <label for="maxPrice">Max price</label>
-              <input type="text" class="form-control" id="maxPrice" placeholder="max">
-            </div>
-          </div>
-          <!--<div class="col-xs-12 col-12 col-md-4 form-group">-->
-          <!--<input type="text"-->
-          <!--placeholder="Daterangepicker"-->
-          <!--class="form-control"-->
-          <!--bsDaterangepicker-->
-          <!--[bsConfig]="{ adaptivePosition: true }">-->
-          <!--</div>-->
-          <div class="form-row">
-            <div class="form-group">
-              <label>Type</label>
-              <select id="inputType" class="form-control" #type>
-                <option *ngFor="let type of typeArray">{{type.typeName}}</option>
-              </select>
-            </div>
-          </div>
-          <div class="search">
-            <button type="submit" class="btn btn-primary">Search</button>
-          </div>
-          <!--<div class="form-row">-->
-          <!--<div class="form-group">-->
-          <!--<label>ProductModel name</label>-->
-          <!--<input type="text" formControlName="productName"-->
-          <!--name="productName" #productName>-->
-          <!--<div class="alert alert-danger"-->
-          <!--*ngIf="searchForm.controls['productName'].invalid && searchForm.controls['productName'].touched">-->
-          <!--Incorrect product name-->
-          <!--</div>-->
-          <!--</div>-->
-        </form>
-      </div>
-    </div>
-    <div class="main">
-      <div class="flex-container">
-        <div *ngFor="let product of products">
-          <app-catalog-product [product]="product"></app-catalog-product>
-        </div>
-      </div>
+    <div class="background">
       <div class="row">
-        <div class="col-xs-12 col-12">
-          <div class="pagin">
-            <pagination [totalItems]="totalProducts" [itemsPerPage]="8" (pageChanged)="loadNewPageProduct(pagination)"
-                        #pagination></pagination>
+        <div class="side">
+          <form [formGroup]="searchForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="searchQueryByName">Product name</label>
+                <input type="text" class="form-control" id="searchQueryByName"
+                       placeholder="Search in catalog by name" value=""
+                       formControlName="product" #productName>
+                <div class="alert alert-danger"
+                     *ngIf="searchForm.controls['product'].invalid && searchForm.controls['product'].touched">
+                  Incorrect product name
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="searchQueryByCompany">Company name</label>
+                <input type="text" class="form-control" id="searchQueryByCompany"
+                       placeholder="Search in catalog by company"
+                       formControlName="company" #company>
+                <div class="alert alert-danger"
+                     *ngIf="searchForm.controls['company'].invalid && searchForm.controls['company'].touched">
+                  Incorrect company name
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="minPrice">Min price</label>
+                <input type="text" class="form-control" id="minPrice" placeholder="min"
+                       formControlName="min" #min>
+                <div class="alert alert-danger"
+                     *ngIf="searchForm.controls['min'].invalid && searchForm.controls['min'].touched">
+                  Incorrect cost
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="maxPrice">Max price</label>
+                <input type="text" class="form-control" id="maxPrice" placeholder="max"
+                       formControlName="max" #max>
+                <div class="alert alert-danger"
+                     *ngIf="searchForm.controls['max'].invalid && searchForm.controls['max'].touched">
+                  Incorrect cost
+                </div>
+              </div>
+              <div class="alert alert-danger"
+                   *ngIf="cost$  | async">
+                Min cost is greater than max
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Type</label>
+                <select id="inputType" class="form-control" #type>
+                  <option *ngFor="let type of typeArray">{{type.typeName}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="search">
+              <button type="submit" [disabled]="searchForm.invalid"
+                      class="btn btn-primary" (click)="search(productName.value, company.value,
+                        min.value, max.value, type.value)">Search
+              </button>
+              &nbsp; &nbsp; &nbsp;
+              <button type="submit" class="btn btn-primary" (click)="reset()">Reset
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div class="main">
+          <div class="emptySearch" *ngIf="emptyProductsList$  | async">
+            Nothing was found
+          </div>
+          <div *ngIf="!(emptyProductsList$  | async)">
+            <div class="flex-container">
+              <div *ngFor="let product of products">
+                <app-catalog-product [product]="product"></app-catalog-product>
+              </div>
+            </div>
+            <div class="row" *ngIf="paginationFlag$  | async">
+              <div class="row">
+                <div class="col-xs-12 col-12">
+                  <div class="pagin">
+                    <pagination [totalItems]="totalProducts" [itemsPerPage]="8"
+                                (pageChanged)="loadNewPageProduct(pagination)"
+                                #pagination></pagination>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
   </div>
   <div class="footer">
     <app-footer></app-footer>

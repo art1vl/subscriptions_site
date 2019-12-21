@@ -1,4 +1,7 @@
-<div class="wrapper">
+<div *ngIf="productNotExists$ | async" class="not-found">
+  The product with id: "{{productId}}" wasn't found
+</div>
+<div *ngIf="!(productNotExists$ | async)" class="wrapper">
   <div class="content">
   <div class="row">
     <div class="side">
