@@ -1,7 +1,6 @@
 package com.artsykov.fapi.converter;
 
 import com.artsykov.fapi.entity.CompanyEntity;
-import com.artsykov.fapi.entity.CustomerEntity;
 import com.artsykov.fapi.entity.LogInInfEntity;
 import com.artsykov.fapi.entity.RoleEnum;
 import com.artsykov.fapi.models.CompanyModel;
@@ -35,8 +34,7 @@ public class CompanyConverter {
             companyEntity.setWalletByIdWallet(walletConverter.convertFromFrontToBack(companyModel.getWallet()));
             if (companyModel.getIdLogInInf() != 0) {
                 companyEntity.setLogInInf(companyEntity1.getLogInInf());
-            }
-            else {
+            } else {
                 LogInInfEntity logInInfEntity = new LogInInfEntity();
                 logInInfEntity.setEmail(companyModel.getEmail());
                 logInInfEntity.setPassword(companyModel.getPassword());

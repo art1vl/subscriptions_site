@@ -85,7 +85,7 @@ export class CatalogComponent implements OnInit, OnDestroy {
   private getProductTypes(): void {
     this.typeArray = new Array();
     this.subscriptions.push(this.productTypeService.findTypes().subscribe(types => {
-     this.typeArray.push(new ProductTypeModel(1000000, "all"));
+      this.typeArray.push(new ProductTypeModel(1000000, "all"));
       for (let i: number = 0; i < types.length; i++) {
         this.typeArray.push(types[i]);
       }
@@ -93,6 +93,9 @@ export class CatalogComponent implements OnInit, OnDestroy {
   }
 
   private search(product: string, company: string, min: string, max: string, type: string): void {
+    this.paramSearch = new Map<string, string>();
+    this.min = 0;
+    this.max = 99999999;
     if (max != "") {
       this.max = +max;
     }
@@ -101,9 +104,7 @@ export class CatalogComponent implements OnInit, OnDestroy {
     }
     if (this.min > this.max) {
       this.cost.next(true);
-    }
-    else {
-      this.paramSearch = new Map<string, string>();
+    } else {
       this.paginationFlag.next(false);
       this.emptyProductsList.next(false);
       this.cost.next(false);

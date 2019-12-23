@@ -28,7 +28,7 @@ public class CustomerController {
 
     @Secured("ROLE_CUSTOMER")
     @GetMapping(value = "/log/in/inf/{id}")
-    public  ResponseEntity<CustomerModel> getCustomerByLogInInfId(@PathVariable("id") Integer id) {
+    public ResponseEntity<CustomerModel> getCustomerByLogInInfId(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(customerDataService.findCustomerByLogInInfId(id));
     }
 

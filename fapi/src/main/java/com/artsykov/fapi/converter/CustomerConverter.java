@@ -41,8 +41,7 @@ public class CustomerConverter {
                 CustomerEntity customerEntity1 = restTemplate.getForObject(backendServerUrl + "/api/customer/" +
                         customerModel.getId(), CustomerEntity.class);
                 customerEntity.setLogInInf(customerEntity1.getLogInInf());
-            }
-            else {
+            } else {
                 LogInInfEntity logInInfEntity = new LogInInfEntity();
                 logInInfEntity.setEmail(customerModel.getEmail());
                 logInInfEntity.setRole(RoleEnum.CUSTOMER);

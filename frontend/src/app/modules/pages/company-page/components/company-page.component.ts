@@ -46,6 +46,8 @@ export class CompanyPageComponent implements OnInit, OnDestroy {
   numberOfLastLoadedPage: number;
   balance: number = 0;
   withdrawFlag: boolean = true;
+  private errorProduct = new Subject<boolean>();
+  public errorProduct$ = this.errorProduct.asObservable();
   private balanceFlag = new Subject<boolean>();
   public balanceFlag$ = this.balanceFlag.asObservable();
   private withDrawFlag = new Subject<boolean>();
@@ -71,6 +73,7 @@ export class CompanyPageComponent implements OnInit, OnDestroy {
     this.productForm = new FormGroup({
       "date": new FormControl("", [
         Validators.required,
+        // Validators.pattern('^(0[1-9]|1[012])/(0[1-9]|1[0-9]|2[0-9]|3[01])/(2016|2017|2018|2019)$')
       ]),
       "name": new FormControl("", [
         Validators.required,
@@ -124,12 +127,15 @@ export class CompanyPageComponent implements OnInit, OnDestroy {
     else {
       this.subscriptions.push(this.companyService.findCompanyById(this.companyService.company.id).subscribe( company => {
         this.company = company as companyModel;
+        this.loadProductsFirstPageOrReload(0);
         if (this.company.wallet != null) {
           if (this.company.wallet.cardNumber != 0) {
             this.companyWalletExistFlag.next(true);
             this.hiddenCardNumber = '**** **** **** ' + this.company.wallet.cardNumber.toString().substring(this.company.wallet.cardNumber.toString().length - 4);
             let stringDate: string = new Date(this.company.wallet.cardDate).toLocaleDateString();
-            this.cardDateString = stringDate.substring(3, 5) + "/" + stringDate.substring(8);
+            console.log(stringDate);
+            this.cardDateString = stringDate.substring(0, stringDate.indexOf('/')) + "/" +
+              stringDate.substring(stringDate.lastIndexOf('/') + 3);
             this.balance = this.company.wallet.balance;
             this.balanceFlag.next(true);
           }
@@ -142,7 +148,6 @@ export class CompanyPageComponent implements OnInit, OnDestroy {
         }
         this.companyService.company = company;
         this.paginationFlag.next(false);
-        this.loadProductsFirstPageOrReload(0);
       }));
       this.withDrawFlag.next(false);
       this.deleteWalletFlag.next(false);
@@ -295,21 +300,26 @@ export class CompanyPageComponent implements OnInit, OnDestroy {
       product.companyId = this.company.id;
       product.companyName = this.company.name;
       product.isActive = 1;
-      console.log(product);
       this.subscriptions.push(this.productServiceImpl.saveProduct(product).subscribe(productOrErrors => {
         if (productOrErrors.errors != null) {
           this.errorsMapProduct = productOrErrors.errors;
         } else {
           this.errorsMapProduct = new Map<string, string>();
-          console.log("entry");
           let createdProduct: ProductModel = productOrErrors.product as ProductModel;
-          console.log(createdProduct);
+          let responseString: string;
           this.subscriptions.push(this.productServiceImpl.saveProductImageByProductId(createdProduct.id, image).subscribe(productOrErrors => {
-            if (productOrErrors.errors != null) {
-              this.errorsMapProduct = productOrErrors.errors;
-            } else {
-              this.productFlag = true;
-              this.loadProductsFirstPageOrReload(this.numberOfLastLoadedPage);
+            let response: string = JSON.stringify(productOrErrors.body);
+            if (response != undefined) {
+              console.log(response);
+              responseString = response.substring(response.lastIndexOf(':') + 1);
+              console.log(responseString);
+              if (responseString != 'null}') {
+                this.errorProduct.next(true);
+              } else {
+                this.errorProduct.next(false);
+                this.productFlag = true;
+                this.loadProductsFirstPageOrReload(this.numberOfLastLoadedPage);
+              }
             }
           }));
         }
@@ -321,6 +331,7 @@ export class CompanyPageComponent implements OnInit, OnDestroy {
     this.productFlag = false;
     this.productForm.reset();
     this.selectedFiles = null;
+    this.errorProduct.next(false);
   }
 
   @ViewChild('staticTabs') staticTabs: TabsetComponent;

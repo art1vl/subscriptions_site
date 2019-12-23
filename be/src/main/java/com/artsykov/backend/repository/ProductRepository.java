@@ -37,8 +37,3 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Integer>
                                               @Param("productType") String productTypeEntity,
                                               Pageable pageable);
 }
-
-//+
-//        " and (:companyName is null or company.company_name = :companyName) and product.cost BETWEEN" +
-//        "(:minValue is null or :minValue) and (:maxValue is null or :maxValue) and " +
-//        "(:productType is null or product.type = :productType)"

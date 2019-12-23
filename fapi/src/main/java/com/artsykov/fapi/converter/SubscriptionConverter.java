@@ -27,7 +27,7 @@ public class SubscriptionConverter {
             subscriptionEntity.setStartSubscriptDate(subscriptionModel.getStartSubscriptionDate());
             subscriptionEntity.setIsActive((byte) 1);
             subscriptionEntity.setProductByIdProduct(productConverter.convertFromFrontToBack(subscriptionModel
-                                                                                                .getProduct()));
+                    .getProduct()));
             subscriptionEntity.setCustomerByIdCustomer(customerConverter.convertFromFrontToBack(
                     customerDataService.findCustomerById(subscriptionModel.getIdCustomer())));
             return subscriptionEntity;

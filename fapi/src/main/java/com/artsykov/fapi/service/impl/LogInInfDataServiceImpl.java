@@ -3,7 +3,6 @@ package com.artsykov.fapi.service.impl;
 import com.artsykov.fapi.entity.LogInInfEntity;
 import com.artsykov.fapi.models.AdminModel;
 import com.artsykov.fapi.models.CustomerOrCompanyOrAdminOrErrorsModel;
-import com.artsykov.fapi.security.JwtTokenProvider;
 import com.artsykov.fapi.service.CompanyDataService;
 import com.artsykov.fapi.service.CustomerDataService;
 import com.artsykov.fapi.service.LogInInfDataService;

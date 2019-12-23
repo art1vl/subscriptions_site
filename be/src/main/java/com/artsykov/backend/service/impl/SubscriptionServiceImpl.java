@@ -9,8 +9,6 @@ import com.artsykov.backend.repository.CustomerRepository;
 import com.artsykov.backend.repository.ProductRepository;
 import com.artsykov.backend.repository.SubscriptionRepository;
 import com.artsykov.backend.repository.WalletRepository;
-import com.artsykov.backend.service.CustomerService;
-import com.artsykov.backend.service.ProductService;
 import com.artsykov.backend.service.SubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -75,7 +73,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     public void changeSubscriptionStatusByProduct(ProductEntity productEntity) {
         List<SubscriptionEntity> subscriptionEntityList = subscriptionRepository.findAllByProductByIdProduct(productEntity);
         byte status = productEntity.getIsActive();
-        for(SubscriptionEntity subscription: subscriptionEntityList) {
+        for (SubscriptionEntity subscription : subscriptionEntityList) {
             subscription.setIsActive(status);
             subscriptionRepository.save(subscription);
         }
@@ -85,7 +83,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     public void changeSubscriptionStatusByCustomer(CustomerEntity customerEntity) {
         List<SubscriptionEntity> subscriptionEntityList = subscriptionRepository.findAllByCustomerByIdCustomer(customerEntity);
         byte status = customerEntity.getIsActive();
-        for(SubscriptionEntity subscription: subscriptionEntityList) {
+        for (SubscriptionEntity subscription : subscriptionEntityList) {
             subscription.setIsActive(status);
             subscriptionRepository.save(subscription);
         }
@@ -97,7 +95,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         byte subscriptionStatus = subscriptionEntity.getIsActive();
         subscriptionRepository.deleteById(id);
         if (subscriptionEntity.getCustomerByIdCustomer().getWalletByIdWallet().getDebt() != 0 &&
-                                                        subscriptionStatus == 0) {
+                subscriptionStatus == 0) {
             WalletEntity customerWallet = subscriptionEntity.getCustomerByIdCustomer().getWalletByIdWallet();
             customerWallet.setDebt(customerWallet.getDebt() - subscriptionEntity.getProductByIdProduct().getCost());
             if (customerWallet.getDebt() == 0) {
@@ -106,8 +104,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
                 customerEntity.setWalletByIdWallet(customerWallet);
                 unblockSubscriptionsAfterCustomersUnblock(customerEntity);
                 customerRepository.save(customerEntity);
-            }
-            else {
+            } else {
                 walletRepository.save(customerWallet);
             }
         }
@@ -121,7 +118,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         WalletEntity customerWallet = customerEntity.getWalletByIdWallet();
         Date nextPayDate = Date.valueOf(LocalDate.now());
         int cost;
-        for (SubscriptionEntity subscription: subscriptionEntityList) {
+        for (SubscriptionEntity subscription : subscriptionEntityList) {
             companyWallet = walletRepository.findWalletEntityByIdCompany(subscription.getProductByIdProduct()
                     .getCompany().getIdCompany());
             cost = subscription.getProductByIdProduct().getCost();

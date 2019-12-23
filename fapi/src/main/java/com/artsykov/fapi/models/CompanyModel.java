@@ -1,6 +1,5 @@
 package com.artsykov.fapi.models;
 
-import com.artsykov.fapi.entity.WalletEntity;
 import lombok.Data;
 
 import javax.validation.constraints.*;

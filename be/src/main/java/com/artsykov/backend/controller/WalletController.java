@@ -34,7 +34,7 @@ public class WalletController {
     }
 
     @PutMapping
-    public HttpStatus updateWallet (@RequestBody WalletEntity walletEntity) {
+    public HttpStatus updateWallet(@RequestBody WalletEntity walletEntity) {
         walletService.update(walletEntity);
         return HttpStatus.OK;
     }

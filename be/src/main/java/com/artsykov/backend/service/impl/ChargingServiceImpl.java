@@ -43,10 +43,6 @@ public class ChargingServiceImpl implements ChargingService {
         int cost;
         for (CustomerEntity customer : customerEntityList) {
             customerWallet = customer.getWalletByIdWallet();
-            //System.out.println("hi");
-//            System.out.println(now);
-//            System.out.println(nextPayDate);
-//            System.out.println();
             List<SubscriptionEntity> subscriptionEntityList = subscriptionRepository
                     .findAllByCustomerByIdCustomerAndNextPayDateAndIsActive(customer, now, (byte) 1);
             for (SubscriptionEntity subscription : subscriptionEntityList) {

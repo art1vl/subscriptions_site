@@ -43,7 +43,7 @@ public class LogInInfEntity {
         this.password = password;
     }
 
-    @Column(name="role", nullable=false)
+    @Column(name = "role", nullable = false)
     @Enumerated(EnumType.STRING)
     public RoleEnum getRole() {
         return role;
@@ -53,16 +53,6 @@ public class LogInInfEntity {
         this.role = role;
     }
 
-    /*@ManyToOne
-        @Column(name = "role")
-        public int getRole() {
-            return role;
-        }
-
-        public void setRole(int role) {
-            this.role = role;
-        }
-    */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -78,29 +68,5 @@ public class LogInInfEntity {
     public int hashCode() {
         return Objects.hash(idLogInInf, email, password, role);
     }
-
-//    @OneToMany(mappedBy = "logInInfByLogInInf")
-//    public Collection<CompanyEntity> getCompaniesByIdLogInInf() {
-//        return companiesByIdLogInInf;
-//    }
-//
-//    public void setCompaniesByIdLogInInf(Collection<CompanyEntity> companiesByIdLogInInf) {
-//        this.companiesByIdLogInInf = companiesByIdLogInInf;
-//    }
-//
-//    @OneToMany(mappedBy = "logInInfByLogInInf")
-//    public Collection<CustomerEntity> getCostumersByIdLogInInf() {
-//        return costumersByIdLogInInf;
-//    }
-//
-//    public void setCostumersByIdLogInInf(Collection<CustomerEntity> costumersByIdLogInInf) {
-//        this.costumersByIdLogInInf = costumersByIdLogInInf;
-//    }
-//
-//    @ManyToOne
-//    @JoinColumn(name = "role", referencedColumnName = "id_role", nullable = false)
-//    public RolesEntity getRolesByRole() {
-//        return rolesByRole;
-//    }
 
 }

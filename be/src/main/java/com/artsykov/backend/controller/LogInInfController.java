@@ -16,11 +16,6 @@ public class LogInInfController {
     @Autowired
     private LogInInfService logInInfService;
 
-//    @Autowired
-//    public LogInInfController (LogInInfService logInInfService) {
-//        this.logInInfService = logInInfService;
-//    }
-
     @GetMapping(value = "/{email}")
     public ResponseEntity<LogInInfEntity> findByEmail(@PathVariable("email") String email) {
         return ResponseEntity.ok(logInInfService.findByEmail(email));

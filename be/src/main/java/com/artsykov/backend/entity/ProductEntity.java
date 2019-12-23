@@ -19,7 +19,7 @@ public class ProductEntity {
 
     @Id
     @Column(name = "id_product")
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getIdProduct() {
         return idProduct;
     }
@@ -128,33 +128,4 @@ public class ProductEntity {
     public int hashCode() {
         return Objects.hash(idProduct, company, description, type, realiseDate, cost, isActive, image, productName);
     }
-
-//    @ManyToOne
-//    @JoinColumn(name = "company", referencedColumnName = "id_company", nullable = false)
-//    public CompanyEntity getCompanyByCompany() {
-//        return companyByCompany;
-//    }
-//
-//    public void setCompanyByCompany(CompanyEntity companyByCompany) {
-//        this.companyByCompany = companyByCompany;
-//    }
-//
-//    @ManyToOne
-//    @JoinColumn(name = "type", referencedColumnName = "id_product_type", nullable = false)
-//    public ProductTypeEntity getProductTypeByType() {
-//        return productTypeByType;
-//    }
-//
-//    public void setProductTypeByType(ProductTypeEntity productTypeByType) {
-//        this.productTypeByType = productTypeByType;
-//    }
-
-//    @OneToMany(mappedBy = "productByIdProduct")
-//    public Collection<SubscriptionEntity> getSubscriptionsByIdProduct() {
-//        return subscriptionsByIdProduct;
-//    }
-//
-//    public void setSubscriptionsByIdProduct(Collection<SubscriptionEntity> subscriptionsByIdProduct) {
-//        this.subscriptionsByIdProduct = subscriptionsByIdProduct;
-//    }
 }

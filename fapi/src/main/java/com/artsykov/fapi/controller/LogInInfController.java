@@ -46,7 +46,7 @@ public class LogInInfController {
     @Secured({"ROLE_COMPANY", "ROLE_CUSTOMER", "ROLE_ADMIN"})
     @GetMapping(value = "/{token}")
     public ResponseEntity<CustomerOrCompanyOrAdminOrErrorsModel> getUserByToken(@PathVariable("token") String token) {
-            return ResponseEntity.ok(logInInfDataService.getUserByToken(token));
+        return ResponseEntity.ok(logInInfDataService.getUserByToken(token));
     }
 
     @PostMapping(value = "/sign/in")

@@ -11,11 +11,6 @@ public class ProductTypeServiceImpl implements ProductTypeService {
     @Autowired
     private ProductTypeRepository productTypeRepository;
 
-//    @Autowired
-//    public ProductTypeServiceImpl(ProductTypeRepository productTypeRepository) {
-//        this.productTypeRepository = productTypeRepository;
-//    }
-
     @Override
     public Iterable<ProductTypeEntity> findAll() {
         return productTypeRepository.findAll();

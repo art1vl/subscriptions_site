@@ -14,8 +14,6 @@ public class WalletEntity {
     private int cardCvvCode;
     private String personName;
     private int debt;
-//    private Collection<CompanyEntity> companiesByIdWallet;
-//    private Collection<CustomerEntity> costumersByIdWallet;
 
     @Id
     @Column(name = "id_wallet")
@@ -105,21 +103,4 @@ public class WalletEntity {
         return Objects.hash(idWallet, balance, cardNumber, cardDate, cardCvvCode);
     }
 
-//    @OneToMany(mappedBy = "walletByIdWallet")
-//    public Collection<CompanyEntity> getCompaniesByIdWallet() {
-//        return companiesByIdWallet;
-//    }
-//
-//    public void setCompaniesByIdWallet(Collection<CompanyEntity> companiesByIdWallet) {
-//        this.companiesByIdWallet = companiesByIdWallet;
-//    }
-//
-//    @OneToMany(mappedBy = "walletByIdWallet")
-//    public Collection<CustomerEntity> getCostumersByIdWallet() {
-//        return costumersByIdWallet;
-//    }
-//
-//    public void setCostumersByIdWallet(Collection<CustomerEntity> costumersByIdWallet) {
-//        this.costumersByIdWallet = costumersByIdWallet;
-//    }
 }

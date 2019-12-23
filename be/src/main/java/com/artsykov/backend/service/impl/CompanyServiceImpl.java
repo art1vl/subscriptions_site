@@ -61,7 +61,7 @@ public class CompanyServiceImpl implements CompanyService {
     public void changeStatus(CompanyEntity companyEntity) {
         companyRepository.save(companyEntity);
         List<ProductEntity> productEntityList = productService.findAllByCompanyEntity(companyEntity);
-        for (ProductEntity product: productEntityList) {
+        for (ProductEntity product : productEntityList) {
             product.setIsActive(companyEntity.getIsActive());
             productService.changeProductStatus(product);
         }

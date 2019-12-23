@@ -20,8 +20,7 @@ public class WalletConverter {
                 walletEntity.setBalance(walletModel.getBalance());
                 walletEntity.setDebt(walletModel.getDebt());
                 return walletEntity;
-            }
-            else {
+            } else {
                 WalletEntity walletEntity = new WalletEntity();
                 walletEntity.setBalance(walletModel.getBalance());
                 walletEntity.setDebt(walletModel.getDebt());
@@ -31,8 +30,7 @@ public class WalletConverter {
                 walletEntity.setPersonName(walletModel.getPersonName());
                 return walletEntity;
             }
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -48,8 +46,7 @@ public class WalletConverter {
             walletModel.setCardNumber(walletEntity.getCardNumber());
             walletModel.setPersonName("");
             return walletModel;
-        }
-        else {
+        } else {
             return null;
         }
     }

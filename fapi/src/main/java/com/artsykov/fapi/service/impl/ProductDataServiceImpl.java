@@ -38,16 +38,22 @@ public class ProductDataServiceImpl implements ProductDataService {
     public ProductOrErrorsModel saveProductImage(int id, MultipartFile file) {
         ProductOrErrorsModel productOrErrorsModel = new ProductOrErrorsModel();
         if (file == null) {
-            Map<String,String> errors = new HashMap<>();
+            Map<String, String> errors = new HashMap<>();
             errors.put("file", "Select product image");
             deleteProductById(id);
             productOrErrorsModel.setErrors(errors);
-        }
-        else {
+        } else {
             ProductModel savedProduct = new ProductModel();
             try {
                 ProductModel productModel = this.findProductById(id);
                 String fileExtension = (file.getOriginalFilename()).split("\\.")[1];
+                if (!fileExtension.matches("^(jpg|png)$")) {
+                    Map<String, String> errors = new HashMap<>();
+                    errors.put("file", "Incorrect file extension");
+                    deleteProductById(id);
+                    productOrErrorsModel.setErrors(errors);
+                    return productOrErrorsModel;
+                }
                 String fileName = "image_" + productModel.getId() + "." + fileExtension;
                 String filePath = "C:/my_files/Netcracker/Subscriptions/fapi/image/" + fileName;
                 File dest = new File(filePath);
@@ -66,14 +72,14 @@ public class ProductDataServiceImpl implements ProductDataService {
     public ProductModel findProductById(int id) {
         RestTemplate restTemplate = new RestTemplate();
         return productConverter.convertFromBackToFront(restTemplate.getForObject(backendServerUrl + "/api/product/" +
-                                                                                    id, ProductEntity.class));
+                id, ProductEntity.class));
     }
 
     @Override
     public ProductPageModel findProductsByPageIsActive(int pageNumber, int amount) {
         RestTemplate restTemplate = new RestTemplate();
         ProductPageModel productPageModel = restTemplate.getForObject(backendServerUrl + "/api/product?page=" +
-                                                            pageNumber + "&amount=" + amount, ProductPageModel.class);
+                pageNumber + "&amount=" + amount, ProductPageModel.class);
         return convertProductsInProductPageModel(productPageModel);
     }
 
@@ -81,7 +87,7 @@ public class ProductDataServiceImpl implements ProductDataService {
     public ProductPageModel findProductsByPageByCompanyId(int companyId, int pageNumber, int amount) {
         RestTemplate restTemplate = new RestTemplate();
         ProductPageModel productPageModel = restTemplate.getForObject(backendServerUrl + "/api/product/company/" +
-                                            companyId + "?page=" + pageNumber + "&amount=" + amount, ProductPageModel.class);
+                companyId + "?page=" + pageNumber + "&amount=" + amount, ProductPageModel.class);
         return convertProductsInProductPageModel(productPageModel);
     }
 
@@ -95,7 +101,7 @@ public class ProductDataServiceImpl implements ProductDataService {
     public ProductPageModel findAllByPage(int pageNumber, int amount) {
         RestTemplate restTemplate = new RestTemplate();
         ProductPageModel productPageModel = restTemplate.getForObject(backendServerUrl + "/api/product/all?page=" +
-                                                                pageNumber + "&amount=" + amount, ProductPageModel.class);
+                pageNumber + "&amount=" + amount, ProductPageModel.class);
         return convertProductsInProductPageModel(productPageModel);
     }
 
@@ -110,8 +116,7 @@ public class ProductDataServiceImpl implements ProductDataService {
                                                           String productType, int pageNumber, int amount) {
         if (productName == null && companyName == null && min == null && max == null && productType == null) {
             return findProductsByPageIsActive(pageNumber, amount);
-        }
-        else {
+        } else {
             String paramUrl = "";
             String page;
             page = "page=" + pageNumber + "&amount=" + amount;

@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {HttpClient, HttpRequest} from "@angular/common/http";
+import {HttpClient, HttpRequest, HttpResponse} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {ProductModel} from "../../modules/models/productModel";
 import {ProductService} from "../product.service";
@@ -33,7 +33,7 @@ export class ProductServiceImpl implements ProductService {
     formData.append('file', file);
     const req = new HttpRequest('POST', '/api/product/{id}/image'.replace('{id}', productId.toString()), formData, {
       reportProgress: true,
-      responseType: 'json'
+      responseType: 'json',
     });
     return this.http.request(req);
   }

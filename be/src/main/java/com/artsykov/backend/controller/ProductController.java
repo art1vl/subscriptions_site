@@ -46,7 +46,7 @@ public class ProductController {
                                                                      @RequestParam(value = "page") Integer pageNumber,
                                                                      @RequestParam(value = "amount") Integer amount) {
         return ResponseEntity.ok(productService.findAllProductsBySearchByPage(productName, companyName, min, max, productType,
-                                                                                    pageNumber, amount));
+                pageNumber, amount));
     }
 
     @PostMapping

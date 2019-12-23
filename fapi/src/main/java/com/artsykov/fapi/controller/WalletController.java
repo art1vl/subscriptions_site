@@ -26,14 +26,14 @@ public class WalletController {
 
     @Secured({"ROLE_COMPANY", "ROLE_CUSTOMER"})
     @DeleteMapping(value = "/{id}")
-    public HttpStatus deleteWallet (@PathVariable("id") Integer id) {
+    public HttpStatus deleteWallet(@PathVariable("id") Integer id) {
         walletDataService.deleteWallet(id);
         return HttpStatus.OK;
     }
 
     @Secured({"ROLE_COMPANY", "ROLE_CUSTOMER"})
     @PutMapping(value = "/update")
-    public ResponseEntity<WalletOrErrorsModel> updateWallet (@RequestBody WalletModel walletModel) {
+    public ResponseEntity<WalletOrErrorsModel> updateWallet(@RequestBody WalletModel walletModel) {
         walletDataService.updateWallet(walletModel);
         return ResponseEntity.ok(new WalletOrErrorsModel());
     }

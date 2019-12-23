@@ -9,16 +9,12 @@ public class CompanyEntity {
     private int idCompany;
     private String companyName;
     private byte isActive;
-//    private int logInInf;
-//    private int idWallet;
     private LogInInfEntity logInInf;
     private WalletEntity walletByIdWallet;
-//    private Collection<ProductEntity> productsByIdCompany;
-
 
     @Id
     @Column(name = "id_company")
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getIdCompany() {
         return idCompany;
     }
@@ -47,26 +43,6 @@ public class CompanyEntity {
         this.isActive = isActive;
     }
 
-//    @Basic
-//    @Column(name = "log_in_inf")
-//    public int getLogInInf() {
-//        return logInInf;
-//    }
-//
-//    public void setLogInInf(int logInInf) {
-//        this.logInInf = logInInf;
-//    }
-
-//    @Basic
-//    @Column(name = "id_wallet")
-//    public int getIdWallet() {
-//        return idWallet;
-//    }
-//
-//    public void setIdWallet(int idWallet) {
-//        this.idWallet = idWallet;
-//    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -75,11 +51,6 @@ public class CompanyEntity {
         return idCompany == that.idCompany &&
                 Objects.equals(companyName, that.companyName);
     }
-
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(idCompany, companyName, logInInf, idWallet);
-//    }
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "log_in_inf", referencedColumnName = "id_log_in_inf", nullable = false)
@@ -100,13 +71,4 @@ public class CompanyEntity {
     public void setWalletByIdWallet(WalletEntity walletByIdWallet) {
         this.walletByIdWallet = walletByIdWallet;
     }
-
-//    @OneToMany(mappedBy = "companyByCompany")
-//    public Collection<ProductEntity> getProductsByIdCompany() {
-//        return productsByIdCompany;
-//    }
-//
-//    public void setProductsByIdCompany(Collection<ProductEntity> productsByIdCompany) {
-//        this.productsByIdCompany = productsByIdCompany;
-//    }
 }

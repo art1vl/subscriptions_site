@@ -140,9 +140,10 @@
                 <input type="file" (change)="selectFile($event)" formControlName="file"
                        placeholder="Download product image">
               </div>
+              {{errorsMapProduct['file']}}
               <div class="alert alert-danger"
-                   *ngIf="errorsMapProduct && errorsMapProduct['file'] != undefined">
-                {{errorsMapProduct['file']}}
+                   *ngIf="errorProduct$  | async">
+                Incorrect file extension
               </div>
               <br>
               <div class="form-row">

@@ -16,7 +16,7 @@ public class SubscriptionEntity {
 
     @Id
     @Column(name = "id_subscription")
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     public int getIdSubscription() {
         return idSubscription;
@@ -25,26 +25,6 @@ public class SubscriptionEntity {
     public void setIdSubscription(int idSubscription) {
         this.idSubscription = idSubscription;
     }
-
-//    @Basic
-//    @Column(name = "id_product")
-//    public int getIdProduct() {
-//        return idProduct;
-//    }
-//
-//    public void setIdProduct(int idProduct) {
-//        this.idProduct = idProduct;
-//    }
-//
-//    @Basic
-//    @Column(name = "id_costumer")
-//    public int getIdCostumer() {
-//        return idCostumer;
-//    }
-//
-//    public void setIdCostumer(int idCostumer) {
-//        this.idCostumer = idCostumer;
-//    }
 
     @Basic
     @Column(name = "start_subscript_date")

@@ -11,15 +11,12 @@ public class CustomerEntity {
     private String surname;
     private int age;
     private byte isActive;
-//    private int logInInf;
-//    private int idWallet;
     private LogInInfEntity logInInf;
     private WalletEntity walletByIdWallet;
-//    private Collection<SubscriptionEntity> subscriptionsByIdCostumer;
 
     @Id
     @Column(name = "id_customer")
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getIdCustomer() {
         return idCustomer;
     }
@@ -68,26 +65,6 @@ public class CustomerEntity {
         this.isActive = isActive;
     }
 
-//    @Basic
-//    @Column(name = "log_in_inf")
-//    public int getLogInInf() {
-//        return logInInf;
-//   }
-//
-//    public void setLogInInf(int logInInf) {
-//        this.logInInf = logInInf;
-//    }
-
-//   @Basic
-//    @Column(name = "id_wallet")
-//    public int getIdWallet() {
-//        return idWallet;
-//    }
-//
-//    public void setIdWallet(int idWallet) {
-//        this.idWallet = idWallet;
-//    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -124,13 +101,4 @@ public class CustomerEntity {
     public void setWalletByIdWallet(WalletEntity walletByIdWallet) {
         this.walletByIdWallet = walletByIdWallet;
     }
-
-//    @OneToMany(mappedBy = "costumerByIdCostumer")
-//    public Collection<SubscriptionEntity> getSubscriptionsByIdCostumer() {
-//        return subscriptionsByIdCostumer;
-//    }
-//
-//    public void setSubscriptionsByIdCostumer(Collection<SubscriptionEntity> subscriptionsByIdCostumer) {
-//        this.subscriptionsByIdCostumer = subscriptionsByIdCostumer;
-//    }
 }

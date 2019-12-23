@@ -102,7 +102,8 @@ export class CustomerPageComponent implements OnInit, OnDestroy {
             this.walletFlag = true;
             this.hiddenCardNumber = '**** **** **** ' + this.customer.wallet.cardNumber.toString().substring(this.customer.wallet.cardNumber.toString().length - 4);
             let stringDate: string = new Date(this.customer.wallet.cardDate).toLocaleDateString();
-            this.cardDateString = stringDate.substring(3, 5) + "/" + stringDate.substring(8);
+            this.cardDateString = stringDate.substring(0, stringDate.indexOf('/')) + "/" +
+              stringDate.substring(stringDate.lastIndexOf('/') + 3);
             this.balanceFlag.next(true);
             if (this.customer.wallet.debt != 0) {
               this.debtFlag.next(true);

@@ -42,7 +42,7 @@ public class CustomerDataServiceImpl implements CustomerDataService {
     public CustomerModel findCustomerById(int id) {
         RestTemplate restTemplate = new RestTemplate();
         return customerConverter.convertFromBackToFront(restTemplate.getForObject(backendServerUrl +
-                                                                        "/api/customer/" + id, CustomerEntity.class));
+                "/api/customer/" + id, CustomerEntity.class));
     }
 
     @Override
@@ -65,13 +65,12 @@ public class CustomerDataServiceImpl implements CustomerDataService {
         CustomerOrErrorsModel customerOrErrorsModel = new CustomerOrErrorsModel();
         RestTemplate restTemplate = new RestTemplate();
         Boolean emailExists = restTemplate.getForObject(backendServerUrl + "/api/log/in/inf/exist/" +
-                                                                                customer.getEmail(), Boolean.class);
+                customer.getEmail(), Boolean.class);
         if (emailExists == null) {
             Map<String, String> errors = new HashMap<>();
             errors.put("email", "Sorry, smth went wrong");
             customerOrErrorsModel.setErrors(errors);
-        }
-        else {
+        } else {
             if (emailExists) {
                 Map<String, String> errors = new HashMap<>();
                 errors.put("email", "This email is busy");
@@ -93,7 +92,7 @@ public class CustomerDataServiceImpl implements CustomerDataService {
         CustomerEntity customerEntity = customerConverter.convertFromFrontToBack(customerModel);
         WalletEntity walletEntity = customerEntity.getWalletByIdWallet();
         walletEntity = restTemplate.postForEntity(backendServerUrl + "/api/wallet", walletEntity,
-                                                                                        WalletEntity.class).getBody();
+                WalletEntity.class).getBody();
         customerEntity.setWalletByIdWallet(walletEntity);
         return customerConverter.convertFromBackToFront(restTemplate.postForEntity(backendServerUrl +
                 "/api/customer/wallet", customerEntity, CustomerEntity.class).getBody());
@@ -110,7 +109,7 @@ public class CustomerDataServiceImpl implements CustomerDataService {
     public void updateCustomerPersonalInf(CustomerModel customerModel) {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.put(backendServerUrl + "/api/customer/update", customerConverter
-                                                                            .convertFromFrontToBack(customerModel));
+                .convertFromFrontToBack(customerModel));
     }
 
     @Override
@@ -124,7 +123,7 @@ public class CustomerDataServiceImpl implements CustomerDataService {
     public void changeStatus(CustomerModel customerModel) {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.put(backendServerUrl + "/api/customer/status", customerConverter
-                                                                            .convertFromFrontToBack(customerModel));
+                .convertFromFrontToBack(customerModel));
     }
 
     @Override
@@ -132,6 +131,6 @@ public class CustomerDataServiceImpl implements CustomerDataService {
         RestTemplate restTemplate = new RestTemplate();
         return customerConverter.convertFromBackToFront(restTemplate.postForEntity(backendServerUrl +
                         "/api/customer/liquidate/debt", customerConverter.convertFromFrontToBack(customerModel),
-                        CustomerEntity.class).getBody());
+                CustomerEntity.class).getBody());
     }
 }

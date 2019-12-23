@@ -1,7 +1,9 @@
 package com.artsykov.fapi.controller;
 
 import com.artsykov.fapi.controller.handler.HandlerService;
-import com.artsykov.fapi.models.*;
+import com.artsykov.fapi.models.CustomerSubscriptionPageModel;
+import com.artsykov.fapi.models.SubscriptionModel;
+import com.artsykov.fapi.models.SubscriptionOrErrorsModel;
 import com.artsykov.fapi.service.SubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,9 +13,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/subscription")

@@ -2,7 +2,6 @@ package com.artsykov.backend.service.impl;
 
 import com.artsykov.backend.entity.CompanyEntity;
 import com.artsykov.backend.entity.ProductEntity;
-import com.artsykov.backend.entity.ProductTypeEntity;
 import com.artsykov.backend.model.ProductPageModel;
 import com.artsykov.backend.repository.CompanyRepository;
 import com.artsykov.backend.repository.ProductRepository;
@@ -89,10 +88,8 @@ public class ProductServiceImpl implements ProductService {
     public ProductPageModel findAllProductsBySearchByPage(String productName, String companyName, Integer min, Integer max,
                                                           String productType, int pageNumber, int amount) {
         Pageable pageable = PageRequest.of(pageNumber, amount);
-//        CompanyEntity companyEntity = companyRepository.findByCompanyName(companyName);
-//        ProductTypeEntity productTypeEntity = productTypeRepository.findByIdProductType(productTypeId);
         Page<ProductEntity> page = productRepository.findAllBySearchByPage(productName, companyName, min, max,
-                                                                            productType, pageable);
+                productType, pageable);
         return createProductPageModel(page);
     }
 

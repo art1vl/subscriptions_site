@@ -6,7 +6,6 @@ import com.artsykov.backend.model.CustomerPageModel;
 import com.artsykov.backend.repository.CustomerRepository;
 import com.artsykov.backend.service.CustomerService;
 import com.artsykov.backend.service.SubscriptionService;
-import com.artsykov.backend.service.WalletService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -74,14 +73,13 @@ public class CustomerServiceImpl implements CustomerService {
         if (customerEntity.getWalletByIdWallet().getDebt() <= 0) {
             customerEntity.setIsActive((byte) 1);
             customerWallet.setBalance(customerWallet.getBalance() + Math.abs(customerWallet.getDebt())
-                                                                  + customerFromDB.getWalletByIdWallet().getDebt());
+                    + customerFromDB.getWalletByIdWallet().getDebt());
             customerWallet.setDebt(0);
             customerEntity.setWalletByIdWallet(customerWallet);
             subscriptionService.unblockSubscriptionsAfterCustomersUnblock(customerEntity);
-        }
-        else {
+        } else {
             customerWallet.setBalance(customerWallet.getBalance() + customerFromDB.getWalletByIdWallet().getDebt() -
-                                                                    customerWallet.getDebt());
+                    customerWallet.getDebt());
         }
         return repository.save(customerEntity);
     }

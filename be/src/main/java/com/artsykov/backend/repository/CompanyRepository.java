@@ -15,5 +15,5 @@ public interface CompanyRepository extends JpaRepository<CompanyEntity, Integer>
 
     Page<CompanyEntity> findAll(Pageable pageable);
 
-    CompanyEntity findByCompanyName(@Param("company_name") String companyName);
+//    CompanyEntity findByCompanyName(@Param("company_name") String companyName);
 }
